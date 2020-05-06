@@ -1,0 +1,451 @@
+﻿@using ITGWebTimeSheet2.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterWest Human Resources Portal</title>
+    <link rel="icon" href="@Url.Content("~/Content/Images/ITG_Brand.gif")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/main.css")">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="@Url.Content("~/Content/fontawesome.min.css.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Bootstrap-4---Tabs-with-Arrows.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/iframe.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/table.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/login.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menubtn.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-datetimepicker.min.css")">
+    <link rel="stylesheet" href="http://www.inputpicker.com/src/jquery.inputpicker.css?1588061795">
+
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+    <script src="https://kit.fontawesome.com/1b585ee530.js" crossorigin="anonymous"></script>
+
+    <sytle>
+        .datepicker5
+        {
+        width: fit-content;
+        }
+    </sytle>
+
+</head>
+<body class="app sidebar-mini sidenav-toggled">
+    <!-- Navbar-->
+    <header class="app-header">
+        <a class="app-header__logo" href="#"></a>
+        <!-- Sidebar toggle button
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> -->
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+
+            <!--Notification Menu-->
+            <!-- End Notification Menu-->
+            <!-- User Menu-->
+            <li class="dropdown">
+                <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+                <ul class="dropdown-menu settings-menu dropdown-menu-right">
+
+                    <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <!-- Sidebar menu
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div> -->
+
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+            <div>
+                <p class="app-sidebar__user-name">Admin</p>
+                <p class="app-sidebar__user-designation">Administrator</p>
+            </div>
+        </div>
+        <ul class="app-menu">
+
+            <li><a class="app-menu__item" href="~/Admin/Login"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Timesheet</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Planner"><i class="app-menu__icon fa fa-tasks"></i><span class="app-menu__label">Planner</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Reporting"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reporting</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Project"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Program/Projects</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Customers"><i class="app-menu__icon fas fa-address-book"></i><span class="app-menu__label">Customers</span></a></li>
+
+            <li><a class="app-menu__item" href="~/Admin/Staff"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Staffs</span></a></li>
+
+
+        </ul>
+    </aside>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/clean-blog.js")"></script>
+    <script src="@Url.Content("~/Scripts/SearchTable.js")"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/main.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts//jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dataTables.bootstrap.min.js")"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/popper.min.js")"></script>
+    <script src="http://www.inputpicker.com/src/jquery.inputpicker.js"></script>
+
+
+
+
+
+    <script>
+        $('.datepicker3').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        $('.datepicker4').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        /*
+         *  $('.datepicker5').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        */
+
+
+        //------------------ auto expanding
+
+        $(document)
+            .one('focus.autoExpand', 'textarea.autoExpand', function () {
+                var savedValue = this.value;
+                this.value = '';
+                this.baseScrollHeight = this.scrollHeight;
+                this.value = savedValue;
+            })
+            .on('input.autoExpand', 'textarea.autoExpand', function () {
+                var minRows = this.getAttribute('data-min-rows') | 0, rows;
+                this.rows = minRows;
+                rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 16);
+                this.rows = minRows + rows;
+            });
+    </script>
+
+
+    <script>
+        // ----------------------add and delete layout ------------------------
+        $(document).ready(function () {
+
+             //--------------- change the date from date picker  --- start finish --
+
+            //
+            $('.datepicker3').on('change', function (e) {
+
+              //  console.log('changeDate event trigger');
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var control_name = del_id[0];
+                console.log(id_string);
+                var newval = $('#starttask_' + del_id[1]).val();
+                $('#taskstart_' + del_id[1]).text(newval);
+                $('#selstart_' + del_id[1]).hide();
+
+                var info = 'id=' + del_id[1] + '&pid=' + newval;
+                $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateStart")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+
+
+            });
+
+            $('.datepicker4').on('change', function (e) {
+
+                //  console.log('changeDate event trigger');
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var control_name = del_id[0];
+                console.log(id_string);
+
+                var newval = $('#finishtask_' + del_id[1]).val();
+                $('#taskfinish_' + del_id[1]).text(newval);
+                $('#selfinish_' + del_id[1]).hide();
+
+                 var info = 'id=' + del_id[1] + '&pid=' + newval;
+                $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateFinish")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+        //--------------- modal for add files -----------------------
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        });
+
+        $('#ssModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+
+
+
+    </script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Files</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control" type="file" id="fileInput1" multiple>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="filesubmit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ssModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Screenshot</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <button type="button" id="ss" class="btn btn-primary">Paste Image</button>
+                        </div>
+                        <textarea id="pasteArea" placeholder="Paste Image Here"></textarea>
+                        <img id="pastedImage" />
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+
+         $(document).ready(function () {
+
+             var dy2 = '<tr class="record" id="row_0" class="rowtoClick"> <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">';
+             dy = dy + '<a href="#" class="frmsubmit" style="margin-top:25px;"><i class="fas fa-save"></i></a>';
+              dy = dy + '</td > ';
+             dy = dy + '< td style = "border: 1px solid #dee2e6;" > <span id="custtask_0" class="task_input2"></span> <span id="selcust_0"> <input class="form-control" id="test" onchange="selectme()" /><span>  </td> <td> <span id="taskproj_0" class="task_input2"></span> </td>';
+             dy = dy + '< td > <span id="descriptiontask1_0" class="task_input2"></span></td > <td> <span id="tasknote_0" class="task_input2"></span> </td> <td> <span id="taskstart_0" class="task_input2">@ViewData["SystemDate"]</span><span id="selstart_0" class="sel_stat" style="display: none;"> <input class="form-control datepicker5" id="starttask_0" type="text" onchange="bindspan()" /> </span> </td> <td> <span id="taskacthours_0" class="task_input2">0.00</span><span id="selact_0" class="sel_cust" style=""> <input id="acttask_0" class="form-control task_input" type="text" value="0.00"> <a href="#" id="taskact_0" class="savetask5"><i class="fas fa-save" aria-hidden="true"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; </span> </td> <td> 0PM </td> <td> 0PM </td> </tr>';
+             dy = dy + '<tr style="background-color:#dee2e6" id="secondrow_0" class="notShow hideall"> <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;"></td> <td colspan="8"> <div class="row3"> <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Latest Status:<br /> This is a dummy text statement </div> <div style="float:right"> 04/21/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div> <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Discussion:<br /> </div> <div style="float:right"> 04/21/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-29"> </div> <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div> </td> </tr>';
+
+             //--------------- start to dynamic layout ------
+
+            $('.add_fields3').on('click', function (e) {
+                $('#taskmantable tbody').prepend(dy2);
+                bindDatePicker($('.datepicker5'));
+                $('#test').inputpicker({
+                    data: [
+
+                      @if (ViewData["Taskman"] != null)
+                      {
+                          foreach (var item1 in ViewData["Taskman"] as IList<TaskManModule>)
+                          {
+                             @: { value: "@item1.id", text: "@item1.cust", text1: "@item1.proj", description: "@item1.description"},
+                          }
+                      }
+                    ],
+                    fields: [
+                        { name: 'value', text: 'Id' },
+                        { name: 'text', text: 'Customer' },
+                        { name: 'text1', text: 'Project' },
+                        { name: 'description', text: 'Description' },
+
+                    ],
+                    autoOpen: false,
+                    headShow: true,
+                    fieldText: 'value'
+                  //  fieldValue: 'Id'
+                });
+
+             });
+
+             //-----------------------
+
+
+
+         });
+
+        // selection ----------------------------------------
+        //     $(".task_input2").on('click',function () {
+        $("body").on('click', 'span.task_input2', function () {
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+
+            var control_name = del_id[0];
+            console.log(id_string);
+
+            if (control_name == "custtask") {
+                $('#selcust_' + del_id[1]).show();                // show control
+            }
+
+            if (control_name == "taskstart") {
+                $('#selstart_' + del_id[1]).show();                // show control
+            }
+
+            if (control_name == "taskacthours") {
+                $('#selact_' + del_id[1]).show();                // show control
+            }
+
+        });
+
+        //------------------ change content of Customer ----------
+
+        //------------ multiple column dropdown
+        function selectme() {
+
+            var selected_row = $('#test').inputpicker('element');
+            console.log(selected_row);
+            var selval = $('#test').val();
+
+            $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("TaskContent")",
+                         data: "id=" + selval,
+                        dataType: "text",
+                        success: function (data) {
+
+                         //      alert(data);
+                        //--- split the content of the controller
+
+                            var all_d = data.split("-");
+
+                            var cust_d = all_d[0];
+                            var proj_d = all_d[1];
+                            var pur_d = all_d[2];
+                            var note_d = all_d[3];
+
+                            // bring the conent to the span's
+
+                            $('#custtask_0').text(cust_d);
+                            $('#taskproj_0').text(proj_d);
+                            $('#descriptiontask1_0').html(pur_d);
+                            $('#tasknote_0').html(note_d);
+
+
+                            //hide control
+                            $('#selcust_0').hide();
+
+
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        }
+    </script>
+    <script>
+        // ---------------------- hide control and elements ------------------------
+        $(document).ready(function () {
+            bindEdit();
+        });
+        $(document).ajaxComplete(function (event, xhr, settings) {
+            bindEdit();
+        });
+
+        function bindEdit() {
+
+
+            $(".cust_name").hide();  // hide all inputs for customer name edit section
+            $(".savecustomers").hide();  // the save button
+            $(".proj_name").hide();
+            $(".saveproj").hide();
+
+            $(".staff1_name").hide();
+            $(".staff2_name").hide();
+            $(".staff3_name").hide();
+            $(".savestaff1").hide();
+            $(".savestaff2").hide();
+            $(".savestaff3").hide();
+
+            $(".sel_resc").hide();
+            $(".sel_staff").hide();
+            $(".sel_pr").hide();
+            $(".sel_stat").hide();
+
+            $
+
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+            $(".sel_cust").hide();   // hide customer dropdown
+        }
+    </script>
+
+</body>
+</html >

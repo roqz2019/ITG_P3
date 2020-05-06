@@ -1,0 +1,1316 @@
+﻿@using ITGWebTimeSheet2.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterWest Human Resources Portal</title>
+    <link rel="icon" href="@Url.Content("~/Content/Images/ITG_Brand.gif")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/main.css")">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="@Url.Content("~/Content/fontawesome.min.css.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Bootstrap-4---Tabs-with-Arrows.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/iframe.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/table.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/login.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menubtn.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-datetimepicker.min.css")">
+
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+    <script src="https://kit.fontawesome.com/1b585ee530.js" crossorigin="anonymous"></script>
+
+    <sytle>
+        .datepicker5
+        {
+        width: fit-content;
+        }
+    </sytle>
+
+</head>
+<body class="app sidebar-mini sidenav-toggled">
+    <!-- Navbar-->
+    <header class="app-header">
+        <a class="app-header__logo" href="#"></a>
+        <!-- Sidebar toggle button
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> -->
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+
+            <!--Notification Menu-->
+            <!-- End Notification Menu-->
+            <!-- User Menu-->
+            <li class="dropdown">
+                <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+                <ul class="dropdown-menu settings-menu dropdown-menu-right">
+
+                    <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <!-- Sidebar menu
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div> -->
+
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+            <div>
+                <p class="app-sidebar__user-name">Admin</p>
+                <p class="app-sidebar__user-designation">Administrator</p>
+            </div>
+        </div>
+        <ul class="app-menu">
+
+            <li><a class="app-menu__item" href="~/Admin/Login"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Timesheet</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Planner"><i class="app-menu__icon fa fa-tasks"></i><span class="app-menu__label">Planner</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Reporting"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reporting</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Project"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Program/Projects</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Customers"><i class="app-menu__icon fas fa-address-book"></i><span class="app-menu__label">Customers</span></a></li>
+
+            <li><a class="app-menu__item" href="~/Admin/Staff"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Staffs</span></a></li>
+
+
+        </ul>
+    </aside>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/clean-blog.js")"></script>
+    <script src="@Url.Content("~/Scripts/SearchTable.js")"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/main.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts//jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dataTables.bootstrap.min.js")"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/popper.min.js")"></script>
+
+
+
+
+
+    <script>
+        $('.datepicker3').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        $('.datepicker4').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        /* 
+         *  $('.datepicker5').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        */
+      
+
+        //------------------ auto expanding
+
+        $(document)
+            .one('focus.autoExpand', 'textarea.autoExpand', function () {
+                var savedValue = this.value;
+                this.value = '';
+                this.baseScrollHeight = this.scrollHeight;
+                this.value = savedValue;
+            })
+            .on('input.autoExpand', 'textarea.autoExpand', function () {
+                var minRows = this.getAttribute('data-min-rows') | 0, rows;
+                this.rows = minRows;
+                rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 16);
+                this.rows = minRows + rows;
+            });
+    </script>
+
+
+
+
+    <script type="text/javascript">
+        //Add Input Fields
+        $(document).ready(function () {
+
+            // hide all second rows
+          
+         // delete taskman
+            $(".remove_field2").on("click", function (e) {
+                e.preventDefault();
+            
+           var element = $(this);
+
+            var id_string = element.attr("id");
+
+            var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+                let tr = $('.record_' + del_id[1]);
+            console.log(info);
+                if (confirm("Are you sure you want to delete this Record?")) {
+                      $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("DeleteTask")",
+                        data: info,
+                        success: function () {
+                           
+                        }
+                    });
+
+                     $(".record_" + del_id[1]).fadeOut("slow", function () {
+                        // After animation completed:
+                        $(".record_" + del_id[1]).remove();
+                    });
+                }
+
+                // x--; //inout field decrement
+            })
+        });
+    </script>
+
+
+    <!-- this section -->
+    <script>
+        // all functions for editing infos and
+        $(function () {
+
+            // customer editing
+            $(".cust_dbclick").dblclick(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).show();  // now show input for the span
+                $("#name_" + del_id[1]).hide();                     // hide the span
+                $("#savename_" + del_id[1]).show();  // now show save for the span
+
+            });
+
+
+            // save functions here
+            // customer save
+            $(".savecustomers").click(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).hide();  // now show input for the span
+                $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&name=' + $("#edit_name_" + del_id[1]).val();
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateCustomers")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#name_" + del_id[1]).show();                     // hide the span
+                $("#savename_" + del_id[1]).hide();  // now show save for the span
+               });
+
+
+            //---- project editing
+             $(".proj_dbclick").dblclick(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).show();  // now show input for the span
+                $("#name_" + del_id[1]).hide();                     // hide the span
+                $("#savename_" + del_id[1]).show();  // now show save for the span
+
+            });
+
+
+            // save functions here
+            // customer save
+            $(".saveproj").click(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).hide();  // now show input for the span
+                $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&name=' + $("#edit_name_" + del_id[1]).val();
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateProject")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#name_" + del_id[1]).show();                     // hide the span
+                $("#savename_" + del_id[1]).hide();  // now show save for the span
+            });
+
+            //------------------------ all staff info editing -----------------------
+
+            $(".staff1_dbclick").dblclick(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+
+                $("#edit_fullname_" + del_id[1]).show();  // now show input for the span
+                $("#staff1_" + del_id[1]).hide();                     // hide the span
+                $("#savefullname_" + del_id[1]).show();  // now show save for the span
+
+            });
+
+
+            // save functions here
+            // customer save
+            $(".savestaff1").click(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_fullname_" + del_id[1]).hide();  // now show input for the span
+                var fullname = $("#edit_name_" + del_id[1]).val();
+                var alias = $("#edit_alias_" + del_id[1]).val();
+                var email = $("#edit_email_" + del_id[1]).val();
+                $("#staff1_" + del_id[1]).text(fullname);   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&fullname=' + fullname + '&alias=' + alias + '&email=' + email ;
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateStaff")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#staff1_" + del_id[1]).show();                     // hide the span
+                $("#savefullname_" + del_id[1]).hide();  // now show save for the span
+            });
+
+
+            //------------------------------------------------------------------------------
+            //------------------------ Task Manager ------------------- All
+
+            // customer dropdown and save
+
+
+
+
+
+            //------------------ filter section ------------------------------
+
+
+             $("#fi_cust").click(function (e) {
+
+              //  var info = 'id=' + del_id[1];
+                var custid = $("#f_cust option:selected").val();
+                var info = 'custid=' + custid ;
+                console.log(info);
+                 $.ajax({
+                     type: "POST",
+                     url: "@Url.Action("TaskFilterCust")",
+                     data: info,
+                     dataType: 'html',
+                     cache: false,
+                     success: function (data) {
+                         $('#dyna_gen').html(data);
+                     }
+                 });
+
+                 e.preventDefault();
+
+                 return false;
+            });
+
+
+            //------------------ end of filter section ---------------------------
+
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+
+            //     $(".task_input2").on('click',function () {
+            $("body").on('click','span.task_input2',function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+
+
+                var control_name = del_id[0];
+                console.log(id_string);
+
+                //---------------------------
+            
+
+            
+                //---------------------------
+                
+                if (control_name == "custtask") {
+                    $('#selcust_' + del_id[1]).show();                // show control
+                }
+                if (control_name == "taskproj") {
+                    $('#selproj_' + del_id[1]).show();                // show control
+                }
+                if (control_name == "descriptiontask") {
+                    $('#seldesc_' + del_id[1]).show();                // show control
+                }
+                if (control_name == "taskresc") {
+                    $('#selresc_' + del_id[1]).show();                // show control
+                }
+                if (control_name == "taskstaff") {
+                    $('#selstaff_' + del_id[1]).show();                // show control
+                }
+                if (control_name == "taskpr") {
+                    $('#selpr_' + del_id[1]).show();                  // show control
+                }
+                if (control_name == "taskstart") {
+                    $('#selstart_' + del_id[1]).show();               // start date
+                }
+                if (control_name == "taskfinish") {
+                    $('#selfinish_' + del_id[1]).show();               // start date
+                }
+
+
+                if (control_name == "taskstat") {
+                    $('#selstat_' + del_id[1]).show();                // show control
+                }
+                if (control_name == "taskest") {
+                    $('#selest_' + del_id[1]).show();                // show control
+
+                }
+                if (control_name == "taskdev") {
+                    $('#seldev_' + del_id[1]).show();                // show control
+
+                }
+                if (control_name == "notetask") {
+                    $('#selnote_' + del_id[1]).show();                // show control
+                }
+
+            });
+
+
+
+            //----------------- edit / update section --------------------------------
+
+            $('.savetask3').on('click', function (e) {
+
+
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                console.log(id_string);
+                var control_name = del_id[0];
+
+                if (control_name == "taskdesc") {
+
+                    var custid = $("#descriptiontask_" + del_id[1]).val();
+
+                    custid = custid.replace(/<br\s*\/?>/mg, "\n");
+                     $("#descriptiontask1_" + del_id[1]).html(custid);
+                    var info = 'id=' + del_id[1] + '&descr=' + custid;
+                    var url = "@Url.Action("UpdateTaskDesc")";
+                     $('#seldesc_' + del_id[1]).hide();
+
+                }
+                 if (control_name == "taskest") {
+
+                    var custid = $("#esttask_" + del_id[1]).val();
+
+                     $("#taskest_" + del_id[1]).html(custid);
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                    var url = "@Url.Action("UpdateTaskEst")";
+                     $('#selest_' + del_id[1]).hide();
+
+                }
+
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: info,
+                    success: function () {
+                        //      location.reload(true);
+                    }
+                });
+
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+
+
+            });
+
+
+
+            $('.savetask2').on('change', function (e) {
+
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                console.log(id_string);
+                var control_name = del_id[0];
+                if (control_name == "selectcust") {
+                    $('#selcust_' + del_id[1]).hide();
+                    var newval = $("#selectcust_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectcust_" + del_id[1] + " option:selected").val();
+                    var info = 'id=' + del_id[1] + '&custid=' + custid;
+                    $('#custtask_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTaskCust")";
+                    $("#selectcust_" + del_id[1]).val("");
+
+                }
+
+                if (control_name == "selectproj") {
+                    var newval = $("#selectproj_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectproj_" + del_id[1] + " option:selected").val();
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                    $('#taskproj_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTaskProj")";
+                    $('#selproj_' + del_id[1]).hide();
+                    $('#selproj_' + del_id[1]).val("");
+                }
+                 if (control_name == "selectresc") {
+                    var newval = $("#selectresc_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectresc_" + del_id[1] + " option:selected").val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //     alert(info);
+                    console.log(info);
+                    $('#taskresc_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTaskResc")";
+                    $('#selresc_' + del_id[1]).hide();
+                    $('#selectlresc_' + del_id[1]).val("");
+                }
+                // staff
+                 if (control_name == "selectstaff") {
+                    var newval = $("#selectstaff_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectstaff_" + del_id[1] + " option:selected").val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //     alert(info);
+                    console.log(info);
+                    $('#taskstaff_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTaskStaff")";
+                    $('#selstaff_' + del_id[1]).hide();
+                    $('#selectstaff_' + del_id[1]).val("");
+                }
+                //pr
+                  if (control_name == "selectpr") {
+                    var newval = $("#selectpr_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectpr_" + del_id[1] + " option:selected").val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //     alert(info);
+                    console.log(info);
+                    $('#taskpr_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdatePr")";
+                    $('#selpr_' + del_id[1]).hide();
+                    $('#selectpr_' + del_id[1]).val("");
+                }
+
+
+                if (control_name == "selectstat") {
+                    var newval = $("#selectstat_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectstat_" + del_id[1] + " option:selected").val();
+
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //    console.log(info);
+                    $('#taskstat_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTaskStat")";
+                    $('#selstat_' + del_id[1]).hide();
+                }
+                 if (control_name == "taskest") {
+                    var custid = $("#esttask_" + del_id[1]).val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                     console.log(info);
+                    var url = "@Url.Action("UpdateTaskEst")";
+                     $('#selest_' + del_id[1]).hide();
+                     $("#esttask_" + del_id[1]).attr("readonly", true);
+                }
+
+
+
+
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: info,
+                    success: function () {
+                        //      location.reload(true);
+                    }
+                });
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+
+
+            });
+
+
+            $('.sel_pr').hide();
+            $('.sel_stat').hide();
+
+
+            // new -- filtering ---
+
+
+
+
+
+
+
+
+
+        });
+
+
+    </script>
+    <script>
+        //----- all new scripts here -----------------
+
+        //---- Delete - staff - project - task ---------------------------
+
+
+         // delete staff
+        $(function () {
+            $(".delstaff").click(function () {
+                var element = $(this);
+                var del_id = element.attr("id");
+                var info = 'id=' + del_id;
+                if (confirm("Are you sure you want to delete this item?")) {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("DeleteStaff")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+                   // $(this).parents(".record").fadeOut(3500).remove();
+                    $(this).parents(".record").fadeOut("slow", function () {
+                        // After animation completed:
+                        $(this).parents(".record").remove();
+                    });
+
+                }
+                return false;
+            });
+        });
+
+         // delete project
+        $(function () {
+            $(".delproject").click(function () {
+                var element = $(this);
+                var del_id = element.attr("id");
+                var info = 'id=' + del_id;
+                if (confirm("Are you sure you want to delete this item?")) {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("DeleteProject")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+                   // $(this).parents(".record").fadeOut(3500).remove();
+                    $(this).parents(".record").fadeOut("slow", function () {
+                        // After animation completed:
+                        $(this).parents(".record").remove();
+                    });
+
+                }
+                return false;
+            });
+        });
+
+          // delete customers
+        $(function () {
+            $(".delcustomers").click(function () {
+                var element = $(this);
+                var del_id = element.attr("id");
+                var info = 'id=' + del_id;
+                if (confirm("Are you sure you want to delete this item?")) {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("DeleteCustomers")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+                   // $(this).parents(".record").fadeOut(3500).remove();
+
+                    $(this).parents(".record").fadeOut("slow", function () {
+                        // After animation completed:
+                        $(this).parents(".record").remove();
+                    });
+
+                }
+                return false;
+            });
+        });
+         //---- Delete - staff - project - task ---------------------------
+    </script>
+    <script>
+        // ---------------------- hide control and elements ------------------------
+        $(document).ready(function () {
+            bindEdit();
+        });
+        $(document).ajaxComplete(function (event, xhr, settings) {
+            bindEdit();
+        });
+
+        function bindEdit() {
+
+
+            $(".cust_name").hide();  // hide all inputs for customer name edit section
+            $(".savecustomers").hide();  // the save button
+            $(".proj_name").hide();
+            $(".saveproj").hide();
+
+            $(".staff1_name").hide();
+            $(".staff2_name").hide();
+            $(".staff3_name").hide();
+            $(".savestaff1").hide();
+            $(".savestaff2").hide();
+            $(".savestaff3").hide();
+
+            $(".sel_resc").hide();
+            $(".sel_staff").hide();
+            $(".sel_pr").hide();
+            $(".sel_stat").hide();
+
+            $
+
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+            $(".sel_cust").hide();   // hide customer dropdown
+        }
+    </script>
+    <script>
+        // ----------------------add and delete layout ------------------------
+        $(document).ready(function () {
+
+          //  bindDatePicker($('.datepicker5'));
+
+            //-------------- start create layout ------------------------------
+
+            var dy = '<tr class="record" style="background-color:#dee2e6"> <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;"> <a href="#" class="frmsubmit" style="margin-top:25px;"><i class="fas fa-save"></i></a> </td> <td style="border: 1px solid #dee2e6;"> <span id="custtask_0" class="task_input2">Click to select</span> <input type="hidden" id="custtask_01" /> <span id="selcust_0" class="sel_cust" style="display: none;"> <select class="form-control savetask4" id="selectcust_0"> @if (ViewData["CustomerList"] != null) { foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>) { <option value="@item1.id">@item1.name</option> } } </select> </span> </td> <td> <span id="taskpr_0" class="task_input2">PR</span> <span id="selpr_0" class="sel_pr" style="display: none;"> <select class="form-control savetask4" id="selectpr_0"> <option value="0">PR</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> <option value="6">6</option> <option value="7">7</option> <option value="8">8</option> <option value="9">9</option> </select> </span> </td> <td> <span id="taskproj_0" class="task_input2">Click to select </span> <input type="hidden" id="taskproj_01" /> <span id="selproj_0" class="sel_cust" style="display: none;"> <select class="form-control savetask4" id="selectproj_0"> @if (ViewData["ProjectList"] != null) { foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>) { <option value="@item1.id">@item1.name</option> } } </select> </span> </td> <td> <span id="descriptiontask_0" class="task_input2">Click to edit</span> <span id="seldesc_0" class="sel_cust" style="display: none;"> <textarea id="descriptiontask2_0" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="description" name="description">No data</textarea> <a href="#" id="taskdesc_0" class="savetask5"><i class="fas fa-save" aria-hidden="true"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; </span> </td> <td> <span id="taskdev_0" class="task_input2">Select</span> <span id="seldev_0" class="sel_pr" style="display: none;"> <select class="form-control savetask4" id="selectdev_0"> <option value="0">Select</option> <option value="Development">Dev</option> <option value="Revision">Rev</option> </select> </span> </td> <td> <span id="taskresc_0" class="task_input2">Select Staff </span> <input type="hidden" id="taskresc_01" /> <span id="selresc_0" class="sel_resc" style="display: none;"> <select class="form-control savetask4" id="selectresc_0"> @if (ViewData["StaffList"] != null) { foreach (var item2 in ViewData["StaffList"] as IList<Staff>) { <option value="@item2.id">@item2.fullname</option> } } </select> </span> </td> <td><i class="fas fa-circle" color="#5fac11" aria-hidden="true"></i></td> <td> <span id="taskstat_0" class="task_input2">Please select </span> <span id="selstat_0" class="sel_stat" style="display: none;"> <select class="form-control savetask4" id="selectstat_0"> <option value="Please select">Please select</option> <option value="Opened">Opened</option> <option value="In Progress">In Progress</option> <option value="Ready to close">Ready to close</option> <option value="Issues">Issues</option> <option value="Monitor">Monitor</option> <option value="In Queue">In Queue</option> <option value="Closed">Closed</option> </select> </span> </td> <td> <span id="taskstart_0" class="task_input2">Select date </span> <span id="selstart_0" class="sel_stat" style="display: none;"> <input class="form-control datepicker5" id="starttask_0" type="text" onchange="bindspan()" /> </span> </td> <td> </td> <td> <span id="taskest_0" class="task_input2">0.00</span> <span id="selest_0" class="sel_cust" style="display: none;"> <input id="esttask_0" class="form-control task_input" type="text" value="0.00" /> <a href="#" id="taskest_0" class="savetask5"><i class="fas fa-save"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; </span> </td> <td> </td> </tr> <tr style="background-color:#dee2e6"> <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;"> </td> <td colspan="12"> <div class="row3"> <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Latest Status:<br /> This is a dummy text statement </div> <div style="float:right"> 04/20/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div> <div style="background-color:white;position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Note:<br /> <span id="notetask_0" class="task_input2">Click to edit</span> <span id="selnote_0" class="sel_cust" style="display: none;"> <textarea id="notetask2_0" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="description" name="description">No data</textarea> <a href="#" id="tasknote_0" class="savetask5"><i class="fas fa-save" aria-hidden="true"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; </span> </div> <div style="float:right"> </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div> <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Discussion:<br /> </div> <div style="float:right"> 04/20/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> <button type="button" class="btn btn-primary w-100">Audit</button> </div> </div> </td> </tr>';
+
+                //--------------- start to dynamic layout ------
+
+            $('.add_fields3').on('click', function (e) {
+               
+                $('#taskmantable tbody').prepend(dy);
+                bindDatePicker($('.datepicker5'));
+                bindfrmsubmit($('.frmsubmit'))
+                
+            });
+
+
+
+            //--------------- change the date from date picker  --- start finish --
+
+            //
+            $('.datepicker3').on('change', function (e) {
+
+              //  console.log('changeDate event trigger');
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var control_name = del_id[0];
+                console.log(id_string);
+                var newval = $('#starttask_' + del_id[1]).val();
+                $('#taskstart_' + del_id[1]).text(newval);
+                $('#selstart_' + del_id[1]).hide();
+
+                var info = 'id=' + del_id[1] + '&pid=' + newval;
+                $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateStart")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+
+
+            });
+
+            $('.datepicker4').on('change', function (e) {
+
+                //  console.log('changeDate event trigger');
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var control_name = del_id[0];
+                console.log(id_string);
+
+                var newval = $('#finishtask_' + del_id[1]).val();
+                $('#taskfinish_' + del_id[1]).text(newval);
+                $('#selfinish_' + del_id[1]).hide();
+
+                 var info = 'id=' + del_id[1] + '&pid=' + newval;
+                $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateFinish")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+
+        });
+
+    </script>
+    <script>
+        // all functions for editing infos and
+        $(function () {
+
+            // customer editing
+            $(".cust_dbclick").on('dblclick',function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).show();  // now show input for the span
+                $("#name_" + del_id[1]).hide();                     // hide the span
+                $("#savename_" + del_id[1]).show();  // now show save for the span
+
+            });
+
+
+            // save functions here
+            // customer save
+            $(".savecustomers").on('click',function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).hide();  // now show input for the span
+                $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&name=' + $("#edit_name_" + del_id[1]).val();
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateCustomers")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#name_" + del_id[1]).show();                     // hide the span
+                $("#savename_" + del_id[1]).hide();  // now show save for the span
+               });
+
+
+            //---- project editing
+            $(".proj_dbclick").on('dblclick',function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).show();  // now show input for the span
+                $("#name_" + del_id[1]).hide();                     // hide the span
+                $("#savename_" + del_id[1]).show();  // now show save for the span
+
+            });
+
+
+            // save functions here
+            // customer save
+            $(".saveproj").on('click',function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).hide();  // now show input for the span
+                $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&name=' + $("#edit_name_" + del_id[1]).val();
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateProject")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#name_" + del_id[1]).show();                     // hide the span
+                $("#savename_" + del_id[1]).hide();  // now show save for the span
+            });
+
+            //------------------------ all staff info editing -----------------------
+
+            $(".staff1_dbclick").on('dblclick',function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+
+                $("#edit_fullname_" + del_id[1]).show();  // now show input for the span
+                $("#staff1_" + del_id[1]).hide();                     // hide the span
+                $("#savefullname_" + del_id[1]).show();  // now show save for the span
+
+            });
+
+
+            // save functions here
+            // customer save
+            $(".savestaff1").on('click',function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_fullname_" + del_id[1]).hide();  // now show input for the span
+                var fullname = $("#edit_name_" + del_id[1]).val();
+                var alias = $("#edit_alias_" + del_id[1]).val();
+                var email = $("#edit_email_" + del_id[1]).val();
+                $("#staff1_" + del_id[1]).text(fullname);   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&fullname=' + fullname + '&alias=' + alias + '&email=' + email ;
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateStaff")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#staff1_" + del_id[1]).show();                     // hide the span
+                $("#savefullname_" + del_id[1]).hide();  // now show save for the span
+            });
+
+
+     
+        });
+
+
+    </script>
+    <script>
+        // ---------------------- New Add task manager ------------------------
+        $(document).ready(function () {
+                 $('body').on('click','.frmsubmit', function () {  //  add
+
+                var formData = new FormData();
+
+                // -- all data -----
+
+                     var cust_d = $('#custtask_01').val();
+                     var pr_d = $('#taskpr_0').text();
+                     var proj_d = $('#taskproj_01').val();
+                     var desc_d = $('#descriptiontask2_0').val();
+                     var dev_d = $('#taskdev_0').text();
+                     var resc_d = $('#taskresc_01').val();
+                     var stat_d = $('#taskstat_0').text();
+                     var start_d = $('#taskstart_0').text();
+                     var est_d = $('#taskest_0').text();
+                     var note_d = $('#notetask_0').text();
+
+            //    var staff_d = $('#staff').val();
+             
+              
+               
+              
+
+                var data_d = "";
+                  data_d =   'cust=' + cust_d + '&proj=' + proj_d +  '&resc=' + resc_d + '&description=' + desc_d;
+                     data_d = data_d + '&pr=' + pr_d + '&stat=' + stat_d + '&esthours=' + est_d;
+                     data_d = data_d + ' &dev=' + dev_d + '&startdate=' + start_d + '&note=' + note_d;
+                     console.log(data_d);
+
+                     $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("AddTask")",
+                            cache: false,
+                            data: data_d,
+                            success: function () {
+                                alert("Added successfully!");
+                                location.reload();
+                                }
+                            });
+                        });
+
+            //--------------- check est hours
+
+            $("est_t").on('keypress',function () {
+                var est_d = $('#est_t').val();
+                if (est_d.trim() == '')
+                {
+                    $('#est_t').val('0');
+                }
+            });
+
+
+        });
+    </script>
+    <script>
+        //--------------- modal for add files -----------------------
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        });
+
+        $('#ssModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+
+
+
+    </script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Files</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control" type="file" id="fileInput1" multiple>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="filesubmit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ssModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Screenshot</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <button type="button" id="ss" class="btn btn-primary">Paste Image</button>
+                        </div>
+                        <textarea id="pasteArea" placeholder="Paste Image Here" ></textarea>
+                        <img id="pastedImage" />
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#filesubmit").on('click', function () {
+                var x = $("#fileInput1"),
+                    y = x.clone();
+                x.attr("id", "fileOld");
+                y.insertAfter("#fileclone");
+
+                var numFiles = $('#fileInput1')[0].files.length;
+                // alert(numFiles);
+                $("#fileinsert").text(numFiles + ' file/s');
+            });
+            //----------------- paste image -------------------------
+
+            $("#ss").on('click onpaste', function (event) {
+             //---------------------------------
+
+
+            });
+
+            document.getElementById('pasteArea').onpaste = function (event) {
+                // use event.originalEvent.clipboard for newer chrome versions
+                var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+                console.log(JSON.stringify(items)); // will give you the mime types
+                // find pasted image among pasted items
+                var blob = null;
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].type.indexOf("image") === 0) {
+                        blob = items[i].getAsFile();
+                    }
+                }
+                // load image if there is a pasted image
+                if (blob !== null) {
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        console.log(event.target.result); // data url!
+                        document.getElementById("pastedImage").src = event.target.result;
+                    };
+                    reader.readAsDataURL(blob);
+                }
+            }
+
+
+            });
+
+           
+
+    </script>
+    <script>
+        //--- This section is for new row record for adding only
+        $('body').on('change','.savetask4', function (e) {
+
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                console.log(id_string);
+                var control_name = del_id[0];
+                if (control_name == "selectcust") {
+                   
+                    var newval = $("#selectcust_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectcust_" + del_id[1] + " option:selected").val();
+                    $("#custtask_" + del_id[1]).text(newval);
+                    $("#custtask_" + del_id[1] +"1").val(custid);
+                      $('#selcust_' + del_id[1]).val("");
+                      $('#selcust_' + del_id[1]).hide();
+                    console.log(del_id[0]);
+
+                }
+
+                if (control_name == "selectproj") {
+                    var newval = $("#selectproj_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectproj_" + del_id[1] + " option:selected").val();
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                    $('#taskproj_' + del_id[1]).text(newval);
+                    $('#taskproj_' + del_id[1]+"1").val(custid);
+                   
+                    $('#selproj_' + del_id[1]).hide();
+                    $('#selproj_' + del_id[1]).val("");
+                }
+                 if (control_name == "selectresc") {
+                    var newval = $("#selectresc_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectresc_" + del_id[1] + " option:selected").val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //     alert(info);
+                    console.log(info);
+                     $('#taskresc_' + del_id[1]).text(newval);
+                     $('#taskresc_' + del_id[1]+"1").val(custid);
+                  
+                    $('#selresc_' + del_id[1]).hide();
+                    $('#selectlresc_' + del_id[1]).val("");
+                }
+                // staff
+              
+                //pr
+                  if (control_name == "selectpr") {
+                    var newval = $("#selectpr_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectpr_" + del_id[1] + " option:selected").val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //     alert(info);
+                    console.log(info);
+                    $('#taskpr_' + del_id[1]).text(newval);
+                
+                    $('#selpr_' + del_id[1]).hide();
+                    $('#selectpr_' + del_id[1]).val("");
+                }
+
+
+                if (control_name == "selectstat") {
+                    var newval = $("#selectstat_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectstat_" + del_id[1] + " option:selected").val();
+
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //    console.log(info);
+                    $('#taskstat_' + del_id[1]).text(newval);
+                    $('#selstat_' + del_id[1]).hide();
+                }
+           
+                //--> type dev category --
+
+                if (control_name == "selectdev") {
+
+                    var newval = $("#selectdev_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectdev_" + del_id[1] + " option:selected").val();
+                    console.log(newval);
+                    $('#taskdev_' + del_id[1]).text(newval);
+                    $('#seldev_' + del_id[1]).hide();
+
+                }
+
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+
+
+        });
+        //--------------------------------------------------------
+        $('body').on('click','.savetask5', function (e) {
+
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                console.log(id_string);
+                    var control_name = del_id[0];
+
+            if (control_name == "taskdesc") {
+
+                var custid = $("#descriptiontask2_" + del_id[1]).val();
+                console.log(custid);
+
+                custid = custid.replace(/<br\s*\/?>/mg, "\n");
+                     $("#descriptiontask_" + del_id[1]).html(custid);
+                
+                     $('#seldesc_' + del_id[1]).hide();
+
+                }
+                 if (control_name == "taskest") {
+                    var custid = $("#esttask_" + del_id[1]).val();
+                     $("#taskest_" + del_id[1]).html(custid);
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                     $('#selest_' + del_id[1]).hide();
+                 }
+
+            if (control_name == "tasknote") {
+                var custid = $("#notetask2_" + del_id[1]).val();
+                console.log(custid);
+                custid = custid.replace(/<br\s*\/?>/mg, "\n");
+                $("#notetask_" + del_id[1]).html(custid);
+                $('#selnote_' + del_id[1]).hide();
+            }
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+        });
+
+
+        function bindDatePicker(element) {
+            $(element).datepicker({
+                minDate:0,
+                uiLibrary: 'bootstrap4',
+                format: 'mm/dd/yyyy',
+                formatSubmit: 'mm/dd/yyyy',
+            });
+        }
+
+        function bindspan() {
+
+            //-- get previous val
+            var prev = $('#taskstart_0').text();
+            var newval = $('#starttask_0').val();
+            //   alert(newval);
+            
+            if (prev === newval) {
+             
+
+            } else {
+                $('#selstart_0').hide();
+                $('#taskstart_0').text(newval);
+            }
+        }
+
+        function bindfrmsubmit(element) { }
+        //---------------- toggle show and hide of elements
+        $('body').on('click', '.dplay', function (e) {
+
+            
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            console.log(id_string);
+            var del_id = id_string.split("_");
+
+          //  console.log("del")
+                
+
+
+          
+            $('#secondrow_' + del_id[1]).toggle();
+
+            var newel = $('#toggle_' + del_id[1] + ' i');
+            
+
+            var element2 = $('#drop_' + del_id[1]);
+
+            if ($(element2).hasClass('fa-2x')) {
+                $(element2).removeClass('fa-2x');
+            }
+            else {
+                $(element2).addClass('fa-2x');
+            }
+
+            $('#drop_' + del_id[1]).toggleClass('fa-play fa-sort-down');
+
+            console.log(newel);
+
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          
+        });
+
+      
+
+    </script>
+
+</body>
+</html >
