@@ -20,6 +20,424 @@ namespace ITGWebTimeSheet2.Controllers
             return View();
         }
 
+        #region "Alistair"
+
+        public ActionResult Planner(string filter, string value, string page)
+        {
+            List<TaskManModule> taskmanlist = new List<TaskManModule>();
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+
+
+                int pageRows = 15;
+                int pageOffset = 0;
+                int pageCount = 0;
+
+                if (!String.IsNullOrEmpty(page))
+                {
+                    pageOffset = ((int.Parse(page) - 1) * pageRows);
+                }
+
+                string query1 = "SELECT COUNT(id) as pages FROM  [dbo].[taskman]";
+                SqlCommand cmd1 = new SqlCommand(query1, con);
+                SqlDataReader dataReader1 = cmd1.ExecuteReader();
+                while (dataReader1.Read())
+                {
+                    pageCount = Convert.ToInt16(dataReader1["pages"]);
+                }
+
+                //pageCount = pageCount / pageRows;
+                pageCount = (int)Math.Ceiling((double)pageCount / (double)pageRows);
+
+                string query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] ORDER BY  datecreated DESC OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY ";
+
+
+                if (!String.IsNullOrEmpty(filter) && !String.IsNullOrEmpty(value) && !String.IsNullOrEmpty(page))
+                {
+                    //pageOffset = pageRows * int.Parse(page);
+
+
+
+                    string query11 = "Select count(id) as pages from  [dbo].[taskman] where " + filter + " = '" + value + "'";
+                    SqlCommand cmd11 = new SqlCommand(query11, con);
+                    SqlDataReader dataReader11 = cmd11.ExecuteReader();
+                    while (dataReader11.Read())
+                    {
+                        pageCount = Convert.ToInt16(dataReader11["pages"]);
+                    }
+
+                    //pageCount = pageCount / pageRows;
+                    pageCount = (int)Math.Ceiling((double)pageCount / (double)pageRows);
+                    query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where " + filter + " = '" + value + "' ORDER BY  datecreated," + filter + " DESC ";
+                    if (pageCount > 0)
+                    {
+                        query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where " + filter + " = '" + value + "' ORDER BY  datecreated," + filter + " DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY";
+                    }
+                }
+
+
+
+                if (!String.IsNullOrEmpty(filter) && !String.IsNullOrEmpty(value) && filter == "stat" && value == "All")
+                {
+                    query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where stat != 'Closed' ORDER BY  datecreated," + filter + " DESC OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY  ";
+
+                    string query22 = "Select count(id) as pages from  [dbo].[taskman] where stat != 'Closed' ";
+                    SqlCommand cmd22 = new SqlCommand(query22, con);
+                    SqlDataReader dataReader22 = cmd22.ExecuteReader();
+                    while (dataReader22.Read())
+                    {
+                        pageCount = Convert.ToInt16(dataReader22["pages"]);
+                    }
+
+                    //pageCount = pageCount / pageRows;
+                    pageCount = (int)Math.Ceiling((double)pageCount / (double)pageRows);
+                    query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where stat != 'Closed' ORDER BY  datecreated," + filter + " DESC ";
+                    if (pageCount > 0)
+                    {
+                        query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where stat != 'Closed' ORDER BY  datecreated," + filter + " DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY  ";
+                    }
+                }
+
+
+                string tempAnnounce = string.Empty;
+
+                SqlCommand cmd = new SqlCommand(query2, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    TaskManModule sitems = new TaskManModule();
+                    sitems.id = Convert.ToInt16(dataReader["id"]);
+                    sitems.cust = Convert.ToString(dataReader["customerid"]);
+                    sitems.proj = Convert.ToString(dataReader["projectid"]);
+                    sitems.description = Convert.ToString(dataReader["description"]);
+                    sitems.resource = Convert.ToString(dataReader["resource"]);
+                    sitems.pr = Convert.ToString(dataReader["pr"]);
+                    sitems.status = Convert.ToString(dataReader["stat"]);
+                    sitems.esthours = Convert.ToDecimal(dataReader["esthours"]);
+                    sitems.ddate = Convert.ToString(dataReader["ddate"]);
+                    sitems.start = Convert.ToString(dataReader["start"]);
+                    sitems.finish = Convert.ToString(dataReader["finish"]);
+                    sitems.dev = Convert.ToString(dataReader["dev"]);
+                    sitems.note = Convert.ToString(dataReader["note"]);
+                    sitems.project_status = Convert.ToString(dataReader["project_status"]);
+                    taskmanlist.Add(sitems);
+                }
+
+                con.Close();
+                ViewBag.PageCount = pageCount;
+                return View(taskmanlist);
+
+            }
+
+        }
+
+        [HttpGet]
+        public JsonResult GetPlannerDataBy(string id, string custid)
+        {
+            List<TaskManModule> taskmanlist = new List<TaskManModule>();
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query2 = "Select * from  [dbo].[taskman] ORDER BY  id DESC ";
+
+                string tempAnnounce = string.Empty;
+
+                SqlCommand cmd = new SqlCommand(query2, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+
+                    TaskManModule sitems = new TaskManModule();
+                    sitems.id = Convert.ToInt16(dataReader["id"]);
+                    sitems.cust = Convert.ToString(dataReader["customerid"]);
+                    sitems.proj = Convert.ToString(dataReader["projectid"]);
+                    sitems.description = Convert.ToString(dataReader["description"]);
+                    sitems.resource = Convert.ToString(dataReader["resource"]);
+                    sitems.pr = Convert.ToString(dataReader["pr"]);
+                    sitems.status = Convert.ToString(dataReader["stat"]);
+
+                    sitems.esthours = Convert.ToDecimal(dataReader["esthours"]);
+                    sitems.ddate = Convert.ToString(dataReader["ddate"]);
+                    sitems.start = Convert.ToString(dataReader["start"]);
+                    sitems.finish = Convert.ToString(dataReader["finish"]);
+                    sitems.dev = Convert.ToString(dataReader["dev"]);
+                    sitems.note = Convert.ToString(dataReader["note"]);
+                    taskmanlist.Add(sitems);
+
+                }
+
+                con.Close();
+
+                return Json(taskmanlist, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
+        [HttpPost]
+        public ContentResult UpdateTaskEst(string id, string pid)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = "UPDATE  [dbo].[taskman]  SET  esthours='" + pid + "' WHERE id='" + id + "' ";
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+
+            return Content("{Result : { Message : 'Success' }}", "application/json");
+        }
+
+        [HttpPost]
+        public ContentResult UpdateTaskResc(string id, string pid)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "UPDATE  [dbo].[taskman]  SET resource='" + pid + "' WHERE id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return Content("{Result : { Message : 'Success' }}", "application/json");
+        }
+
+
+        [HttpPost]
+        public ContentResult UpdatePr(string id, string pid)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = "UPDATE  [dbo].[taskman]  SET pr='" + pid + "' WHERE id=" + id;
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return Content("{Result : { Message : 'Success' }}", "application/json");
+        }
+
+        [HttpPost]
+        public ContentResult UpdateTaskDate(string id, string pid)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "UPDATE  [dbo].[taskman]  SET ddate='" + pid + "' WHERE id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return Content("{Result : { Message : 'Success' }}", "application/json");
+
+        }
+
+        [HttpPost]
+        public ContentResult UpdateTimeNote(string id, string name)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "UPDATE  [dbo].[taskman]  SET note='" + name + "' WHERE id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return Content("{Result : { Message : 'Success' }}", "application/json");
+        }
+
+        public ActionResult UpdateTaskNote(string id, string name)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "UPDATE  [dbo].[taskman]  SET note=@pid WHERE id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@pid", name);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateTaskDev(string id, string name)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "UPDATE  [dbo].[taskman]  SET dev='" + name + "' WHERE id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return Content("{Result : { Message : 'Success' }}", "application/json");
+        }
+
+        [HttpPost]
+        public ContentResult UpdateTaskStat(string id, string pid)
+        {
+
+
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "UPDATE  [dbo].[taskman]  SET  stat='" + pid + "' WHERE id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+
+            return Content("{Result : { Message : 'Success' }}", "application/json");
+        }
+
+
+        [HttpPost]
+        public ContentResult AddTask(string cust, string proj, string description, string resc, string pr, string stat, string esthours, string dev, string startdate, string note)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            int taskId = 0;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                if (esthours.Trim() == "")
+                { esthours = "0"; }
+
+                string ddate = startdate; // DateTime.Now.Date.ToString("MM/dd/yyy");
+                                          // staff Insert into  [dbo].[taskman](customerid,projectid,staffid,description,status,esthours,acthours,ddate,resource,pr)" +
+                                          // "values(@a,@b,@c,@d,@e,@f,@g,@h,@i,@j)"
+                string query = "Insert into  [dbo].[taskman](customerid,projectid, description,stat,esthours,ddate,resource,pr,dev,note)" +
+                   "values(@a,@b,@d,@e,@f,@h,@i,@j,@k,@l); SELECT SCOPE_IDENTITY()";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@a", Convert.ToInt16(cust));
+                cmd.Parameters.AddWithValue("@b", Convert.ToInt16(proj));
+                //  cmd.Parameters.AddWithValue("@c", Convert.ToInt16(staff));
+                cmd.Parameters.AddWithValue("@d", description);
+                cmd.Parameters.AddWithValue("@e", stat);
+                cmd.Parameters.AddWithValue("@f", esthours);
+                // cmd.Parameters.AddWithValue("@g", staff);
+                cmd.Parameters.AddWithValue("@h", ddate);
+                cmd.Parameters.AddWithValue("@i", resc);
+                cmd.Parameters.AddWithValue("@j", Convert.ToInt16(pr));
+                cmd.Parameters.AddWithValue("@k", dev);
+                cmd.Parameters.AddWithValue("@l", note);
+                taskId = Convert.ToInt32(cmd.ExecuteScalar());
+                con.Close();
+
+            }
+
+
+            //JObject jsonResult = JObject.Parse("{Result : { TaskID : " + taskId.ToString() + " }}");
+
+            //return Content("{Result : { TaskID : " + taskId.ToString() + " }}", "application/json");
+            return Content(taskId.ToString());
+
+        }
+
+
+        [HttpPost]
+        public JsonResult FetchTaskImages(string id)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                string query = "SELECT * FROM  [dbo].[planner_images] WHERE planner_id = '" + id + "'";
+
+                List<TaskImages> listTaskImages = new List<TaskImages>();
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    TaskImages taskimages = new TaskImages();
+                    taskimages.id = Convert.ToInt16(dataReader["id"]);
+                    taskimages.planner_id = Convert.ToInt16(dataReader["planner_id"]);
+                    taskimages.imagebase64 = dataReader["imagebase64"].ToString();
+                    taskimages.imageraw = dataReader["imageraw"].ToString();
+                    taskimages.datecreated = Convert.ToDateTime(dataReader["datecreated"]);
+                    listTaskImages.Add(taskimages);
+                }
+
+                con.Close();
+
+                //Encoding.UTF8,    JsonRequestBehavior.AllowGet
+                // new { field: "value" }
+
+                return Json(listTaskImages, JsonRequestBehavior.AllowGet);
+
+                //return Content("{Result : { Message : 'Success' }}", "application/json");
+            }
+            //return JsonResult("{Result : { Message : 'Failed' }}", "application/json");
+        }
+
+
+        [HttpPost]
+        public ContentResult AddTaskImage(string id, string image)
+        {
+            string mega = this.Request["image"];
+            int imageId = 1;
+
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "INSERT INTO  [dbo].[planner_images] (planner_id, imagebase64, imageraw)  VALUES ('" + id + "', '" + mega + "', '" + image + "');  SELECT SCOPE_IDENTITY();";
+                SqlCommand cmd = new SqlCommand(query, con);
+                imageId = Convert.ToInt32(cmd.ExecuteScalar());
+                con.Close();
+            }
+
+            string imageBase64 = mega.Replace("data:image/png;base64,", "");
+            string fileName = Server.MapPath("/Images/TaskImages/" + "TaskImage-" + imageId + ".png");
+            byte[] bytes = Convert.FromBase64String(imageBase64);
+            System.IO.File.WriteAllBytes(fileName, bytes);
+
+            //JObject jsonResult = JObject.Parse("{Result : { ImageId : " + imageId + " }}");
+
+            //return Json(jsonResult, JsonRequestBehavior.AllowGet);
+            return Content(imageId.ToString());
+        }
+
+        [HttpPost]
+        public ContentResult RemoveTaskImage(string id)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "DELETE FROM  [dbo].[planner_images] where id = '" + id + "' ";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return Content("success");
+        }
+        #endregion
+
+
+
+
+
+
         [HttpPost]
         public ActionResult Login(Users users)
         {
@@ -156,74 +574,6 @@ namespace ITGWebTimeSheet2.Controllers
         }
 
 
-        public ActionResult Planner()
-        {
-            List<TaskManModule> taskmanlist = new List<TaskManModule>();
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-          
-
-                //   string query2 = "SELECT T.id, (Select name from[timesheet].[dbo].[customers] where id = T.customerid) as cust,(Select name from[timesheet].[dbo].[project] where id = T.projectid) as proj, T.description as descr, T.dev as dev, T.note as note, (Select fullname from[timesheet].[dbo].[staff] where id = T.resource) as resc, T.pr as pr,T.start as start,T.finish as finish, T.stat as stat, T.esthours as est,T.ddate as ddate from[timesheet].[dbo].[taskman] as T,[timesheet].[dbo].[customers] as C,[timesheet].[dbo].[project] as P,[timesheet].[dbo].[staff] as S ORDER BY T.id DESC";
-
-
-                string query2 = "Select * from [timesheet].[dbo].[taskman] ORDER BY  id DESC ";
-
-                string tempAnnounce = string.Empty;
-
-                SqlCommand cmd = new SqlCommand(query2, con);
-                SqlDataReader dataReader = cmd.ExecuteReader();
-                while (dataReader.Read())
-                {
-
-                    TaskManModule sitems = new TaskManModule();
-                    sitems.id = Convert.ToInt16(dataReader["id"]);
-                    sitems.cust = Convert.ToString(dataReader["customerid"]);
-
-                        sitems.proj = Convert.ToString(dataReader["projectid"]);
-                
-                        sitems.description = Convert.ToString(dataReader["description"]);
-                 
-
-                        sitems.resource = Convert.ToString(dataReader["resource"]);
-                  
-                        sitems.pr = Convert.ToString(dataReader["pr"]);
-              
-
-                        sitems.status = Convert.ToString(dataReader["stat"]);
-                
-
-
-
-                   
-                    sitems.esthours = Convert.ToDecimal(dataReader["esthours"]);
-                    // sitems.acthours = Convert.ToDecimal(dataReader["act"]);
-                    sitems.ddate = Convert.ToString(dataReader["ddate"]);
-                    sitems.start = Convert.ToString(dataReader["start"]);
-                    sitems.finish = Convert.ToString(dataReader["finish"]);
-                    sitems.dev = Convert.ToString(dataReader["dev"]);
-                    sitems.note = Convert.ToString(dataReader["note"]);
-                    taskmanlist.Add(sitems);
-
-                }
-                //   sitems.File_file = termsList.ToArray();
-
-             //   List<TaskManModule> taskmanlist2 = new List<TaskManModule>();
-            //    taskmanlist2 = taskmanlist.Distinct().ToList();
-
-                con.Close();
-                return View(taskmanlist);
-
-            }
-
-        }
-
-
-
-
-
         public ActionResult TaskManager()
         {
             List<TaskManModule> taskmanlist = new List<TaskManModule>();
@@ -277,48 +627,6 @@ string tempAnnounce = string.Empty;
 
             }
         }
-
-        [HttpPost]
-        public ActionResult AddTask(string cust, string proj,  string description,string resc, string pr, string stat, string esthours, string dev, string startdate, string note)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-
-                if (esthours.Trim()=="")
-                { esthours = "0"; }
-
-                string ddate = startdate; // DateTime.Now.Date.ToString("MM/dd/yyy");
-                // staff Insert into [timesheet].[dbo].[taskman](customerid,projectid,staffid,description,status,esthours,acthours,ddate,resource,pr)" +
-               // "values(@a,@b,@c,@d,@e,@f,@g,@h,@i,@j)"
-                string query = "Insert into [timesheet].[dbo].[taskman](customerid,projectid, description,status,esthours,ddate,resource,pr,dev,note)" +
-                   "values(@a,@b,@d,@e,@f,@h,@i,@j,@k,@l)";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@a", Convert.ToInt16(cust));
-                cmd.Parameters.AddWithValue("@b", Convert.ToInt16(proj));
-              //  cmd.Parameters.AddWithValue("@c", Convert.ToInt16(staff));
-                cmd.Parameters.AddWithValue("@d", description);
-                cmd.Parameters.AddWithValue("@e", stat);
-                cmd.Parameters.AddWithValue("@f", esthours);
-               // cmd.Parameters.AddWithValue("@g", staff);
-                cmd.Parameters.AddWithValue("@h", ddate);
-                cmd.Parameters.AddWithValue("@i", resc);
-                cmd.Parameters.AddWithValue("@j", Convert.ToInt16(pr));
-                cmd.Parameters.AddWithValue("@k", dev);
-                cmd.Parameters.AddWithValue("@l", note);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-
-
-
-            //  return View();
-            return RedirectToAction("TaskManager");
-        }
-
-
 
         public ActionResult Reporting()
         {
@@ -1030,91 +1338,6 @@ string tempAnnounce = string.Empty;
 
         }
 
-        public ActionResult UpdateTaskDate(string id, string pid)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-
-                string query = "UPDATE [timesheet].[dbo].[taskman]  SET ddate=@pid WHERE id='" + id + "'";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@pid", pid);
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-            return View();
-
-        }
-
-        public ActionResult UpdateTimeNote(string id, string name)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-                string query = "UPDATE [timesheet].[dbo].[tasklist]  SET notes=@pid WHERE id='" + id + "'";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@pid", name);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-            return View();
-        }
-
-        public ActionResult UpdateTaskNote (string id, string name)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-                string query = "UPDATE [timesheet].[dbo].[taskman]  SET note=@pid WHERE id='" + id + "'";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@pid", name);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-
-            return View();
-        }
-        public ActionResult UpdateTaskDev (string id, string name)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-
-                string query = "UPDATE [timesheet].[dbo].[taskman]  SET dev=@pid WHERE id='" + id + "'";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@pid", name);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-
-            return View();
-        }
-
-        public ActionResult UpdateTaskStat(string id, string pid)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-
-                string query = "UPDATE [timesheet].[dbo].[taskman]  SET  stat=@pid WHERE id='" + id + "'";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@pid", pid);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-
-            return View();
-        }
-
         public ActionResult UpdateTaskAct(string id, string pid)
 
         {
@@ -1132,63 +1355,6 @@ string tempAnnounce = string.Empty;
                 con.Close();
             }
 
-            return View();
-        }
-
-        public ActionResult UpdateTaskEst(string id, string pid)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = "UPDATE [timesheet].[dbo].[taskman]  SET  esthours=@pid WHERE id=@id";
-                cmd.Parameters.AddWithValue("@pid", pid);
-                cmd.Parameters.AddWithValue("@id", id);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-
-            return View();
-        }
-
-        public ActionResult UpdateTaskResc(string id, string pid)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-                string query = "UPDATE [timesheet].[dbo].[taskman]  SET resource=@pid WHERE id='" + id + "'";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@pid", pid);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-
-            return View();
-        }
-
-
-        public ActionResult UpdatePr(string id, string pid)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-
-
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = "UPDATE [timesheet].[dbo].[taskman]  SET pr=@pid WHERE id=" + id;
-                cmd.Parameters.AddWithValue("@pid", pid);
-                cmd.Parameters.AddWithValue("@id", id);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
             return View();
         }
 
@@ -1435,7 +1601,6 @@ string tempAnnounce = string.Empty;
             return Content(id_id);
 
         }
-
 
 
     }
