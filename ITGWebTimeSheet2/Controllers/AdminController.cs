@@ -382,6 +382,41 @@ namespace ITGWebTimeSheet2.Controllers
         }
 
 
+
+        [HttpGet]
+        public ContentResult DumpTaskImages()
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                string query = "SELECT * FROM  [dbo].[planner_images] ";
+
+                List<TaskImages> listTaskImages = new List<TaskImages>();
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                
+                string mega = "";
+                int imageId = 0;
+
+                while (dataReader.Read())
+                {
+                    imageId = Convert.ToInt16(dataReader["id"]);
+                    mega = dataReader["imagebase64"].ToString();
+
+                    string imageBase64 = mega.Replace("data:image/png;base64,", "");
+                    string fileName = Server.MapPath("~/Images/TaskImages/" + "TaskImage-" + imageId + ".png");
+                    byte[] bytes = Convert.FromBase64String(imageBase64);
+                    System.IO.File.WriteAllBytes(fileName, bytes);
+                }
+                con.Close();
+            }
+            return Content("Success");
+        }
+
+
         [HttpPost]
         public ContentResult AddTaskImage(string id, string image)
         {
