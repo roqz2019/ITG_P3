@@ -1558,8 +1558,8 @@ right: -11px;
                                     imgx = '';
                                     imgx += '<div class="img_container" style="display: block; float: left; width: 120px;">';
                                     imgx += '<div style="float; right; position: absolute; display: inline-block; z-index: 9999;"><button class="btn_imageremove btn btn-danger btn-sm" data-imageid="' + d.id + '">x</button></div>';
-                                    imgx += '<img src="/Images/TaskImages/TaskImage-' + d.id + '.png" alt="" class="img-thumbnail" style="display: block; width: 120px; height: 120px;">';
-                                    
+                                    imgx += '<img src="@VirtualPathUtility.ToAbsolute("~/")Images/TaskImages/TaskImage-' + d.id + '.png" alt="" class="img-thumbnail" style="display: block; width: 120px; height: 120px;">';
+
                                     imgx += '</div>';
 
                                     $(".img_list").prepend(imgx);
@@ -1579,7 +1579,7 @@ right: -11px;
 
         });
 
-        
+
 
 
         // Created by STRd6
@@ -1673,9 +1673,9 @@ $("html").pasteImageReader(function(results) {
 
 
         console.log(results.dataURL);
-        
 
-     
+
+
      let taskid = $(".img_receiver").data("taskid");
      let data = "id=" + taskid + "&image=" + encodeURIComponent(results.dataURL);
      let url = "@Url.Action("AddTaskImage")";
