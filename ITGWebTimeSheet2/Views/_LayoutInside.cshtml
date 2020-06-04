@@ -26,12 +26,54 @@
     <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
     <script src="https://kit.fontawesome.com/1b585ee530.js" crossorigin="anonymous"></script>
 
-    <sytle>
+    <style type="text/css">
+    /*
         .datepicker5,.datepicker99
         {
         width: fit-content;
         }
-    </sytle>
+    */    
+
+
+
+.image-area {
+  position: relative;
+  width: 50%;
+  background: #333;
+}
+.image-area img{
+  max-width: 100%;
+  height: auto;
+}
+.remove-image {
+display: none;
+position: absolute;
+top: -10px;
+right: -10px;
+border-radius: 10em;
+padding: 2px 6px 3px;
+text-decoration: none;
+font: 700 21px/20px sans-serif;
+background: #555;
+border: 3px solid #fff;
+color: #FFF;
+box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
+}
+.remove-image:hover {
+ background: #E54E4E;
+  padding: 3px 7px 5px;
+  top: -11px;
+right: -11px;
+}
+.remove-image:active {
+ background: #E54E4E;
+  top: -10px;
+right: -11px;
+}
+    </style>
 
 </head>
 <body class="app sidebar-mini sidenav-toggled">
@@ -114,17 +156,10 @@
             format: 'mm/dd/yyyy',
             formatSubmit: 'mm/dd/yyyy',
         });
-        /*
-         *  $('.datepicker5').datepicker({
-            uiLibrary: 'bootstrap4',
-            format: 'mm/dd/yyyy',
-            formatSubmit: 'mm/dd/yyyy',
-        });
-        */
-
 
         //------------------ auto expanding
 
+        /*
         $(document)
             .one('focus.autoExpand', 'textarea.autoExpand', function () {
                 var savedValue = this.value;
@@ -138,24 +173,306 @@
                 rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 16);
                 this.rows = minRows + rows;
             });
+         */   
     </script>
 
 
+    <script>
+
+    function showNewTaskGui(taskId){
+        try{
+
+                let intRecords = taskId; //$('.record').length + 1;
+                let rowHeight = $('.record').last().height();
+                let dy = 
+`
+<tr class="record record-first" id="row__iteratormask__" style="background-color:#dee2e6;">
+   
+    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+      <a href="#" id="toogle__iteratormask__" class="dplay record-first-play" style="margin-top:25px;display:none"><i id="drop__iteratormask__" class="fas fa-play"></i></a>
+      <a href="#" id="d__iteratormask__" style="display:none" class="down_arrow"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>
+   </td >
+
+   <td class="td-main" tabindex="__taskid__1001" style="border: 1px solid #dee2e6;">
+      <span id="custtask__iteratormask__" class="task_input2_TO_REMOVE td-label">Click to select</span> <input type="hidden" id="custtask_01" /> 
+      <span id="selcust__iteratormask__" class="sel_cust td-control" data-type="ddl" data-field="customer" data-taskid="__taskid__" style="display: none;">
+         <select class="form-control td-ddl" id="selectcust__iteratormask__" style="width: 95%;">
+            <option value="0">Select Customer</option>
+            @if (ViewData["CustomerList"] != null) { foreach (var item1 in ViewData["CustomerList"] as IList
+            <CustomersModule>
+            ) { 
+            <option value="@item1.id">@item1.code</option>
+            } } 
+         </select>
+      </span>
+   </td>
+
+   <td class="td-main" tabindex="__taskid__1002">
+      <span id="taskpr__iteratormask__" class="task_input2_TO_REMOVE td-label">PR</span> 
+      <span id="selpr__iteratormask__" class="sel_pr td-control" data-type="ddl" data-field="priority" data-taskid="__taskid__" style="display: none;">
+         <select class="form-control td-ddl" id="selectpr__iteratormask__" onchange="prchange(this.id)" style="width: 95%;">
+            <option value="">Select</option> 
+            <option value="None">None</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+         </select>
+      </span>
+   </td>
+
+   <td class="td-main" tabindex="__taskid__1003">
+      <span id="taskproj__iteratormask__" data-idx="__iteratormask__" class="task_input2_TO_REMOVE spn_taskproj td-label"></span>
+      <span id="selproj__iteratormask__" class="sel_cust td-control"  data-type="ddl" data-field="project" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
+         <select class="form-control selectproj td-ddl td-ddl-project" data-taskid="__taskid__" id="selectproj__iteratormask__" data-idx="__iteratormask__" style="width: 95%;">
+            <option value="0">Select Project</option>
+            @if (ViewData["ProjectList"] != null) { foreach (var item1 in ViewData["ProjectList"] as IList
+            <ProjectModule>
+            ) { 
+            <option value="@item1.id">@item1.code</option>
+            } } 
+         </select>
+      </span>
+   </td>
+
+   <td class="td-main" tabindex="__taskid__1004">
+      <span id="descriptiontask1__iteratormask__" class="task_input2_TO_REMOVE td-label"></span>
+      <span id="seldesc__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="task" data-taskid="__taskid__" style="display: none;">
+          <textarea id="descriptiontask__iteratormask__" class="autoExpand form-control task_input td-txt" rows="1" data-min-rows="1" placeholder="description" name="description">Add Comments</textarea>
+      </span> 
+   </td >
+
+   <td class="td-main" tabindex="__taskid__1005">
+      <span id="taskdev__iteratormask__" class="task_input2_TO_REMOVE td-label">Select</span> 
+      <span id="seldev__iteratormask__" class="sel_pr td-control" data-type="ddl" data-field="type" data-taskid="__taskid__" style="display: none;">
+         <select class="form-control td-ddl" id="selectdev__iteratormask__" style="width: 95%;">
+            <option value="0">Select</option>
+            <option value="Dev">Dev</option>
+            <option value="Rev">Rev</option>
+         </select>
+      </span>
+   </td>
+
+   <td class="td-main" tabindex="__taskid__1006">
+      <span id="taskresc__iteratormask__" class="task_input2_TO_REMOVE td-label">Select Resouce </span>
+      <input type="hidden" id="taskresc_01" /> 
+      <span id="selresc__iteratormask__" class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="__taskid__" style="display: none;">
+         <select class="form-control td-ddl" id="selectresc__iteratormask__" style="width: 95%;">
+            <option value="0">Select Resource</option>
+            @if (ViewData["StaffList"] != null) { foreach (var item2 in ViewData["StaffList"] as IList
+            <Staff>
+            ) { 
+            <option value="@item2.id">@item2.alias</option>
+            } } 
+         </select>
+      </span>
+   </td>
+
+   <td class="td-main" tabindex="__taskid__1007">
+       <i class="fas fa-circle" color="#5fac11" aria-hidden="true"></i>
+   </td>
+
+   <td class="td-main" tabindex="__taskid__1008">
+      <span id="taskstat__iteratormask__" class="task_input2_TO_REMOVE td-label">Please select </span> 
+      <span id="selstat__iteratormask__" class="sel_stat td-control" data-type="ddl" data-field="status" data-taskid="__taskid__" style="display: none;">
+         <select class="form-control td-ddl" id="selectstat__iteratormask__" style="width: 95%;">
+            <option value="Please select">Please select</option>
+            <option value="Opened">Opened</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Ready to close">Ready to close</option>
+            <option value="Issues">Issues</option>
+            <option value="Monitor">Monitor</option>
+            <option value="In Queue">In Queue</option>
+            <option value="Closed">Closed</option>
+         </select>
+      </span>
+   </td>
+
+   <td class="td-main" tabindex="__taskid__1009">
+       <span id="taskstart__iteratormask__" class="task_input2_TO_REMOVE td-label">Select date </span>
+       <span id="selstart__iteratormask__" class="sel_stat td-control" data-type="txt" data-field="date" data-taskid="__taskid__" style="display: none;">
+        <input class="datepicker5 td-txt" id="starttask__iteratormask__" type="text" style="width: 95%;" />
+       </span>
+   </td>
+   
+   <td> </td>
+   
+   <td class="td-main" tabindex="1010">
+       <span id="taskest__iteratormask__" class="task_input2_TO_REMOVE td-label">0.00</span>
+       <span id="selest__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="esthours" data-taskid="__taskid__" style="display: none;">
+           <input id="esttask__iteratormask__" class="form-control td-txt" type="text" value="0.00" style="width: 95%;" />
+       </span>
+   </td>
+   
+   <td></td>
+</tr>
 
 
-    <script type="text/javascript">
-        //Add Input Fields
-        $(document).ready(function () {
 
-            // hide all second rows
+<tr style="background-color:#dee2e6" class="notShow hideall" id="secondrow__iteratormask__">
+   <td colspan="1" style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+       <a href="#" id="remove__iteratormask__" class="remove_field2" style="position:relative;top: 135px;"><i class="fas fa-minus-circle"></i></a>
+    </td>
 
-            // delete taskman
+   <td colspan="12">
 
-        });
+      <div class="row3" style="width: 100%;">
+         
+
+            <div style="position:relative;min-height:150px; height: auto; overflow: none;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29 td-main">
+                <div style="float:left;" class="w-100">
+                    <div class="td-main"  style="float:left; display: block; width: 100%;">
+                        Project Status:<br />
+                        <pre class="td-label td-lbl-projectstatus"></pre>
+                        <span class="td-control" data-type="txt" data-field="project_status" data-taskid="" style="display: none;">
+                            <textarea 
+                            style="display: block; width: 100%; height: 80%;" 
+                            class="form-control td-txt td-txt-projectstatus" data-projectid="0" rows="4" data-min-rows="4" placeholder="description" 
+                            name="description"></textarea>
+                        </span>
+                    </div>
+                    <div style="float:right; display: none;">
+                        Date:
+                    </div>
+                </div>
+                <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                    <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                </div>
+
+            </div>
+
+
+         
+         <div class="w-1"> </div>
+         
+         <div style="background-color:white;position:relative;min-height:150px; height: auto; overflow: none;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29 td-main">    
+            <div style="float:left;" class="w-100">    
+               <div class="td-main" style="float:left; display: block; width: 100%;">    
+                   Subtasks:<br />
+                   
+                   <pre id="notetask__iteratormask__" class="td-label"></pre>
+
+                   <span id="selnote__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="notes" data-taskid="__taskid__" style="display: none;">
+                       <textarea id="notetask2__iteratormask__" style="display: block; width: 100%; height: 80%;" class="form-control td-txt" rows="4" data-min-rows="4" placeholder="Click to edit">Add Subtasks</textarea>
+                   </span>
+
+                </div>
+               <div style="float:right"> </div>
+            </div>
+            <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div>
+         </div>
+         
+         <div class="w-1"> </div>
+
+         <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29 td-main">
+            <div style="float:left;" class="w-100">
+               <div style="float:left"> Discussion:<br /> </div>
+               <div style="float:right"> 04/20/2020 </div>
+            </div>
+            <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div>
+         </div>
+
+         <div class="w-1"> </div>
+
+         <div class="w-10">
+             <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button>
+             <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button>
+             <button type="button" class="btn btn-primary w-100 btn_images" data-taskid="__taskid__" style="margin-bottom:5px;">Images</button>
+             <button type="button" class="btn btn-primary w-100">Audit</button> </div>
+
+      </div>
+   </td >
+</tr >
+`;
+
+
+                if ($('.record-first').length > 0)
+                {
+                    $('.record-first').css('background-color', '#fff');
+                    $('.record-first').css('height', rowHeight);
+                    $('.record-first-play').css('display', 'block');
+                }
+
+               if($('#row_0').length > 0)
+               {
+                    alert("The newly added row is not yet save. Please select customers to save it.")
+               }
+                else {
+                    bugsolve()
+                    dy = dy.split('__taskid__').join(intRecords);
+                    $('#wrapper4').prepend(dy.split('__iteratormask__').join('_' + intRecords));
+                    $('.hideall').hide();
+                    $('.down_arrow').hide();
+                    $('#d_' + intRecords).show();
+                    $('#secondrow_' + intRecords).show();
+
+
+
+                    $('[id^=drop_]').each(function () {
+                        $(this).removeClass('fa-minus-circle').addClass('fa-play');
+                    });
+
+
+                    $('[id^=toogle_]').each(function () {
+                     //   $(this).removeClass('remove_field2').addClass('dplay');
+                        $(this).show();
+                    });
+
+                    $('[id^=remove_]').each(function () {
+                        $(this).hide();
+                    });
+
+                  
+
+                    $('#toogle_' + intRecords).hide();
+                    $('#remove_' + intRecords).show();
+                  
+                }
+
+                                }catch(ex){
+                                    alert(ex);
+                                }
+    }    
+    function addTask(){
+
+                     var cust_d = '0';
+                     var pr_d = '0';
+                     var proj_d = '0';
+                     var desc_d = '';
+                     var dev_d = '';
+                     var resc_d = '';
+                     var stat_d = '';
+                     var start_d = '';
+                     var est_d = '';
+                     var note_d = '';
+
+                var data_d = "";
+                  data_d =   'cust=' + cust_d + '&proj=' + proj_d +  '&resc=' + resc_d + '&description=' + desc_d;
+                     data_d = data_d + '&pr=' + pr_d + '&stat=' + stat_d + '&esthours=' + est_d;
+                     data_d = data_d + ' &dev=' + dev_d + '&startdate=' + start_d + '&note=' + note_d;
+                     console.log(data_d);
+
+
+
+
+                 $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("AddTask")",
+                            cache: false,
+                            data: data_d,
+                            complete: function (res) {
+                                    showNewTaskGui(res.responseText);
+                                }
+                            });
+        }
+
     </script>
 
-
-    <!-- this section -->
     <script>
         // all functions for editing infos and
         $(function () {
@@ -180,7 +497,6 @@
                 var element = $(this);
                 var id_string = element.attr("id");
                 var del_id = id_string.split("_");
-              //  var info = 'id=' + del_id[1];
 
                 $("#edit_name_" + del_id[1]).hide();  // now show input for the span
                 $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
@@ -292,385 +608,394 @@
 
 
 
-            //------------------ filter section ------------------------------
-
-
-             $("#fi_cust").click(function (e) {
-
-              //  var info = 'id=' + del_id[1];
-                var custid = $("#f_cust option:selected").val();
-                var info = 'custid=' + custid ;
-                console.log(info);
-                 $.ajax({
-                     type: "POST",
-                     url: "@Url.Action("TaskFilterCust")",
-                     data: info,
-                     dataType: 'html',
-                     cache: false,
-                     success: function (data) {
-                         $('#dyna_gen').html(data);
-                     }
-                 });
-
-                 e.preventDefault();
-
-                 return false;
-            });
-
-
-            //------------------ end of filter section ---------------------------
-
+            
         });
     </script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function (e) {
-
-            //     $(".task_input2").on('click',function () {
-            $("body").on('click','span.task_input2',function () {
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-
-
-                var control_name = del_id[0];
-                console.log(id_string);
-
-                bugsolve();
-
-
-                if (control_name == "custtask") {
-                    $('#selcust_' + del_id[1]).show();                // show control
-                    $('#custtask_' + del_id[1]).hide();
-                }
-                if (control_name == "taskproj") {
-                    $('#selproj_' + del_id[1]).show();
-                    $('#taskproj_' + del_id[1]).hide();// show control
-
-                }
-                if (control_name == "descriptiontask1") {
-                    $('#seldesc_' + del_id[1]).show();                // show control
-                    $('#descriptiontask1_' + del_id[1]).hide();
-                }
-                if (control_name == "taskresc") {
-                    $('#selresc_' + del_id[1]).show();                // show control
-                    $('#taskresc_' + del_id[1]).hide();
-                }
-                if (control_name == "taskstaff") {
-                    $('#selstaff_' + del_id[1]).show();                // show control
-                    $('#taskstaff_' + del_id[1]).hide();
-                }
-                if (control_name == "taskpr") {
-                    $('#selpr_' + del_id[1]).show();
-                    $('#taskpr_' + del_id[1]).hide();    // show control
-                }
-                if (control_name == "taskstart") {
-                    $('#selstart_' + del_id[1]).show();               // start date
-                 //   $('#starttask_' + del_id[1]).addClass('.datepicker99');
-                    $('#taskstart_' + del_id[1]).hide();
-                }
-                if (control_name == "taskfinish") {
-                    $('#selfinish_' + del_id[1]).show();               // start date
-                }
-
-
-                if (control_name == "taskstat") {
-                    $('#selstat_' + del_id[1]).show();                // show control
-                    $('#taskstat_' + del_id[1]).hide();
-                }
-                if (control_name == "taskest") {
-                    $('#selest_' + del_id[1]).show();                // show control
-                    $('#taskest_' + del_id[1]).hide();
-
-                }
-                if (control_name == "taskdev") {
-                    $('#seldev_' + del_id[1]).show();                // show control
-                    $('#taskdev_' + del_id[1]).hide();
-
-                }
-                if (control_name == "notetask") {
-                    $('#selnote_' + del_id[1]).show();                // show control
-                    $('#notetask_' + del_id[1]).hide();
-                }
-
-            });
-
-
-
-            //----------------- edit / update section --------------------------------
-
-            $('.savetask3').on('click', function (e) {
-
-
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-                console.log(id_string);
-                var control_name = del_id[0];
-
-                if (control_name == "taskdesc") {
-
-                    var custid = $("#descriptiontask_" + del_id[1]).val();
-                    custid = custid.replace(/<br\s*\/?>/mg, "\n");
-                     $("#descriptiontask1_" + del_id[1]).html(custid);
-                    var info = 'id=' + del_id[1] + '&descr=' + custid;
-                    var url = "@Url.Action("UpdateTaskDesc")";
-                     $('#seldesc_' + del_id[1]).hide();
-
-                }
-                
-
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    data: info,
-                    success: function () {
-                        //      location.reload(true);
-                    }
-                });
-
-
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-
-
-            });
-
-
-
-            $('.savetask2').on('change', function (e) {
-
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-                console.log(id_string);
-                var control_name = del_id[0];
-                if (control_name == "selectcust") {
-                    $('#selcust_' + del_id[1]).hide();
-                    var newval = $("#selectcust_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectcust_" + del_id[1] + " option:selected").val();
-                    var info = 'id=' + del_id[1] + '&custid=' + custid;
-                    $('#custtask_' + del_id[1]).text(newval);
-                    var url = "@Url.Action("UpdateTaskCust")";
-                    $("#selectcust_" + del_id[1]).val("");
-                    $('#custtask_' + del_id[1]).show();
-
-                }
-
-                if (control_name == "selectproj") {
-
-                 
-                    var newval = $("#selectproj_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectproj_" + del_id[1] + " option:selected").val();
-                    var info = 'id=' + del_id[1] + '&pid=' + custid;
-                    $('#taskproj_' + del_id[1]).text(newval);
-                    var url = "@Url.Action("UpdateTaskProj")";
-                    $('#selproj_' + del_id[1]).hide();
-                    $('#taskproj_' + del_id[1]).show();
-                    $('#selproj_' + del_id[1]).val("");
-                }
-                 if (control_name == "selectresc") {
-                    var newval = $("#selectresc_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectresc_" + del_id[1] + " option:selected").val();
-                     var info = 'id=' + del_id[1] + '&pid=' + custid;
-                //     alert(info);
-                    console.log(info);
-                     $('#taskresc_' + del_id[1]).text(newval);
-                     $('#selresc_' + del_id[1]).hide();
-                     $('#taskresc_' + del_id[1]).show();
-                     $('#selectlresc_' + del_id[1]).val("");
-                    var url = "@Url.Action("UpdateTaskResc")";
-
-                }
-                // staff
-                 if (control_name == "selectstaff") {
-                    var newval = $("#selectstaff_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectstaff_" + del_id[1] + " option:selected").val();
-                     var info = 'id=' + del_id[1] + '&pid=' + custid;
-                //     alert(info);
-                    console.log(info);
-                    $('#taskstaff_' + del_id[1]).text(newval);
-                    var url = "@Url.Action("UpdateTaskStaff")";
-                    $('#selstaff_' + del_id[1]).hide();
-                    $('#selectstaff_' + del_id[1]).val("");
-                }
-                //pr
-                  if (control_name == "selectpr") {
-                    var newval = $("#selectpr_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectpr_" + del_id[1] + " option:selected").val();
-                     var info = 'id=' + del_id[1] + '&pid=' + custid;
-                //     alert(info);
-                      console.log(info);
-                      $('#taskpr_' + del_id[1]).show();
-                      $('#taskpr_' + del_id[1]).text(newval);
-                      $('#taskpr_' + del_id[1]).text(newval);
-                    var url = "@Url.Action("UpdatePr")";
-                    $('#selpr_' + del_id[1]).hide();
-                    $('#selectpr_' + del_id[1]).val("");
-                }
-
-                //status
-                if (control_name == "selectstat") {
-                    var newval = $("#selectstat_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectstat_" + del_id[1] + " option:selected").val();
-
-                    var info = 'id=' + del_id[1] + '&pid=' + custid;
-                    $('#taskstat_' + del_id[1]).text(newval);
-                    $('#taskstat_' + del_id[1]).show();
-                    $('#selstat_' + del_id[1]).hide();
-                      var url = "@Url.Action("UpdateTaskStat")";
-                }
-                // dev
-                  if (control_name == "selectdev") {
-                    var newval = $("#selectdev_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectdev_" + del_id[1] + " option:selected").val();
-                      $('#taskdev_' + del_id[1]).text(newval);
-                      $('#taskdev_' + del_id[1]).show();
-                      $('#seldev_' + del_id[1]).hide();
-                      var info = 'id=' + del_id[1] + '&name=' + custid;
-                      var url = "@Url.Action("UpdateTaskDev")";
-
-                }
-
-
-
-
-                console.log("url:" + url);
-
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    data: info,
-                    success: function () {
-                        //      location.reload(true);
-                    }
-                });
-
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-
-
-            });
-
-
-            $('.sel_pr').hide();
-            $('.sel_stat').hide();
-
-
-            // new -- filtering ---
-
-
-
-
-
-
-
-
-
-        });
-
-
-    </script>
     <script>
-        //----- all new scripts here -----------------
+        $('body').on('click', '.td-main', function(){
 
-        //---- Delete - staff - project - task ---------------------------
+            $('.tc-main').removeClass('tc-active');
+            $('.tc-data').css('visibility', 'hidden');
 
-
-         // delete staff
-        $(function () {
-            $(".delstaff").click(function () {
-                var element = $(this);
-                var del_id = element.attr("id");
-                var info = 'id=' + del_id;
-                if (confirm("Are you sure you want to delete this item?")) {
-                    $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("DeleteStaff")",
-                        data: info,
-                        success: function () {
-                            //      location.reload(true);
-                        }
-                    });
-                   // $(this).parents(".record").fadeOut(3500).remove();
-                    $(this).parents(".record").fadeOut("slow", function () {
-                        // After animation completed:
-                        $(this).parents(".record").remove();
-                    });
-
+            try{
+                if( $(this).hasClass('td-active') )
+                {
+                    $('.td-main').removeClass('td-active');
+                    $(this).addClass('td-active');
+                    return;
                 }
-                return false;
-            });
+                $('.td-label').show();
+                $('.td-control').hide();
+
+                $('.td-main').removeClass('td-active');
+                $(this).addClass('td-active');
+                $(this).find('.td-label').hide();
+
+
+                //alert( $(this).find('.td-control').width());
+                //$(this).find('.td-control').css('width', (  $(this).find('.td-control').width() - 10) + 'px');
+                //alert( $(this).find('.td-control').width());
+
+               
+
+                //-- new
+                let txt = $(this).find('.td-label').html();
+                let text = '';
+                let value = '';
+                let fieldName = $(this).data('field');
+                let taskId = $(this).data('taskid');
+
+                let control =  $(this).find('.td-control');
+                switch(control.data('type'))
+                {
+                    case 'txt':
+                        //alert(txt);
+                        //alert(control.find('.td-txt').val());
+
+                        control.find('.td-txt').val(txt);
+                        //control.find('.td-txt').eq(0).focus();
+                        //control.find('.td-txt').click();
+                        //control.find('.td-txt').eq(0).focus();
+                        break;
+
+                    case 'ddl':
+                        control.find(".td-ddl").css('width', '80%');
+                        //text = control.find(".td-ddl").children("option:selected").html();
+                        //control.find('.td-ddl option:text=["' + txt + '"]').attr('selected', 'selected');
+                        break;
+                }
+
+                 $(this).find('.td-control').show();
+
+
+
+            }
+            catch(ex)
+            {
+                alert(ex);
+            }
         });
 
-         // delete project
-        $(function () {
-            $(".delproject").click(function () {
-                var element = $(this);
-                var del_id = element.attr("id");
-                var info = 'id=' + del_id;
-                if (confirm("Are you sure you want to delete this item?")) {
-                    $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("DeleteProject")",
-                        data: info,
-                        success: function () {
-                            //      location.reload(true);
-                        }
-                    });
-                   // $(this).parents(".record").fadeOut(3500).remove();
-                    $(this).parents(".record").fadeOut("slow", function () {
-                        // After animation completed:
-                        $(this).parents(".record").remove();
-                    });
+        //on text change realtime
 
-                }
-                return false;
-            });
+        $('body').on('keypress', '.td-txt', function(){
+            let text = '';
+            let value = '';
+            let fieldName = $(this).parent('.td-control').data('field');
+            let taskId = $(this).parent('.td-control').data('taskid');
+
+            text = $(this).val();
+            value = $(this).val();
+
+            $(this).parent().parent('.td-main').find('pre').html(value);
+            updateTaskField(taskId, fieldName, value);
         });
 
-          // delete customers
-        $(function () {
-            $(".delcustomers").click(function () {
-                var element = $(this);
-                var del_id = element.attr("id");
-                var info = 'id=' + del_id;
-                if (confirm("Are you sure you want to delete this item?")) {
-                    $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("DeleteCustomers")",
-                        data: info,
-                        success: function () {
-                            //      location.reload(true);
-                        }
-                    });
-                   // $(this).parents(".record").fadeOut(3500).remove();
+        $('body').on('click', '.td-txt', function(){
+            let text = '';
+            let value = '';
+            let fieldName = $(this).parent('.td-control').data('field');
+            let taskId = $(this).parent('.td-control').data('taskid');
 
-                    $(this).parents(".record").fadeOut("slow", function () {
-                        // After animation completed:
-                        $(this).parents(".record").remove();
-                    });
+            text = $(this).val();
+            value = $(this).val();
+            $(this).parent().parent('.td-main').find('pre').html(value);
+            updateTaskField(taskId, fieldName, value);
+        });
+
+        $('body').on('blur', '.td-txt', function(){
+            let text = '';
+            let value = '';
+            let fieldName = $(this).parent('.td-control').data('field');
+            let taskId = $(this).parent('.td-control').data('taskid');
+
+            text = $(this).val();
+            value = $(this).val();
+            $(this).parent().parent('.td-main').find('pre').html(value);
+            updateTaskField(taskId, fieldName, value);
+        });
+
+        $('body').on('mouseout', '.td-txt', function(){
+            let text = '';
+            let value = '';
+            let fieldName = $(this).parent('.td-control').data('field');
+            let taskId = $(this).parent('.td-control').data('taskid');
+
+            text = $(this).val();
+            value = $(this).val();
+            $(this).parent().parent('.td-main').find('pre').html(value);
+            updateTaskField(taskId, fieldName, value);
+        });
+
+        $('body').on('click', '.td-txt', function(){
+            let text = '';
+            let value = '';
+            let fieldName = $(this).parent('.td-control').data('field');
+            let taskId = $(this).parent('.td-control').data('taskid');
+
+            text = $(this).val();
+            value = $(this).val();
+            $(this).parent().parent('.td-main').find('pre').html(value);
+            updateTaskField(taskId, fieldName, value);
+        });
+
+        //on text change realtime
+
+        $('body').on('change', '.td-control', function(){
+            let text = '';
+            let value = '';
+            let fieldName = $(this).data('field');
+            let taskId = $(this).data('taskid');
+
+            switch($(this).data('type'))
+            {
+                case 'txt':
+                    text = $(this).find('.td-txt').val();
+                    value = $(this).find('.td-txt').val();
+                    break;
+
+                case 'ddl':
+                    text = $(this).find(".td-ddl").children("option:selected").html();
+                    value = $(this).find(".td-ddl").children("option:selected").val();
+                    break;
+            }
+            
+            
+            $(this).parent('.td-main').find('.td-label').html(text);
+            $(this).parent('.td-main').find('.td-label').show();
+
+            $(this).hide();
+
+            //$('.td-label').show();
+            //$('.td-control').hide();
+            $('.td-main').removeClass('td-active');
+
+            let tabindex = parseInt($(this).parent('.td-main').attr('tabindex'));
+            tabindex += 1;
+            $("[tabindex='"+ tabindex +"']").focus()
+
+            updateTaskField(taskId, fieldName, value);
+
+
+        });
+
+        function updateTaskField(taskId, fieldName, fieldValue){
+                    let data = "";
+                    let url = "";
+                    let type = "POST";
+
+                    try
+                    {
+                        switch(fieldName)
+                        {
+                            case 'customer':
+                                data = "id=" + taskId + "&custid=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskCust")";
+                                break;
+
+                            case 'priority':
+                                data = "id=" + taskId + "&pid=" + fieldValue;
+                                url = "@Url.Action("UpdatePr")";
+                                break;
+
+                            case 'project':
+                                data = "id=" + taskId + "&pid=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskProj")";
+                                break;
+
+                            case 'task':
+                                data = "id=" + taskId + "&descr=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskDesc")";
+                                break;
+
+                            case 'type':
+                                data = "id=" + taskId + "&name=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskDev")";
+                                break;
+
+                            case 'resource':
+                                data = "id=" + taskId + "&pid=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskResc")";
+                                break;
+
+                            case 'status':
+                                data = "id=" + taskId + "&pid=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskStat")";
+                                break;
+
+                            case 'date':
+                                data = "id=" + taskId + "&pid=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskDate")";
+                                break;
+
+                            case 'acthours':
+                                data = "id=" + taskId + "&pid=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskAct")";
+                                break;
+
+                            case 'esthours':
+                                data = "id=" + taskId + "&pid=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskEst")";
+                                break;
+
+                            case 'notes':
+                                data = "id=" + taskId + "&name=" + fieldValue;
+                                url = "@Url.Action("UpdateTimeNote")";
+                                break;
+
+                            case 'project_status':
+                                data = "id=" + taskId + "&name=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskProjectStatus")";
+                                break;
+
+
+                        }
+
+                        $.ajax({
+                            type: type,
+                            url: url,
+                            data: data,
+                            success: function () {}
+                        });
+
+                    }
+                    catch(ex)
+                    {
+                        alert(ex);
+                    }
+
+        }
+
+
+        $('body').on('click', '.tc-main', function(){
+
+            //alert( $(this).data('field') );
+            /*
+            2 tc-main
+            once clicked it will show 
+
+            
+            */
+
+            $('.td-main').removeClass('td-active');
+            $('.td-label').show();
+            $('.td-control').hide();
+
+            let field = $(this).data('field');
+
+            let tc_control = '.tc-' + field;
+
+            try{
+                if( $(this).hasClass('tc-active') )
+                {
+                    $('.tc-main').removeClass('tc-active');
+                    $(this).addClass('tc-active');
+                    return;
+                }
+
+                $('.tc-data').show();
+                $('.tc-data').css('visibility', 'hidden');
+                
+                $(tc_control).css('visibility', 'visible');
+
+                $('.tc-main').removeClass('tc-active');
+                $(this).addClass('tc-active');
+                //$(this).find('.td-label').hide();
+                //$(this).find('.td-control').show();
+            }
+            catch(ex)
+            {
+                alert(ex);
+            }
+
+
+        });
+
+
+        $('body').on('change', '.td-ddl-filter', function(){
+            let field = $(this).data('field');
+            let url = '@Url.Action("Planner")' + '/?page=1&filter=' + field  + '&value=' + $(this).val();
+            window.location.href = url;
+        });
+
+        $('body').on('change', '.td-ddl-project', function(){
+
+            //alert($(this).val());
+
+            let data = "id=" + $(this).val();
+            let url = "@Url.Action("FetchTaskProjectStatus")";
+            let type = "GET";
+
+            
+            $.ajax({
+                type: type,
+                url: url,
+                data: data,
+                complete: function (res) {
+                    let txt = res.responseText;
+                    //alert(txt);
+
+                    //update project status with task id
+
+                    //update all rows with project id    
+                    $('.td-txt-projectstatus').val(txt);
+
+                    $('.td-lbl-projectstatus').html(txt);
+                    
+
+
 
                 }
-                return false;
             });
+            
+
         });
-         //---- Delete - staff - project - task ---------------------------
+
+
+        $('body').on("input", "textarea", function()
+        {
+            $(this).prop('style').cssText = 'height:auto;';
+            $(this).prop('style').cssText = 'height:' + $(this).prop('scrollHeight') + 'px';
+        });
+
+        $('body').on("focus", "textarea", function()
+        {
+            $(this).prop('style').cssText = 'height:auto;';
+            $(this).prop('style').cssText = 'height:' + $(this).prop('scrollHeight') + 'px';
+        });
+
+        $('body').on("focus", ".td-main", function(){
+            $(this).click();
+        });
+
+        $('body').on("blur", ".td-main", function(){
+            //alert('zzzzzzzzz');
+        });
+
+
+
+
     </script>
+   
     <script>
         // ---------------------- hide control and elements ------------------------
         $(document).ready(function () {
-            bindEdit();
+            //TODO: alistair
+            //bindEdit();
         });
         $(document).ajaxComplete(function (event, xhr, settings) {
-            bindEdit();
+            //TODO: alistair
+            //bindEdit();
+
+            //bindEdit();
         });
 
         function bindEdit() {
 
+
+            alert('.bindEdit was called');
 
             $(".cust_name").hide();  // hide all inputs for customer name edit section
             $(".savecustomers").hide();  // the save button
@@ -698,74 +1023,11 @@
     <script>
         // ----------------------add and delete layout ------------------------
         $(document).ready(function () {
-
-          //  bindDatePicker($('.datepicker5'));
-
-            //-------------- start create layout ------------------------------
-
-            var dy = '<tr class="record" id="row_0" style="background-color:#dee2e6"> <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">';
-            dy = dy + '<a href="#" id="toogle_0" class="dplay" style="margin-top:25px;display:none"><i id="drop_0" class="fas fa-play"></i></a>';
-            dy = dy + '<a href="#" id="d_0" style="display:none" class="down_arrow"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>';
-            dy = dy + '</td > <td style="border: 1px solid #dee2e6;"> <span id="custtask_0" class="task_input2">Click to select</span> <input type="hidden" id="custtask_01" /> <span id="selcust_0" class="sel_cust" style="display: none;"> <select class="form-control savetask2" id="selectcust_0"><option value="0">Select Customer</option> @if (ViewData["CustomerList"] != null) { foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>) { <option value="@item1.id">@item1.code</option> } } </select> </span> </td>';
-            dy = dy + '<td><span id="taskpr_0" class="task_input2">PR</span> <span id="selpr_0" class="sel_pr" style="display: none;"> <select class="form-control savetask4" id="selectpr_0" onchange="prchange(this.id)"> <option value="0">PR</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> <option value="6">6</option> <option value="7">7</option> <option value="8">8</option> <option value="9">9</option> </select> </span> </td>';
-            dy = dy + '<td> <span id="taskproj_0" class="task_input2">Click to select </span><span id="selproj_0" class="sel_cust" style="display: none;"> <select class="form-control savetask4" id="selectproj_0"><option value="0">Select Project</option> @if (ViewData["ProjectList"] != null) { foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>) { <option value="@item1.id">@item1.code</option> } } </select> </span></td>';
-            dy = dy + '<td> <span id="descriptiontask1_0" class="task_input2">Click to edit</span>';
-            dy = dy + '<span id="seldesc_0" class="sel_cust" style="display: none;"> <textarea id="descriptiontask_0" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="description" name="description">No data</textarea></span> </td >';
-            dy = dy + '<td> <span id="taskdev_0" class="task_input2">Select</span> <span id="seldev_0" class="sel_pr" style="display: none;"> <select class="form-control savetask4" id="selectdev_0"> <option value="0">Select</option> <option value="Dev">Dev</option> <option value="Rev">Rev</option> </select> </span></td>';
-            dy = dy + '<td> <span id="taskresc_0" class="task_input2">Select Resouce </span> <input type="hidden" id="taskresc_01" /> <span id="selresc_0" class="sel_resc" style="display: none;"> <select class="form-control savetask4" id="selectresc_0"><option value="0">Select Resource</option> @if (ViewData["StaffList"] != null) { foreach (var item2 in ViewData["StaffList"] as IList<Staff>) { <option value="@item2.id">@item2.alias</option> } } </select> </span> </td>';
-            dy = dy + '<td><i class="fas fa-circle" color="#5fac11" aria-hidden="true"></i></td> <td> <span id="taskstat_0" class="task_input2">Please select </span> <span id="selstat_0" class="sel_stat" style="display: none;"> <select class="form-control savetask4" id="selectstat_0"> <option value="Please select">Please select</option> <option value="Opened">Opened</option> <option value="In Progress">In Progress</option> <option value="Ready to close">Ready to close</option> <option value="Issues">Issues</option> <option value="Monitor">Monitor</option> <option value="In Queue">In Queue</option> <option value="Closed">Closed</option> </select> </span> </td> <td> <span id="taskstart_0" class="task_input2">Select date </span> <span id="selstart_0" class="sel_stat" style="display: none;"> <input class="datepicker5" id="starttask_0" type="text" /> </span> </td> <td> </td>';
-            dy = dy + '<td><span id="taskest_0" class="task_input2">0.00</span> <span id="selest_0" class="sel_cust" style="display: none;"> <input id="esttask_0" class="form-control task_input" type="text" value="0.00" /></span> </td> <td> </td> </tr > ';
-            dy = dy + '<tr style="background-color:#dee2e6" class="notShow hideall" id="secondrow_0"><td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;"><a href="#" id="remove_0" class="remove_field2" style="position:relative;top: 135px;"><i class="fas fa-minus-circle"></i></a></td>';
-            dy=  dy + '<td colspan = "12" > <div class="row3"> <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Latest Status:<br /> This is a dummy text statement </div> <div style="float:right"> 04/20/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div> <div style="background-color:white;position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Note:<br /> <span id="notetask_0" class="task_input2">Click to edit</span> <span id="selnote_0" class="sel_cust" style="display: none;"> <textarea id="notetask2_0" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="description" name="description">No data</textarea></span> </div> <div style="float:right"> </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div> <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Discussion:<br /> </div> <div style="float:right"> 04/20/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> <button type="button" class="btn btn-primary w-100">Audit</button> </div> </div> </td > </tr > ';
-
-                //--------------- start to dynamic layout ------
-
             $('.add_fields3').on('click', function (e) {
-                // Warning Duplicate IDs
-
-                if ($('#row_0').length)         // use this if you are using id to check
-                {
-                    alert("The newly added row is not yet save. Please select customers to save it.")
-                }
-                else {
-                    bugsolve()
-                    $('#taskmantable tbody').prepend(dy);
-                    $('.hideall').hide();
-                    $('.down_arrow').hide();
-                    $('#d_0').show();
-                    $('#secondrow_0').show();
-
-                    $('[id^=drop_]').each(function () {
-                        $(this).removeClass('fa-minus-circle').addClass('fa-play');
-                    });
-
-
-                    $('[id^=toogle_]').each(function () {
-                     //   $(this).removeClass('remove_field2').addClass('dplay');
-                        $(this).show();
-                    });
-
-                    $('[id^=remove_]').each(function () {
-                        $(this).hide();
-                    });
-
-                  
-
-                    $('#toogle_0').hide();
-                    $('#remove_0').show();
-                  
-                }              
-
+               addTask();
             });
 
-
-
-            //--------------- change the date from date picker  --- start finish --
-
-            //
-          //  $('.datepicker3').on('change', function (e) {
             $('.datepicker3').on('change', function (e) {
-                 //  console.log('changeDate event trigger');
                 var element = $(this);
                 var id_string = element.attr("id");
                 var del_id = id_string.split("_");
@@ -776,18 +1038,6 @@
                 $('#taskstart_' + del_id[1]).text(newval);
                 $('#selstart_' + del_id[1]).hide();
                 $('#taskstart_' + del_id[1]).show();
-
-                 var info = 'id=' + del_id[1] + '&pid=' + newval;
-                $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("UpdateTaskDate")",
-                        data: info,
-                        success: function () {
-                            //      location.reload(true);
-                        }
-                    });
-
-
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
@@ -798,182 +1048,8 @@
 
     </script>
     <script>
-        // all functions for editing infos and
-        $(function () {
-
-            // customer editing
-            $(".cust_dbclick").on('dblclick',function () {
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-                var info = 'id=' + del_id[1];
-
-                $("#edit_name_" + del_id[1]).show();  // now show input for the span
-                $("#name_" + del_id[1]).hide();                     // hide the span
-                $("#savename_" + del_id[1]).show();  // now show save for the span
-
-            });
-
-
-            // save functions here
-            // customer save
-            $(".savecustomers").on('click',function () {
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-              //  var info = 'id=' + del_id[1];
-
-                $("#edit_name_" + del_id[1]).hide();  // now show input for the span
-                $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
-                var info = 'id=' + del_id[1] + '&name=' + $("#edit_name_" + del_id[1]).val();
-                console.log(info);
-                 $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("UpdateCustomers")",
-                        data: info,
-                        success: function () {
-                            //      location.reload(true);
-                        }
-                    });
-
-                $("#name_" + del_id[1]).show();                     // hide the span
-                $("#savename_" + del_id[1]).hide();  // now show save for the span
-               });
-
-
-            //---- project editing
-            $(".proj_dbclick").on('dblclick',function () {
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-                var info = 'id=' + del_id[1];
-
-                $("#edit_name_" + del_id[1]).show();  // now show input for the span
-                $("#name_" + del_id[1]).hide();                     // hide the span
-                $("#savename_" + del_id[1]).show();  // now show save for the span
-
-            });
-
-
-            // save functions here
-            // customer save
-            $(".saveproj").on('click',function () {
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-              //  var info = 'id=' + del_id[1];
-
-                $("#edit_name_" + del_id[1]).hide();  // now show input for the span
-                $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
-                var info = 'id=' + del_id[1] + '&name=' + $("#edit_name_" + del_id[1]).val();
-                console.log(info);
-                 $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("UpdateProject")",
-                        data: info,
-                        success: function () {
-                            //      location.reload(true);
-                        }
-                    });
-
-                $("#name_" + del_id[1]).show();                     // hide the span
-                $("#savename_" + del_id[1]).hide();  // now show save for the span
-            });
-
-            //------------------------ all staff info editing -----------------------
-
-            $(".staff1_dbclick").on('dblclick',function () {
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-                var info = 'id=' + del_id[1];
-
-                $("#edit_fullname_" + del_id[1]).show();  // now show input for the span
-                $("#staff1_" + del_id[1]).hide();                     // hide the span
-                $("#savefullname_" + del_id[1]).show();  // now show save for the span
-
-            });
-
-
-            // save functions here
-            // customer save
-            $(".savestaff1").on('click',function () {
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-              //  var info = 'id=' + del_id[1];
-
-                $("#edit_fullname_" + del_id[1]).hide();  // now show input for the span
-                var fullname = $("#edit_name_" + del_id[1]).val();
-                var alias = $("#edit_alias_" + del_id[1]).val();
-                var email = $("#edit_email_" + del_id[1]).val();
-                $("#staff1_" + del_id[1]).text(fullname);   // copy the input text to span
-                var info = 'id=' + del_id[1] + '&fullname=' + fullname + '&alias=' + alias + '&email=' + email ;
-                console.log(info);
-                 $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("UpdateStaff")",
-                        data: info,
-                        success: function () {
-                            //      location.reload(true);
-                        }
-                    });
-
-                $("#staff1_" + del_id[1]).show();                     // hide the span
-                $("#savefullname_" + del_id[1]).hide();  // now show save for the span
-            });
-
-
-
-        });
-
-
-    </script>
-    <script>
         // ---------------------- New Add task manager ------------------------
         $(document).ready(function () {
-                 $('body').on('click','.frmsubmit', function () {  //  add
-
-                var formData = new FormData();
-
-                // -- all data -----
-
-                     var cust_d = $('#custtask_01').val();
-                     var pr_d = $('#taskpr_0').text();
-                     var proj_d = $('#taskproj_01').val();
-                     var desc_d = $('#descriptiontask2_0').val();
-                     var dev_d = $('#taskdev_0').text();
-                     var resc_d = $('#taskresc_01').val();
-                     var stat_d = $('#taskstat_0').text();
-                     var start_d = $('#taskstart_0').text();
-                     var est_d = $('#taskest_0').text();
-                     var note_d = $('#notetask_0').text();
-
-            //    var staff_d = $('#staff').val();
-
-
-
-
-
-                var data_d = "";
-                  data_d =   'cust=' + cust_d + '&proj=' + proj_d +  '&resc=' + resc_d + '&description=' + desc_d;
-                     data_d = data_d + '&pr=' + pr_d + '&stat=' + stat_d + '&esthours=' + est_d;
-                     data_d = data_d + ' &dev=' + dev_d + '&startdate=' + start_d + '&note=' + note_d;
-                     console.log(data_d);
-
-                     $.ajax({
-                            type: "POST",
-                            url: "@Url.Action("AddTask")",
-                            cache: false,
-                            data: data_d,
-                            success: function () {
-                                alert("Added successfully!");
-                                location.reload();
-                                }
-                            });
-                        });
-
-            //--------------- check est hours
 
             $("est_t").on('keypress',function () {
                 var est_d = $('#est_t').val();
@@ -987,270 +1063,63 @@
         });
     </script>
     <script>
+
+
+
         //--------------- modal for add files -----------------------
-        $('#exampleModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('whatever') // Extract info from data-* attributes
+        $('#mod_images').on('show.bs.modal', function (event) {
+            //var button = $(event.relatedTarget) // Button that triggered the modal
+            //var recipient = button.data('whatever') // Extract info from data-* attributes
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('.modal-body input').val(recipient)
+            let modal = $(this);
+            modal.find('.modal-title').text('New message to ');
+            //modal.find('.modal-body input').val(recipient)
         });
 
-        $('#ssModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('whatever') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('.modal-body input').val(recipient)
-        })
 
 
 
     </script>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="mod_images" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width:90%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Files</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Images</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <input class="form-control" type="file" id="fileInput1" multiple>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" id="filesubmit" class="btn btn-primary" data-dismiss="modal">Submit</button>
-                        </div>
 
-                    </form>
+
+
+                <div class="modal-body" style="with: 100%;">
+
+                    <!--div class="img_receiver" data-taskid="0" style="background-image:  no-repeat center center fixed; background-size: cover; display: block; width: 100%; height: 300px; border: 1px solid #eee; margin-bottom: 20px;">
+                    </div-->
+                    <div class="" data-taskid="0" style="background-image:  no-repeat center center fixed; background-size: cover; display: block; width: 100%; min-height: 400px; overflow: hidden; border: 1px solid #eee; margin-bottom: 20px;">
+                        <img class="img_receiver" style="width: 100%; min-width: 400px; display: block;" />
+                    </div>
+
+
+                    <div class="img_list" style="background-image:  no-repeat center center fixed; background-size: cover; display: block; width: 100%; height: 180px; border: 0 solid #eee;">
+                    </div>
+
+
+
                 </div>
 
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="ssModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Screenshot</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
 
-                        <div class="form-group">
-                            <button type="button" id="ss" class="btn btn-primary">Paste Image</button>
-                        </div>
-                        <textarea id="pasteArea" placeholder="Paste Image Here"></textarea>
-                        <img id="pastedImage" />
-
-                    </form>
-                </div>
 
             </div>
         </div>
     </div>
 
+
+
+
     <script>
-        $(document).ready(function () {
-            $("#filesubmit").on('click', function () {
-                var x = $("#fileInput1"),
-                    y = x.clone();
-                x.attr("id", "fileOld");
-                y.insertAfter("#fileclone");
-
-                var numFiles = $('#fileInput1')[0].files.length;
-                // alert(numFiles);
-                $("#fileinsert").text(numFiles + ' file/s');
-            });
-            //----------------- paste image -------------------------
-
-         document.getElementById('pasteArea').onpaste = function (event) {
-                // use event.originalEvent.clipboard for newer chrome versions
-                var items = (event.clipboardData || event.originalEvent.clipboardData).items;
-                console.log(JSON.stringify(items)); // will give you the mime types
-                // find pasted image among pasted items
-                var blob = null;
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].type.indexOf("image") === 0) {
-                        blob = items[i].getAsFile();
-                    }
-                }
-                // load image if there is a pasted image
-                if (blob !== null) {
-                    var reader = new FileReader();
-                    reader.onload = function (event) {
-                        console.log(event.target.result); // data url!
-                        document.getElementById("pastedImage").src = event.target.result;
-                    };
-                    reader.readAsDataURL(blob);
-                }
-            }
-
-
-        });
-
-
-
-    </script>
-    <script>
-        //--- This section is for new row record for adding only
-        $('body').on('change','.savetask4', function (e) {
-
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-                console.log(id_string);
-                var control_name = del_id[0];
-            if (control_name == "selectcust") {
-
-                if (del_id[1] !== "0") {
-
-                    var newval = $("#selectcust_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectcust_" + del_id[1] + " option:selected").val();
-                    var info = 'id=' + del_id[1] + '&custid=' + custid;
-                    $('#custtask_' + del_id[1]).text(newval);
-                    var url = "@Url.Action("UpdateTaskCust")";
-                    $("#selectcust_" + del_id[1]).val("");
-                    $('#custtask_' + del_id[1]).show();
-                    console.log(del_id[0]);
-                }
-
-                }
-
-                if (control_name == "selectproj") {
-                    var newval = $("#selectproj_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectproj_" + del_id[1] + " option:selected").val();
-                    var info = 'id=' + del_id[1] + '&pid=' + custid;
-                    $('#taskproj_' + del_id[1]).text(newval);
-                    $('#taskproj_' + del_id[1] + "1").val(custid);
-                    console.log(info);
-                    $('#selproj_' + del_id[1]).hide();
-                    $('#taskproj_' + del_id[1]).show();
-                    $('#selproj_' + del_id[1]).val("");
-                    var url = "@Url.Action("UpdateTaskProj")";
-
-
-            }
-            // resource
-                  if (control_name == "selectresc") {
-                    var newval = $("#selectresc_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectresc_" + del_id[1] + " option:selected").val();
-                     var info = 'id=' + del_id[1] + '&pid=' + custid;
-                    console.log(info);
-                     $('#taskresc_' + del_id[1]).text(newval);
-                     $('#selresc_' + del_id[1]).hide();
-                     $('#taskresc_' + del_id[1]).show();
-                     $('#selectlresc_' + del_id[1]).val("");
-                    var url = "@Url.Action("UpdateTaskResc")";
-
-                }
-                //pr
-                  if (control_name == "selectpr") {
-                    var newval = $("#selectpr_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectpr_" + del_id[1] + " option:selected").val();
-                     var info = 'id=' + del_id[1] + '&pid=' + custid;
-                //     alert(info);
-                  $('#taskpr_' + del_id[1]).show();
-                      $('#taskpr_' + del_id[1]).text(newval);
-                      $('#taskpr_' + del_id[1]).text(newval);
-                    var url = "@Url.Action("UpdatePr")";
-                    $('#selpr_' + del_id[1]).hide();
-                    $('#selectpr_' + del_id[1]).val("");
-
-                }
-
-             //status
-                if (control_name == "selectstat") {
-                    var newval = $("#selectstat_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectstat_" + del_id[1] + " option:selected").val();
-
-                    var info = 'id=' + del_id[1] + '&pid=' + custid;
-                    $('#taskstat_' + del_id[1]).text(newval);
-                    $('#taskstat_' + del_id[1]).show();
-                    $('#selstat_' + del_id[1]).hide();
-                      var url = "@Url.Action("UpdateTaskStat")";
-                }
-
-                //--> type dev category --
-
-                 if (control_name == "selectdev") {
-                    var newval = $("#selectdev_" + del_id[1] + " option:selected").text();
-                    var custid = $("#selectdev_" + del_id[1] + " option:selected").val();
-                      $('#taskdev_' + del_id[1]).text(newval);
-                      $('#taskdev_' + del_id[1]).show();
-                      $('#seldev_' + del_id[1]).hide();
-                      var info = 'id=' + del_id[1] + '&name=' + custid;
-                      var url = "@Url.Action("UpdateTaskDev")";
-
-                }
-
-            $.ajax({
-                type: "GET",
-                url: url,
-                data: info,
-                success: function () {
-                    //      location.reload(true);
-                }
-            });
-
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-
-
-        });
-        //--------------------------------------------------------
-        $('body').on('click','.savetask5', function (e) {
-
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-                console.log(id_string);
-                    var control_name = del_id[0];
-
-            if (control_name == "taskdesc") {
-
-                var custid = $("#descriptiontask2_" + del_id[1]).val();
-                console.log(custid);
-
-                custid = custid.replace(/<br\s*\/?>/mg, "\n");
-                     $("#descriptiontask_" + del_id[1]).html(custid);
-
-                     $('#seldesc_' + del_id[1]).hide();
-
-                }
-                 if (control_name == "taskest") {
-                    var custid = $("#esttask_" + del_id[1]).val();
-                     $("#taskest_" + del_id[1]).html(custid);
-                    var info = 'id=' + del_id[1] + '&pid=' + custid;
-                     $('#selest_' + del_id[1]).hide();
-                 }
-
-            if (control_name == "tasknote") {
-                var custid = $("#notetask2_" + del_id[1]).val();
-                console.log(custid);
-                custid = custid.replace(/<br\s*\/?>/mg, "\n");
-                $("#notetask_" + del_id[1]).html(custid);
-                $('#selnote_' + del_id[1]).hide();
-            }
-
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-        });
-
-
         function bindDatePicker(element) {
             $(element).datepicker();
         }
@@ -1428,75 +1297,6 @@
 
         });
        
-
-     //   $(".task_input").on('blur', function (e) {
-        $("body").on('blur', '.task_input', function (e) {
-                var element = $(this);
-                var id_string = element.attr("id");
-                var del_id = id_string.split("_");
-
-             var control_name = del_id[0];
-            console.log(id_string);
-
-      
-             if (control_name == "descriptiontask") {
-
-                    var custid = $("#descriptiontask_" + del_id[1]).val();
-                    custid = custid.replace(/<br\s*\/?>/mg, "\n");
-                     $("#descriptiontask1_" + del_id[1]).html(custid);
-                     $('#seldesc_' + del_id[1]).hide();
-                     $("#descriptiontask1_" + del_id[1]).show();
-
-                     var info = 'id=' + del_id[1] + '&descr=' + custid;
-                     console.log(info);
-                    var url = "@Url.Action("UpdateTaskDesc")";
-
-                }
-            if (control_name == "esttask") {
-                var val2 = $("#esttask_" + del_id[1]).val();
-              //  var custid = $("#esttask_" + del_id[1]).val(parseFloat($(this).val()).toFixed(2));
-               
-                $("#taskest_" + del_id[1]).html((parseFloat(val2).toFixed(2)));  //parseFloat($(this).val(custid)).toFixed(2)
-                    var info = 'id=' + del_id[1] + '&pid=' + val2;
-                    var url = "@Url.Action("UpdateTaskEst")";
-                     $('#selest_' + del_id[1]).hide();
-                $("#taskest_" + del_id[1]).show();
-             //   $("#esttask_" + del_id[1]).show();
-
-            }
-
-             if (control_name == "notetask2") {
-
-                 var custid = $("#notetask2_" + del_id[1]).val();
-                    custid = custid.replace(/<br\s*\/?>/mg, "\n");
-                     $("#notetask_" + del_id[1]).html(custid);
-                     $('#selnote_' + del_id[1]).hide();
-                 $("#notetask_" + del_id[1]).show();
-
-                     var info = 'id=' + del_id[1] + '&name=' + custid;
-                     console.log(info);
-                    var url = "@Url.Action("UpdateTaskNote")";
-
-                }
-
-
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    data: info,
-                    success: function () {
-                        //      location.reload(true);
-                    }
-                });
-
-
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-
-
-            });
-
         $(function () {
             $(".datepicker99").datepicker();
         });
@@ -1550,11 +1350,7 @@
             var del_id = id_string.split("_");
             console.log(id_string);
             var control_name = del_id[0];
-
             var custid = $(this).val();
-
-          //  alert(custid);
-
                      $("#taskstart_" + del_id[1]).html(custid);
                      $('#selstart' + del_id[1]).hide();
                       $("#taskstart_" + del_id[1]).show();
@@ -1563,6 +1359,7 @@
             console.log(info);
          //   $(this).removeClass('datepicker99');
 
+            /*
             var url = "@Url.Action("UpdateTaskDate")";
 
 
@@ -1574,9 +1371,12 @@
                     //      location.reload(true);
                 }
             });
+            */
 
 
         });
+
+        //TODO: ALISTAIR
         $("body").on('click', '.down_arrow', function (e) {
             var element = $(this);
             var id_string = element.attr("id");
@@ -1671,6 +1471,302 @@
         }
 
     </script>
+
+
+
+    <script>
+
+        $(document).ready(function(){
+
+                var data_d = 'page=1&column=customer&value=ITG&sort=desc';
+                 $.ajax({
+                            type: "GET",
+                            url: "@Url.Action("GetPlannerDataBy")",
+                            cache: false,
+                            data: data_d,
+                            dataType: 'application/json',
+                            complete: function (res) {
+                                    //alert(res.responseText);
+                                    
+                                }
+                            });
+        });
+
+
+
+    </script>
+
+
+    
+
+
+    <script>
+
+        $('body').on('click', '.btn_imageremove', function(){
+            let id = $(this).data('imageid');
+
+            $(this).parent().parent(".img_container").remove();
+
+            let data = "id=" + id;
+            let url = "@Url.Action("RemoveTaskImage")";
+            let type = 'POST';
+
+            $.ajax({
+                            type: type,
+                            url: url,
+                            data: data,
+                            success: function (data) {
+                            }
+                    });
+        });
+
+
+
+        $('body').on('click', '.img-thumbnail', function(){
+
+             console.log('aaaaaaaaa');
+            let base64 = $(this).attr("src");
+            console.log(base64)
+            $(".img_receiver").attr("src", base64);
+
+        });
+
+        $('body').on('click', '.btn_images', function(){
+             let taskid = $(this).data('taskid');
+             console.log("TASK ID" + taskid);
+             $(".img_receiver").data("taskid", taskid);
+
+             function loadTaskImages(taskid){
+                    let data = "id=" + taskid;
+                    let url = "@Url.Action("FetchTaskImages")";
+                    let type = 'POST';
+
+                    $.ajax({
+                            type: type,
+                            url: url,
+                            data: data,
+                            success: function (data) {
+                                console.log(data);
+                                console.log(data.length)
+                                console.log(data[0].imagebase64);
+                                console.dir(data[0]);
+
+                                let imgx = '';
+                                $(".img_list").html("");
+                                data.forEach(function(d){
+
+                                    imgx = '';
+                                    imgx += '<div class="img_container" style="display: block; float: left; width: 120px;">';
+                                    imgx += '<div style="float; right; position: absolute; display: inline-block; z-index: 9999;"><button class="btn_imageremove btn btn-danger btn-sm" data-imageid="' + d.id + '">x</button></div>';
+                                    imgx += '<img src="/Images/TaskImages/TaskImage-' + d.id + '.png" alt="" class="img-thumbnail" style="display: block; width: 120px; height: 120px;">';
+                                    
+                                    imgx += '</div>';
+
+                                    $(".img_list").prepend(imgx);
+
+                                });
+                            }
+                    });
+
+             }
+
+             loadTaskImages(taskid);
+             $('#mod_images').modal('show');
+             $(".img_receiver").attr("src", "");
+             $(".img_list").html("");
+
+
+
+        });
+
+        
+
+
+        // Created by STRd6
+        // MIT License
+        // jquery.paste_image_reader.js
+        (function($) {
+        var defaults;
+        $.event.fix = (function(originalFix) {
+            return function(event) {
+            event = originalFix.apply(this, arguments);
+            if (event.type.indexOf('copy') === 0 || event.type.indexOf('paste') === 0) {
+                event.clipboardData = event.originalEvent.clipboardData;
+            }
+            return event;
+            };
+        })($.event.fix);
+        defaults = {
+            callback: $.noop,
+            matchType: /image.*/
+        };
+        return $.fn.pasteImageReader = function(options) {
+            if (typeof options === "function") {
+            options = {
+                callback: options
+            };
+            }
+            options = $.extend({}, defaults, options);
+            return this.each(function() {
+            var $this, element;
+            element = this;
+            $this = $(this);
+            return $this.bind('paste', function(event) {
+                var clipboardData, found;
+                found = false;
+                clipboardData = event.clipboardData;
+                return Array.prototype.forEach.call(clipboardData.types, function(type, i) {
+                var file, reader;
+                if (found) {
+                    return;
+                }
+                if (type.match(options.matchType) || clipboardData.items[i].type.match(options.matchType)) {
+                    file = clipboardData.items[i].getAsFile();
+                    reader = new FileReader();
+                    reader.onload = function(evt) {
+                    return options.callback.call(element, {
+                        dataURL: evt.target.result,
+                        event: evt,
+                        file: file,
+                        name: file.name
+                    });
+                    };
+                    reader.readAsDataURL(file);
+                    return found = true;
+                }
+                });
+            });
+            });
+        };
+        })(jQuery);
+
+
+
+
+
+$("html").pasteImageReader(function(results) {
+    let dataURL = ""
+    let filename = "";
+	filename = results.filename, dataURL = results.dataURL;
+
+	//$data.text(dataURL);
+	//$size.val(results.file.size);
+	//$type.val(results.file.type);
+	var img = document.createElement("img");
+	img.src = dataURL;
+	var w = img.width;
+	var h = img.height;
+	//$width.val(w);
+	//$height.val(h);
+    console.log(dataURL);
+    //https://codepen.io/netsi1964/pen/IoJbg
+    //$(".img_receiver").css("background-image", "url(" + results.dataURL + ")");
+    $(".img_receiver").attr('src', results.dataURL);
+
+/*
+    let imgx = '';
+        imgx += '<div>';
+        imgx += '<img src="' + results.dataURL + '" alt="" class="img-thumbnail" style="width: 120px; height: 120px;">';
+        imgx += '<button>Remove</button>';
+        imgx += '</div>';
+*/
+
+
+        console.log(results.dataURL);
+        
+
+     
+     let taskid = $(".img_receiver").data("taskid");
+     let data = "id=" + taskid + "&image=" + encodeURIComponent(results.dataURL);
+     let url = "@Url.Action("AddTaskImage")";
+     let type = 'POST';
+
+     $.ajax({
+            type: type,
+            url: url,
+            data: data,
+            complete: function (res) {
+                //alert(res);
+                let imgx = '';
+                //imgx += '<div class="img_container" style="display: block; float: left;">';
+                //imgx += '<img src="' + results.dataURL + '" alt="" class="img-thumbnail" style="clear: both; display: block; width: 120px; min-height: 120px;">';
+                //imgx += '<button class="btn_imageremove" data-imageid="' + res.responseText + '"" style="display: block; clear: both; float; left;" >Remove</button>';
+                imgx += '<div class="img_container" style="display: block; float: left; width: 120px;">';
+                imgx += '   <div style="float; right; position: absolute; display: inline-block; z-index: 9999;"><button class="btn_imageremove btn btn-danger btn-sm" data-imageid="' + res.responseText + '">x</button></div>';
+                imgx +=     '<img src="' + results.dataURL + '" alt="" class="img-thumbnail" style="display: block; width: 120px; height: 120px;">';
+                imgx += '</div>';
+
+                $(".img_list").prepend(imgx);
+
+            }
+     });
+
+    //ajax call insert
+    // create thumbnail
+    //prepend
+
+    /*
+	$(".img_receiver")
+		.css({
+			backgroundImage: "url(" + dataURL + ")"
+		})
+		.data({ width: w, height: h });
+        */
+
+});
+
+
+/*
+
+    let	$data = $(".data");
+    let	$size = $(".size");
+    let	$type = $(".type");
+    let	$width = $("#width");
+    let	$height = $("#height");
+
+	$("body").on("click", ".img_receiver", function() {
+		var $this = $(this);
+        //alert('click');
+		var bi = $this.css("background-image");
+		if (bi != "none") {
+			$data.text(bi.substr(4, bi.length - 6));
+		}
+
+		$(".img_receiver").removeClass("active");
+		$this.addClass("active");
+
+		$this.toggleClass("contain");
+
+		$width.val($this.data("width"));
+		$height.val($this.data("height"));
+		if ($this.hasClass("contain")) {
+			$this.css({
+				width: $this.data("width"),
+				height: $this.data("height"),
+				"z-index": "10"
+			});
+		} else {
+			$this.css({ width: "", height: "", "z-index": "" });
+		}
+	});
+*/
+
+
+
+function copy(text) {
+	var t = document.getElementById("base64");
+	t.select();
+	try {
+		var successful = document.execCommand("copy");
+		var msg = successful ? "successfully" : "unsuccessfully";
+		alert("Base64 data coppied " + msg + " to clipboard");
+	} catch (err) {
+		alert("Unable to copy text");
+	}
+}
+    </script>
+
+
 
 </body>
 </html >
