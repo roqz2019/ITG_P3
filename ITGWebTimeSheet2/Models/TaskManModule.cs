@@ -41,6 +41,6 @@ namespace ITGWebTimeSheet2.Models
 
         public string notes { get; set; }  //timesheet notes
 
-
+        public string project_status { get; set; }
     }
 }
