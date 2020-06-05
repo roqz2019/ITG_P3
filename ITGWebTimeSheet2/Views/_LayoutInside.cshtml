@@ -267,7 +267,7 @@ right: -11px;
             @if (ViewData["StaffList"] != null) { foreach (var item2 in ViewData["StaffList"] as IList
             <Staff>
             ) { 
-            <option value="@item2.id">@item2.alias</option>
+            <option value="@item2.id">@item2.fullname</option>
             } } 
          </select>
       </span>
