@@ -2,7 +2,7 @@
 @model IEnumerable<ITGWebTimeSheet2.Models.TaskManModule>
 @{
     ViewBag.Title = "Planner";
-    Layout = "~/Views/_LayoutInside.cshtml";
+    Layout = "~/Views/_LayoutPlanner.cshtml";
 }
 
 <div class="app-content">
@@ -208,7 +208,7 @@
                                                     {
                                                         foreach (var staff in ViewData["StaffList"] as IList<Staff>)
                                                         {
-                                                            <option value="@staff.id">@staff.alias</option>
+                                                            <option value="@staff.id">@staff.fullname</option>
                                                         }
                                                     }
                                                 </select>
@@ -320,8 +320,8 @@
 
 
 
-                    <td class="td-main xxxxxxxxxxxxxxxxxxxxxxxx" tabindex="@(counter++)">
-                        <div id="taskpr_@Html.DisplayFor(modelItem => item.id)" class="td-label"  style="width: 90%; border: 0; margin: 0; padding; 0;">@Html.DisplayFor(modelItem => item.pr) </div>
+                    <td class="td-main" tabindex="@(counter++)">
+                        <div id="taskpr_@Html.DisplayFor(modelItem => item.id)" class="td-label"  style="width: 90%; border: 0; margin: 0; padding: 0;">@Html.DisplayFor(modelItem => item.pr) </div>
                         <div id="selpr_@Html.DisplayFor(modelItem => item.id)" class="sel_pr td-control" data-type="ddl" data-field="priority" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
                             <select class="form-control td-ddl" data-taskid="@Html.DisplayFor(modelItem => item.id)" id="selectpr_@Html.DisplayFor(modelItem => item.id)">
                                 <option value="0">Select</option>
@@ -421,7 +421,7 @@
                                 {
                                     foreach (var item2 in ViewData["StaffList"] as IList<Staff>)
                                     {
-                                        <option value="@item2.id">@item2.alias</option>
+                                        <option value="@item2.id">@item2.fullname</option>
                                     }
                                 }
                             </select>
@@ -571,7 +571,7 @@
                                             </div>
 
                                             <div class="w-10">
-                                                <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button>
+                                                <button type="button" class="btn btn-primary w-100 btn_history" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="margin-bottom:5px;">History / Notes</button>
                                                 <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button>
                                                 <button type="button" class="btn btn-primary w-100 btn_images" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="margin-bottom:5px;">Images</button>
                                                 <button type="button" class="btn btn-primary w-100">Audit</button>
