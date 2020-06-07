@@ -562,6 +562,51 @@ namespace ITGWebTimeSheet2.Controllers
             }
             return Content("{Result : { Message : 'Success' }}", "application/json");
         }
+
+        //Planner History
+        [HttpPost]
+        public ContentResult AddTaskHistory(string id, string history)
+        {
+            int historyId = 0;
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "INSERT INTO  [dbo].[planner_history] (planner_id, history)  VALUES ('" + id + "', '" + history + "');  SELECT SCOPE_IDENTITY();";
+                SqlCommand cmd = new SqlCommand(query, con);
+                historyId = Convert.ToInt32(cmd.ExecuteScalar());
+                con.Close();
+            }
+            return Content(historyId.ToString());
+        }
+
+        [HttpPost]
+        public JsonResult FetchTaskHistory(string id)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                string query = "SELECT * FROM  [dbo].[planner_history] WHERE planner_id = '" + id + "'";
+
+                List<TaskHistory> listTaskHistory = new List<TaskHistory>();
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    TaskHistory taskHistory = new TaskHistory();
+                    taskHistory.id = Convert.ToInt16(dataReader["id"]);
+                    taskHistory.planner_id = Convert.ToInt16(dataReader["planner_id"]);
+                    taskHistory.history = dataReader["history"].ToString();
+                    taskHistory.datecreated = Convert.ToDateTime(dataReader["datecreated"]);
+                    listTaskHistory.Add(taskHistory);
+                }
+                con.Close();
+                return Json(listTaskHistory, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
 
 
