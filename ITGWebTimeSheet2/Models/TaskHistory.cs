@@ -12,6 +12,6 @@ namespace ITGWebTimeSheet2.Models
         public int planner_id { get; set; }
 
         public string history { get; set; }
-        public DateTime datecreated { get; set; }
+        public string datecreated { get; set; }
     }
 }
