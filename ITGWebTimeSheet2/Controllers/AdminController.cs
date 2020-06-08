@@ -581,6 +581,22 @@ namespace ITGWebTimeSheet2.Controllers
         }
 
         [HttpPost]
+        public ContentResult RemoveTaskHistory(string id)
+        {
+            int historyId = 0;
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "DELETE FROM  [dbo].[planner_history] WHERE id = " + id;
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return Content(historyId.ToString());
+        }
+
+        [HttpPost]
         public JsonResult FetchTaskHistory(string id)
         {
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
@@ -588,7 +604,7 @@ namespace ITGWebTimeSheet2.Controllers
             {
                 con.Open();
 
-                string query = "SELECT * FROM  [dbo].[planner_history] WHERE planner_id = '" + id + "'";
+                string query = "SELECT * FROM  [dbo].[planner_history] WHERE planner_id = '" + id + "' ORDER BY id DESC";
 
                 List<TaskHistory> listTaskHistory = new List<TaskHistory>();
 
@@ -600,7 +616,8 @@ namespace ITGWebTimeSheet2.Controllers
                     taskHistory.id = Convert.ToInt16(dataReader["id"]);
                     taskHistory.planner_id = Convert.ToInt16(dataReader["planner_id"]);
                     taskHistory.history = dataReader["history"].ToString();
-                    taskHistory.datecreated = Convert.ToDateTime(dataReader["datecreated"]);
+                    taskHistory.datecreated = Convert.ToDateTime(dataReader["datecreated"]).ToString("yyyy-MM-dd");
+                    ;
                     listTaskHistory.Add(taskHistory);
                 }
                 con.Close();
