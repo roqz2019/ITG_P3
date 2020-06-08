@@ -148,7 +148,7 @@
 
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="priority">
                                         <div class="tc-data tc-priority" style="clear: both; float:left; width: 100%; visibility: hidden;">
-                                            <span id="alistair_222">
+                                            <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="pr" id="selectpr_2020">
                                                     <option value="">Select</option> 
                                                     <option value="None">None</option> 
@@ -167,7 +167,7 @@
                                     </th>
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="project">
                                         <div class="tc-data tc-project" style="clear: both; float:left; width: 100%; visibility: hidden;">
-                                            <span id="alistair_222">
+                                            <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="projectid">
                                                     @if (ViewData["ProjectList"] != null)
                                                     {
@@ -188,7 +188,7 @@
 
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="type">
                                         <div class="tc-data tc-type" style="clear: both; float:left; width: 100%; visibility: hidden;">
-                                            <span id="alistair_222">
+                                            <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="dev">
                                                     <option value="0">Select</option>
                                                     <option value="Dev">Dev</option>
@@ -201,7 +201,7 @@
 
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="resource">
                                         <div class="tc-data tc-resource" style="clear: both; float:left; width: 100%; visibility: hidden;">
-                                            <span id="alistair_222">
+                                            <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="resource">
                                                     <option value="0">Select</option>
                                                     @if (ViewData["StaffList"] != null)
@@ -221,7 +221,7 @@
                                     </th>
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="status">
                                          <div class="tc-data tc-status" style="clear: both; float:left; width: 100%; visibility: hidden;">
-                                            <span id="alistair_222">
+                                            <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="stat">
                                                     <option value="Please select">Please select</option>
                                                     <option value="All">All</option>
@@ -396,11 +396,11 @@
 
                             @if (ViewData["StaffList"] != null)
                             {
-                                foreach (var item6 in ViewData["StaffList"] as IList<Staff>)
+                                foreach (var staff in ViewData["StaffList"] as IList<Staff>)
                                 {
-                                    if (item.resource == item6.id)
+                                    if (item.resource == staff.id)
                                     {
-                                        @:@item6.alias
+                                        @:@staff.fullname
                                         break;
                                     }
                                     if (Convert.ToString(item.resource) == "0")
