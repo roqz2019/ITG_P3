@@ -459,8 +459,9 @@ right: -11px;
     <script>
         $('body').on('click', '.td-main', function(){
 
-            $('.tc-main').removeClass('tc-active');
-            $('.tc-data').css('visibility', 'hidden');
+            //NOTE: DEACTIVATED HIDING OF FILTER AS REQUESTED BY SIR GREG
+            //$('.tc-main').removeClass('tc-active');
+            //$('.tc-data').css('visibility', 'hidden');
 
             try{
                 if( $(this).hasClass('td-active') )
@@ -761,7 +762,15 @@ right: -11px;
 
         $('body').on('change', '.td-ddl-filter', function(){
             let field = $(this).data('field');
-            let url = '@Url.Action("Planner")' + '/?page=1&filter=' + field  + '&value=' + $(this).val();
+
+            let filter = [];
+            $('.td-ddl-filter').each(function(i, ddl){
+                filter.push( $(ddl).data('field') + "=" + $(ddl).val() );
+            });
+            let filter2 = filter.join("&");
+
+
+            let url = '@Url.Action("Planner")' + '/?page=1&' + filter2;
             window.location.href = url;
         });
 
@@ -1321,10 +1330,20 @@ right: -11px;
                                     html += '</button>';
                                     html += '</div>';
                                     html += '<br />';
-                                    html += '<div style="clear: both; display: block; width: 100%; position: relative; border: 1px solid #eee; margin-top: 5px; margin-bottom: 5px;">';
-                                    html += '<pre style="padding: 5px 5px 5px 5px;"><xmp style="font-size: 12px; overflow: scroll; white-space:pre-wrap; word-wrap:break-word;">';
+                                    html += '<div class="td-main-xxx" style="clear: both; display: block; width: 100%; position: relative; border: 1px solid #eee; margin-top: 5px; margin-bottom: 5px;">';
+                                    html += '   <div class="td-label">';
+                                    html += '       <pre style="padding: 5px 5px 5px 5px;">';
+                                    html += '           <xmp style="font-size: 12px; overflow: scroll; white-space:pre-wrap; word-wrap:break-word;">';
                                     html += historyItem.history;
-                                    html += '</xmp></pre>';
+                                    html += '           </xmp>';
+                                    html += '       </pre>';
+                                    html += '   </div>';
+
+                                    html += '   <div class="td-control" data-type="txt" data-field="history" data-historyid="' + historyItem.id + '" style="display: none; width: 100%;">';
+                                    html += '       <textarea class="td-txt txt-history txt_history" style="width: 100%; min-height: 400px; font-size: 12px; overflow: scroll; white-space:pre-wrap; word-wrap:break-word;">';
+                                    html += historyItem.history;
+                                    html += '       </textarea>';
+                                    html += '   </div>';
                                     html += '</div>';
 
                                     $(".his_items").append(html);
