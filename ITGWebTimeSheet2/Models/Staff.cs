@@ -22,6 +22,10 @@ namespace ITGWebTimeSheet2.Models
         [Required(ErrorMessage = "Please Enter fullname")]
         public string fullname { get; set; }
 
+        public string firstname { get; set; }
+
+        public string lastname { get; set; }
+
 
         public string id { get; set; }
 
