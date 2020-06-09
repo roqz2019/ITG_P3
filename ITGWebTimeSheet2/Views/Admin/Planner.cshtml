@@ -39,22 +39,22 @@
 
                                     <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
                                     </th>
-                                    <th style="border: 1px solid #dee2e6; border-bottom: 0;" class="tc-main" data-field="customer">
+                                    <th style="border: 1px solid #dee2e6; border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="customer">
                                         <div style="float:left;">
                                             CUST
                                         </div>
                                     </th>
-                                    <th style="border-bottom: 0;" class="tc-main" data-field="priority">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="priority">
                                         <div style="float:left;">
                                             PR
                                         </div>
                                     </th>
-                                    <th style="border-bottom: 0;" class="tc-main" data-field="project">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="project">
                                         <div style="float:left;">
                                             PROJ
                                         </div>
                                     </th>
-                                    <th style="border-bottom: 0;" class="tc-main" data-field="task">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="task">
                                         <div style="float:left;">
                                             Task
                                         </div>
@@ -73,7 +73,7 @@
                                         </div>
                                     </th>
 
-                                    <th style="border-bottom: 0;" class="tc-main" data-field="rating">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="rating">
                                         <div style="float:left;">
                                             Rating
                                         </div>
@@ -82,25 +82,25 @@
                                         </div>
                                     </th>
 
-                                    <th style="border-bottom: 0;" class="tc-main tc-status" data-field="status">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE tc-status" data-field="status">
                                         <div style="float:left;">
                                             Status
                                         </div>
                                     </th>
 
-                                    <th style="border-bottom: 0;" class="tc-main" data-field="start">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="start">
                                         <div style="float:left;">
                                             Start
                                         </div>
                                     </th>
 
-                                    <th style="border-bottom: 0;" class="tc-main" data-field="finish">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="finish">
                                         <div style="float:left;">
                                             Finish
                                         </div>
                                     </th>
 
-                                    <th style="border-bottom: 0;" class="tc-main" data-field="esthours">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="esthours">
                                         <div style="float:left;">
                                             Est
                                         </div>
@@ -108,7 +108,7 @@
 
 
 
-                                    <th style="border-bottom: 0;" class="tc-main" data-field="acthours">
+                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="acthours">
                                         <div style="float:left;">
                                             Act
                                         </div>
@@ -129,15 +129,23 @@
                                     </th>
 
 
-                                    <th style="border: none;" class="tc-main" data-field="customer">
-                                        <div class="tc-data tc-customer" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border: none;" class="tc-mainDEACTIVATE" data-field="customer">
+                                        <div class="tc-data tc-customer" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span id="">
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="customerid">
+                                                    <option value="">Select</option> 
                                                     @if (ViewData["CustomerList"] != null)
                                                     {
                                                         foreach (var customer in ViewData["CustomerList"] as IList<CustomersModule>)
                                                         {
-                                                            <option value="@customer.id">@customer.code</option>
+                                                            if(this.Request["customerid"] == customer.id)
+                                                            {
+                                                                <option value="@customer.id" selected="selected">@customer.code</option>                                                                
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@customer.id">@customer.code</option>                                                                
+                                                            }
                                                         }
                                                     }
                                                 </select>
@@ -146,118 +154,135 @@
                                     </th>
 
 
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="priority">
-                                        <div class="tc-data tc-priority" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="priority">
+                                        <div class="tc-data tc-priority" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="pr" id="selectpr_2020">
                                                     <option value="">Select</option> 
                                                     <option value="None">None</option> 
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
+                                                    <option value="1" @( this.Request["pr"] == "1" ? "selected=\"selected\"" : "")>1</option>
+                                                    <option value="2" @( this.Request["pr"] == "2" ? "selected=\"selected\"" : "")>2</option>
+                                                    <option value="3" @( this.Request["pr"] == "3" ? "selected=\"selected\"" : "")>3</option>
+                                                    <option value="4" @( this.Request["pr"] == "4" ? "selected=\"selected\"" : "")>4</option>
+                                                    <option value="5" @( this.Request["pr"] == "5" ? "selected=\"selected\"" : "")>5</option>
+                                                    <option value="6" @( this.Request["pr"] == "6" ? "selected=\"selected\"" : "")>6</option>
+                                                    <option value="7" @( this.Request["pr"] == "7" ? "selected=\"selected\"" : "")>7</option>
+                                                    <option value="8" @( this.Request["pr"] == "8" ? "selected=\"selected\"" : "")>8</option>
+                                                    <option value="9" @( this.Request["pr"] == "9" ? "selected=\"selected\"" : "")>9</option>
                                                 </select>
                                             </span>
                                         </div>
                                     </th>
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="project">
-                                        <div class="tc-data tc-project" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="project">
+                                        <div class="tc-data tc-project" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="projectid">
+                                                    <option value="">Please Select</option>
                                                     @if (ViewData["ProjectList"] != null)
                                                     {
                                                         foreach (var project in ViewData["ProjectList"] as IList<ProjectModule>)
                                                         {
-                                                            <option value="@project.id">@project.code</option>
+                                                            if(this.Request["projectid"] == project.id)
+                                                            {
+                                                                <option value="@project.id" selected="selected">@project.code</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@project.id">@project.code</option>
+                                                            }
                                                         }
                                                     }
                                                 </select>
                                             </span>
                                         </div>
                                     </th>
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
-                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: visible;">
                                         </div>
                                     </th>
 
 
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="type">
-                                        <div class="tc-data tc-type" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="type">
+                                        <div class="tc-data tc-type" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="dev">
-                                                    <option value="0">Select</option>
-                                                    <option value="Dev">Dev</option>
-                                                    <option value="Rev">Rev</option>
+                                                    <option value="">Please Select</option>
+                                                    <option value="Dev" @( this.Request["dev"] == "Dev" ? "selected=\"selected\"" : "")>Dev</option>
+                                                    <option value="Rev" @( this.Request["dev"] == "Rev" ? "selected=\"selected\"" : "")>Rev</option>
                                                 </select>
                                             </span>
                                         </div>
                                     </th>
 
 
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="resource">
-                                        <div class="tc-data tc-resource" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="resource">
+                                        <div class="tc-data tc-resource" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="resource">
-                                                    <option value="0">Select</option>
+                                                    <option value="">Please Select</option>
                                                     @if (ViewData["StaffList"] != null)
                                                     {
                                                         foreach (var staff in ViewData["StaffList"] as IList<Staff>)
                                                         {
-                                                            <option value="@staff.id">@staff.fullname</option>
+                                                            
+                                                            if(this.Request["resource"] == staff.id)
+                                                            {
+                                                                <option value="@staff.id" selected="selected">@staff.fullname</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@staff.id">@staff.fullname</option>
+                                                            }
+
                                                         }
                                                     }
                                                 </select>
                                             </span>
                                         </div>
                                     </th>
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
-                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: visible;">
                                         </div>
                                     </th>
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="status">
-                                         <div class="tc-data tc-status" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="status">
+                                         <div class="tc-data tc-status" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="stat">
-                                                    <option value="Please select">Please select</option>
-                                                    <option value="All">All</option>
-                                                    <option value="Opened">Opened</option>
-                                                    <option value="In Progress">In Progress</option>
-                                                    <option value="Ready to close">Ready to close</option>
-                                                    <option value="Issues">Issues</option>
-                                                    <option value="Monitor">Monitor</option>
-                                                    <option value="In Queue">In Queue</option>
-                                                    <option value="Closed">Closed</option>
+                                                    <option value="">Please select</option>
+                                                    <option value="All" @( this.Request["stat"] == "All" ? "selected=\"selected\"" : "")>All</option>
+                                                    <option value="Opened" @( this.Request["stat"] == "Opened" ? "selected=\"selected\"" : "")>Opened</option>
+                                                    <option value="In Progress" @( this.Request["stat"] == "In Progress" ? "selected=\"selected\"" : "")>In Progress</option>
+                                                    <option value="Ready to close" @( this.Request["stat"] == "Ready to close" ? "selected=\"selected\"" : "")>Ready to close</option>
+                                                    <option value="Issues" @( this.Request["stat"] == "Issues" ? "selected=\"selected\"" : "")>Issues</option>
+                                                    <option value="Monitor" @( this.Request["stat"] == "Monitor" ? "selected=\"selected\"" : "")>Monitor</option>
+                                                    <option value="In Queue" @( this.Request["stat"] == "In Queue" ? "selected=\"selected\"" : "")>In Queue</option>
+                                                    <option value="Closed" @( this.Request["stat"] == "Closed" ? "selected=\"selected\"" : "")>Closed</option>
                                                 </select>
                                             </span>
                                         </div>
                                     </th>
 
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
-                                       <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE">
+                                       <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: visible;">
                                         </div>
                                     </th>
 
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE">
                                         <div class="tc-data" style="clear: both; float:left; width: 100%;">
                                         </div>
                                     </th>
 
 
 
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
-                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: visible;">
                                         </div>
                                     </th>
 
 
 
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
-                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: visible;">
                                         </div>
                                     </th>
                                 </tr>
@@ -373,9 +398,9 @@
 
                     </td>
                     <td class="td-main" tabindex="@(counter++)">
-                        <span id="descriptiontask1_@Html.DisplayFor(modelItem => item.id)" class="td-label">@Html.DisplayFor(modelItem => item.description)</span>
+                        <span style="white-space:pre-wrap; word-wrap:break-word; width: 100%;" class="td-label">@Html.DisplayFor(modelItem => item.description)</span>
 
-                        <span id="seldesc_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="txt" data-field="task" data-taskid="@Html.DisplayFor(modelItem => item.id)"  style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                        <span class="sel_cust td-control" data-type="txt" data-field="task" data-taskid="@Html.DisplayFor(modelItem => item.id)"  style="width: 90%; border: 0; margin: 0; padding; 0; display: none; white-space:pre-wrap; word-wrap:break-word;">
                             <textarea id="descriptiontask_@Html.DisplayFor(modelItem => item.id)" class="form-control task_input td-txt" rows="1" data-min-rows="1" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.description)</textarea>
                          </span>
 
@@ -606,7 +631,7 @@
                             <button type="button" class="btn btn-primary">Next</button>
                             @for (int i = 0; i < ViewBag.PageCount; i++)
                             {
-                                <a href="@Url.Action("Planner", new { filter = Request.QueryString["filter"], value = Request.QueryString["value"], page = (i + 1) })" type="button" class="btn btn-outline-info">@(i+1)</a>
+                                <a href="@Url.Action("Planner", new { customerid = Request.QueryString["customerid"], projectid = Request.QueryString["projectid"], stat = Request.QueryString["stat"],dev = Request.QueryString["dev"],resource = Request.QueryString["resource"],pr = Request.QueryString["pr"],  page = (i + 1) })" type="button" class="btn btn-outline-info">@(i+1)</a>
                             }
                         </div>
                     </div> <!-- end of table responsive  bootstrap table-->
