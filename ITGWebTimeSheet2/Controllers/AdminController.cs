@@ -22,7 +22,7 @@ namespace ITGWebTimeSheet2.Controllers
 
         #region "Alistair"
 
-        public ActionResult Planner(string filter, string value, string page)
+        public ActionResult Planner(string customerid, string projectid, string pr, string dev, string resource, string stat, string page)
         {
             List<TaskManModule> taskmanlist = new List<TaskManModule>();
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
@@ -30,6 +30,45 @@ namespace ITGWebTimeSheet2.Controllers
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
+
+                List<string> listWhere = new List<string>();
+
+
+                if (!String.IsNullOrEmpty(customerid))
+                {
+                    listWhere.Add(" customerid = '" + customerid + "' ");
+                }
+
+                if (!String.IsNullOrEmpty(projectid))
+                {
+                    listWhere.Add(" projectid = '" + projectid + "' ");
+                }
+
+                if (!String.IsNullOrEmpty(dev))
+                {
+                    listWhere.Add(" dev = '" + dev + "'");
+                }
+
+                if (!String.IsNullOrEmpty(pr))
+                {
+                    listWhere.Add(" pr = '" + pr + "'");
+                }
+
+                if (!String.IsNullOrEmpty(resource))
+                {
+                    listWhere.Add(" resource = '" + resource + "'");
+                }
+
+                if (!String.IsNullOrEmpty(stat))
+                {
+                    listWhere.Add(" stat = '" + stat + "'");
+                }
+
+                string where = (listWhere.Count > 0 ) ? " where " + String.Join(" and ", listWhere) : "";
+
+
+
+
 
 
 
@@ -42,7 +81,7 @@ namespace ITGWebTimeSheet2.Controllers
                     pageOffset = ((int.Parse(page) - 1) * pageRows);
                 }
 
-                string query1 = "SELECT COUNT(id) as pages FROM  [dbo].[taskman]";
+                string query1 = "SELECT COUNT(id) as pages FROM  [dbo].[taskman] " + where;
                 SqlCommand cmd1 = new SqlCommand(query1, con);
                 SqlDataReader dataReader1 = cmd1.ExecuteReader();
                 while (dataReader1.Read())
@@ -53,16 +92,18 @@ namespace ITGWebTimeSheet2.Controllers
                 //pageCount = pageCount / pageRows;
                 pageCount = (int)Math.Ceiling((double)pageCount / (double)pageRows);
 
-                string query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] ORDER BY  datecreated DESC OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY ";
+                
+                string query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] " + where + " ORDER BY  datecreated DESC OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY ";
 
 
-                if (!String.IsNullOrEmpty(filter) && !String.IsNullOrEmpty(value) && !String.IsNullOrEmpty(page))
+                
+                if (!String.IsNullOrEmpty(where) && !String.IsNullOrEmpty(page))
                 {
                     //pageOffset = pageRows * int.Parse(page);
 
 
 
-                    string query11 = "Select count(id) as pages from  [dbo].[taskman] where " + filter + " = '" + value + "'";
+                    string query11 = "Select count(id) as pages from  [dbo].[taskman] " + where;
                     SqlCommand cmd11 = new SqlCommand(query11, con);
                     SqlDataReader dataReader11 = cmd11.ExecuteReader();
                     while (dataReader11.Read())
@@ -72,15 +113,16 @@ namespace ITGWebTimeSheet2.Controllers
 
                     //pageCount = pageCount / pageRows;
                     pageCount = (int)Math.Ceiling((double)pageCount / (double)pageRows);
-                    query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where " + filter + " = '" + value + "' ORDER BY  datecreated," + filter + " DESC ";
+                    query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] " + where + " ORDER BY  datecreated DESC ";
                     if (pageCount > 0)
                     {
-                        query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where " + filter + " = '" + value + "' ORDER BY  datecreated," + filter + " DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY";
+                        query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] " + where + " ORDER BY  datecreated DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY";
                     }
                 }
 
 
 
+                /*
                 if (!String.IsNullOrEmpty(filter) && !String.IsNullOrEmpty(value) && filter == "stat" && value == "All")
                 {
                     query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where stat != 'Closed' ORDER BY  datecreated," + filter + " DESC OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY  ";
@@ -101,6 +143,8 @@ namespace ITGWebTimeSheet2.Controllers
                         query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where stat != 'Closed' ORDER BY  datecreated," + filter + " DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY  ";
                     }
                 }
+                */
+
 
 
                 string tempAnnounce = string.Empty;
