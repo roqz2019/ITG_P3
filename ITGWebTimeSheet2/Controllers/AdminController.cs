@@ -857,7 +857,9 @@ string tempAnnounce = string.Empty;
 
                     Staff sitems = new Staff();
                     sitems.id = Convert.ToString(dataReader["id"]);
-                    sitems.fullname = Convert.ToString(dataReader["fullname"]);
+                    sitems.fullname = Convert.ToString(dataReader["fullname"]) + " " +  Convert.ToString(dataReader["lastname"]);
+                    //sitems.firstname = Convert.ToString(dataReader["firstname"]);
+                    sitems.lastname = Convert.ToString(dataReader["lastname"]);
                     sitems.alias = Convert.ToString(dataReader["alias"]);
                     sitems.email = Convert.ToString(dataReader["email"]);
 
