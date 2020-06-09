@@ -56,7 +56,7 @@ namespace ITGWebTimeSheet2.Controllers
 
                     Staff sitems = new Staff();
                     sitems.id = Convert.ToString(dataReader2["id"]);
-                    sitems.fullname = Convert.ToString(dataReader2["fullname"]);
+                    sitems.fullname = Convert.ToString(dataReader2["fullname"]) + " " + Convert.ToString(dataReader2["lastname"]);
                     sitems.alias = Convert.ToString(dataReader2["alias"]);
                     stafflist.Add(sitems);
                 }
