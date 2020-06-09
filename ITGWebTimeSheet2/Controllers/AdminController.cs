@@ -564,7 +564,7 @@ namespace ITGWebTimeSheet2.Controllers
         }
 
         //Planner History
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ContentResult AddTaskHistory(string id, string history)
         {
             int historyId = 0;
