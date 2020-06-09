@@ -208,7 +208,7 @@
                                                     {
                                                         foreach (var staff in ViewData["StaffList"] as IList<Staff>)
                                                         {
-                                                            <option value="@staff.id">@staff.fullname</option>
+                                                            <option value="@staff.id">@(staff.firstname + " " + staff.lastname)</option>
                                                         }
                                                     }
                                                 </select>
@@ -421,7 +421,7 @@
                                 {
                                     foreach (var item2 in ViewData["StaffList"] as IList<Staff>)
                                     {
-                                        <option value="@item2.id">@item2.fullname</option>
+                                        <option value="@item2.id">@(item2.firstname + " " + item2.lastname)</option>
                                     }
                                 }
                             </select>
