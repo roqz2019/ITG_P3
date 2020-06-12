@@ -8,12 +8,13 @@
 <div class="app-content">
     <div class="app-title">
         <div>
-            <h1><a href="@Url.Action("Planner")"><i class="fa fa-tasks"></i> Planner - Add Task</a></h1>
+            <h1><i class="fa fa-tasks"></i> Planner - Add Task</h1>
 
         </div>
         <ul class="app-breadcrumb breadcrumb">
+            <li class=""><a class="btn btn-success btn-sm" href="@Url.Action("Planner")/?page=1&customerid=&pr=&projectid=&dev=&resource=&stat=">Refresh</a></li>
             <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-            <li class="breadcrumb-item"><a href="@Url.Action("Planner")">Planner</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Planner")/?page=1&customerid=&pr=&projectid=&dev=&resource=&stat=">Planner</a></li>
         </ul>
     </div>
 
@@ -54,7 +55,7 @@
                                             PROJ
                                         </div>
                                     </th>
-                                    <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="task">
+                                    <th style="border-bottom: 0; width: 250px;" class="tc-mainDEACTIVATE" data-field="task">
                                         <div style="float:left;">
                                             Task
                                         </div>
@@ -247,16 +248,15 @@
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="status">
                                          <div class="tc-data tc-status" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
-                                                <select class="form-control td-ddl td-ddl-filter" data-field="stat">
-                                                    <option value="">Please select</option>
-                                                    <option value="All" @( this.Request["stat"] == "All" ? "selected=\"selected\"" : "")>All</option>
-                                                    <option value="Opened" @( this.Request["stat"] == "Opened" ? "selected=\"selected\"" : "")>Opened</option>
-                                                    <option value="In Progress" @( this.Request["stat"] == "In Progress" ? "selected=\"selected\"" : "")>In Progress</option>
-                                                    <option value="Ready to close" @( this.Request["stat"] == "Ready to close" ? "selected=\"selected\"" : "")>Ready to close</option>
-                                                    <option value="Issues" @( this.Request["stat"] == "Issues" ? "selected=\"selected\"" : "")>Issues</option>
-                                                    <option value="Monitor" @( this.Request["stat"] == "Monitor" ? "selected=\"selected\"" : "")>Monitor</option>
-                                                    <option value="In Queue" @( this.Request["stat"] == "In Queue" ? "selected=\"selected\"" : "")>In Queue</option>
-                                                    <option value="Closed" @( this.Request["stat"] == "Closed" ? "selected=\"selected\"" : "")>Closed</option>
+                                                @{ string status = (this.Request["stat"] != null ) ? this.Request["stat"] : ""; }
+                                                <select class="form-control selectpicker td-ddl td-ddl-filter" data-field="stat" data-actions-box="true" multiple="multiple">
+                                                    <option title="O" value="O" @( status.Contains("O")  ? "selected=\"selected\"" : "")>Opened</option>
+                                                    <option title="P" value="P" @( status.Contains("P")  ? "selected=\"selected\"" : "")>In Progress</option>
+                                                    <option title="R" value="R" @( status.Contains("R")  ? "selected=\"selected\"" : "")>Ready to close</option>
+                                                    <option title="I" value="I" @( status.Contains("I")  ? "selected=\"selected\"" : "")>Issues</option>
+                                                    <option title="M" value="M" @( status.Contains("M")  ? "selected=\"selected\"" : "")>Monitor</option>
+                                                    <option title="Q" value="Q" @( status.Contains("Q")  ? "selected=\"selected\"" : "")>In Queue</option>
+                                                    <option title="C" value="C" @( status.Contains("C")  ? "selected=\"selected\"" : "")>Closed</option>
                                                 </select>
                                             </span>
                                         </div>
@@ -316,7 +316,7 @@
 
 
                     <td class="td-main" tabindex="@(counter++)" style="border: 1px solid #dee2e6;" id="@Html.DisplayFor(modelItem => item.id)">
-                        <div id="@Html.DisplayFor(modelItem => item.id)" class="td-label"  style="width: 90%; border: 0; margin: 0; padding; 0;">
+                        <div id="@Html.DisplayFor(modelItem => item.id)" class="td-label"  style="width: 90%; border: 0; margin: 0; padding: 0;">
 
                             @if (ViewData["CustomerList"] != null)
                             {
@@ -398,10 +398,10 @@
 
                     </td>
                     <td class="td-main" tabindex="@(counter++)">
-                        <span style="white-space:pre-wrap; word-wrap:break-word; width: 100%;" class="td-label">@Html.DisplayFor(modelItem => item.description)</span>
+                        <pre style="white-space:pre-wrap; word-wrap:break-word; width: 100%;" class="td-label">@Html.DisplayFor(modelItem => item.description)</pre>
 
-                        <span class="sel_cust td-control" data-type="txt" data-field="task" data-taskid="@Html.DisplayFor(modelItem => item.id)"  style="width: 90%; border: 0; margin: 0; padding; 0; display: none; white-space:pre-wrap; word-wrap:break-word;">
-                            <textarea id="descriptiontask_@Html.DisplayFor(modelItem => item.id)" class="form-control task_input td-txt" rows="1" data-min-rows="1" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.description)</textarea>
+                        <span class="sel_cust td-control" data-type="txt" data-field="task" data-taskid="@Html.DisplayFor(modelItem => item.id)"  style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <textarea class="form-control task_input td-txt" rows="1" data-min-rows="1" placeholder="description" style="white-space:pre-wrap; word-wrap:break-word; width: 100%;">@Html.DisplayFor(modelItem => item.description)</textarea>
                          </span>
 
                     </td>
