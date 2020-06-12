@@ -22,13 +22,20 @@ namespace ITGWebTimeSheet2.Controllers
 
         #region "Alistair"
 
-        public ActionResult Planner(string customerid, string projectid, string pr, string dev, string resource, string stat, string page)
+        public ActionResult Planner(string customerid, string projectid, string pr, string dev, string resource, string stat, string page, string refresh)
         {
             List<TaskManModule> taskmanlist = new List<TaskManModule>();
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
 
+
             string sessionFilter = (null != Session["filter"]) ? Session["filter"].ToString() : "";
             string sessionURL = this.Request.Url.AbsoluteUri.ToString();
+
+            if (!String.IsNullOrEmpty(refresh))
+            {
+                sessionFilter = "";
+                sessionURL = "";
+            }
 
             Session["Username"] = "alistair.bugay@iwestgroup.com";
 
