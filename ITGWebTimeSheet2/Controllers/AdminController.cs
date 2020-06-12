@@ -27,6 +27,11 @@ namespace ITGWebTimeSheet2.Controllers
             List<TaskManModule> taskmanlist = new List<TaskManModule>();
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
 
+            string sessionFilter = (null != Session["filter"]) ? Session["filter"].ToString() : "";
+            string sessionURL = this.Request.Url.AbsoluteUri.ToString();
+
+            Session["Username"] = "alistair.bugay@iwestgroup.com";
+
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
@@ -61,14 +66,59 @@ namespace ITGWebTimeSheet2.Controllers
 
                 if (!String.IsNullOrEmpty(stat))
                 {
-                    listWhere.Add(" stat = '" + stat + "'");
+                    string[] arrStatus = stat.Split(',');
+                    string status = "";
+                    List<string> listStatus = new List<string>();
+
+                    foreach(string itemStatus in arrStatus)
+                    {
+                        switch (itemStatus)
+                        {
+                            case "O":
+                                status = "Opened";
+                                break;
+                            case "P":
+                                status = "In Progress";
+                                break;
+                            case "R":
+                                status = "Ready to close";
+                                break;
+                            case "I":
+                                status = "Issues";
+                                break;
+                            case "M":
+                                status = "Monitor";
+                                break;
+                            case "C":
+                                status = "Closed";
+                                break;
+                            case "Q":
+                                status = "In Queue";
+                                break;
+                            default:
+                                status = "All";
+                                break;
+                        }
+
+                        listStatus.Add(status);
+                        
+                    }
+
+
+                    listWhere.Add(" stat IN  ('" + String.Join("','", listStatus) + "') ");
                 }
 
                 string where = (listWhere.Count > 0 ) ? " where " + String.Join(" and ", listWhere) : "";
 
 
+                if (!String.IsNullOrEmpty(sessionFilter) && String.IsNullOrEmpty(where))
+                {
+                    where = sessionFilter;
+                    return Redirect(Session["filterPath"].ToString());
+                }
 
-
+                Session["filter"] = where;
+                Session["filterPath"] = sessionURL;
 
 
 
