@@ -26,6 +26,11 @@
     <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
     <script src="https://kit.fontawesome.com/1b585ee530.js" crossorigin="anonymous"></script>
 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+
+
     <style type="text/css">
     /*
         .datepicker5,.datepicker99
@@ -78,6 +83,9 @@ right: -11px;
 </head>
 <body class="app sidebar-mini sidenav-toggled">
     <!-- Navbar-->
+    <h1>
+        @Html.Raw(Session["Username"].ToString());
+    </h1>
     <header class="app-header">
         <a class="app-header__logo" href="#"></a>
         <!-- Sidebar toggle button
@@ -455,7 +463,13 @@ right: -11px;
 
     </script>
 
-
+<script type="text/javascript">
+$(function() {
+    $('.multiselect-ui').multiselect({
+        includeSelectAllOption: true
+    });
+});
+</script>
     <script>
         $('body').on('click', '.td-main', function(){
 
@@ -605,6 +619,8 @@ right: -11px;
                     text = $(this).find(".td-ddl").children("option:selected").html();
                     value = $(this).find(".td-ddl").children("option:selected").val();
                     //alert(text);
+
+
                     break;
             }
             
@@ -760,8 +776,36 @@ right: -11px;
         });
 
 
+        $('.td-ddl-filter').on('hidden.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+
+            let filter = [];
+            $('.td-ddl-filter').each(function(i, ddl){
+                filter.push( $(ddl).data('field') + "=" + $(ddl).val() );
+            });
+            let filter2 = filter.join("&");
+
+
+            let url = '@Url.Action("Planner")' + '/?page=1&' + filter2;
+            window.location.href = url;
+        });
+
+
+
         $('body').on('change', '.td-ddl-filter', function(){
+
+            //alert( $(this).data('field') );
+            if( $(this).data('field') == 'stat' ){
+                return;
+            }
+            if( $(this).hasClass('bootstrap-select') ){
+                return;
+            }
+
+            
+            
+            
             let field = $(this).data('field');
+
 
             let filter = [];
             $('.td-ddl-filter').each(function(i, ddl){
@@ -1624,7 +1668,7 @@ function copy(text) {
 }
     </script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"></script>
 
 </body>
 </html >
