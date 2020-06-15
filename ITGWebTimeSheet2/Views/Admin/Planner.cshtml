@@ -417,29 +417,27 @@
 
                     </td>
                     <td class="td-main" tabindex="@(counter++)">
-                        <span id="taskresc_@Html.DisplayFor(modelItem => item.id)" class="td-label">
-
+                            @{string staffname = ""; }
                             @if (ViewData["StaffList"] != null)
                             {
                                 foreach (var staff in ViewData["StaffList"] as IList<Staff>)
                                 {
                                     if (item.resource == staff.id)
                                     {
-                                        @:@staff.fullname
+                                        staffname = staff.fullname;
                                         break;
                                     }
                                     if (Convert.ToString(item.resource) == "0")
                                     {
-                                        @:None
+                                        staffname = "None";
                                          break;
                                     }
 
                                 }
 
                             }
-
-                        </span>
-                        <span id="selresc_@Html.DisplayFor(modelItem => item.id)" class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                        <span class="td-label">@staffname</span>
+                        <span class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
                             <select data-type="ddl" data-field="dev" class="form-control td-ddl" id="selectresc_@Html.DisplayFor(modelItem => item.id)">
                                 <option value="">None</option>
                                 @if (ViewData["StaffList"] != null)
