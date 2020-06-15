@@ -520,12 +520,17 @@ $(function() {
 
                     case 'ddl':
                         control.find(".td-ddl").css('width', '80%');
-                        //text = control.find(".td-ddl").children("option:selected").html();
-                        //control.find('.td-ddl option:text=["' + txt + '"]').attr('selected', 'selected');
+                        text = control.find(".td-ddl").children("option:selected").html();
+                        control.find('.td-ddl').attr('id', 'ddl_selected');
+                        
+                        $("#ddl_selected option:contains('" + txt + "')").attr('selected', 'selected');
+                        //control.find('.td-ddl').attr('id', '');
+
                         break;
                 }
 
                  $(this).find('.td-control').show();
+                 control.find('.td-ddl').attr('id', '');
 
 
 
@@ -617,11 +622,7 @@ $(function() {
                 case 'ddl':
                     
                     text = $(this).find(".td-ddl").children("option:selected").html();
-                    alert(text);
                     value = $(this).find(".td-ddl").children("option:selected").val();
-                    //alert(text);
-
-
                     break;
             }
             
