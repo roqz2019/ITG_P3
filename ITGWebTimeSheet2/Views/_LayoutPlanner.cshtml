@@ -253,7 +253,7 @@ right: -11px;
       <input type="hidden" id="taskresc_01" /> 
       <span id="selresc__iteratormask__" class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectresc__iteratormask__" style="width: 95%;">
-            <option value="0">Select Resource</option>
+            <option value="">None</option>
             @if (ViewData["StaffList"] != null) { foreach (var item2 in ViewData["StaffList"] as IList
             <Staff>
             ) { 
@@ -617,6 +617,7 @@ $(function() {
                 case 'ddl':
                     
                     text = $(this).find(".td-ddl").children("option:selected").html();
+                    alert(text);
                     value = $(this).find(".td-ddl").children("option:selected").val();
                     //alert(text);
 
@@ -795,10 +796,12 @@ $(function() {
 
             //alert( $(this).data('field') );
             if( $(this).data('field') == 'stat' ){
-                return;
+                //deactivate return 
+                //as requested by Sir Greg
+                //return;
             }
             if( $(this).hasClass('bootstrap-select') ){
-                return;
+                //return;
             }
 
             
