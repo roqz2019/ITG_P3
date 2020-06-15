@@ -430,7 +430,7 @@
                                     }
                                     if (Convert.ToString(item.resource) == "0")
                                     {
-                                        @:Select
+                                        @:None
                                          break;
                                     }
 
@@ -441,7 +441,7 @@
                         </span>
                         <span id="selresc_@Html.DisplayFor(modelItem => item.id)" class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
                             <select data-type="ddl" data-field="dev" class="form-control td-ddl" id="selectresc_@Html.DisplayFor(modelItem => item.id)">
-                                <option value="0">Select</option>
+                                <option value="">None</option>
                                 @if (ViewData["StaffList"] != null)
                                 {
                                     foreach (var item2 in ViewData["StaffList"] as IList<Staff>)
@@ -641,3 +641,19 @@
     </div>
 
 </div>  <!-- old main-->
+
+<!--
+ALTER TABLE interwest.applicants
+ADD COLUMN HouseNumber varchar(500) NULL AFTER Address,
+ADD COLUMN Address1 varchar(500) NULL AFTER HouseNumber,
+ADD COLUMN Address2 varchar(500) NULL AFTER Address1,
+ADD COLUMN City varchar(500) NULL AFTER Address2,
+ADD COLUMN State varchar(500) NULL AFTER City,
+ADD COLUMN Zipcode varchar(500) NULL AFTER Country,
+ADD COLUMN ResumeURL varchar(500) NULL AFTER FilePath,
+ADD COLUMN ResumeFile longblob NULL AFTER ResumeURL
+;
+
+
+TRUNCATE TABLE interwest.applicants
+-->
