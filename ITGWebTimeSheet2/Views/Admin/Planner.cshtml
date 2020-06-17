@@ -399,8 +399,8 @@
                                 }
                             }
                         </span>
-                        <span id="selproj_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="ddl" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl td-ddl-project selectproj" id="selectproj_@Html.DisplayFor(modelItem => item.id)">
+                        <span class="sel_cust td-control" data-type="ddl" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <select class="form-control td-ddl td-ddl-project" id="selectproj_@Html.DisplayFor(modelItem => item.id)">
                                 <option value="0">Select Project</option>
                                 @if (ViewData["ProjectList"] != null)
                                 {
@@ -433,8 +433,8 @@
                                 }
                             }
                         </span>
-                        <span id="selproj_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="ddl" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl td-ddl-project selectproj" id="selectproj_@Html.DisplayFor(modelItem => item.id)">
+                        <span class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <select class="form-control td-ddl td-ddl-category">
                                 <option value="">Select Category</option>
                                 @if (ViewData["CategoryList"] != null)
                                 {
