@@ -94,7 +94,7 @@ namespace ITGWebTimeSheet2.Controllers
 
 
 
-                query = "Select id, projectid, status code, name, description, datecreated from [timesheet].[dbo].[category]";
+                query = "Select id, projectid, status code, name, description, datecreated from [timesheet].[dbo].[categories]";
                 SqlCommand cmd6 = new SqlCommand(query, con);
                 SqlDataReader dataReader6 = cmd6.ExecuteReader();
 
