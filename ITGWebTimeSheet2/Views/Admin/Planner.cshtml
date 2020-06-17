@@ -52,12 +52,12 @@
                                     </th>
                                     <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="project">
                                         <div style="float:left;">
-                                            CAT
+                                            PROJ
                                         </div>
                                     </th>
                                     <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="project">
                                         <div style="float:left;">
-                                            PROJ
+                                            CAT
                                         </div>
                                     </th>
                                     <th style="border-bottom: 0; width: 250px;" class="tc-mainDEACTIVATE" data-field="task">
@@ -178,15 +178,6 @@
                                             </span>
                                         </div>
                                     </th>
-
-                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="category">
-                                        <div class="tc-data tc-category" style="clear: both; float:left; width: 100%; visibility: visible;">
-                                            <span>
-                                            </span>
-                                        </div>
-                                    </th>
-
-
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="project">
                                         <div class="tc-data tc-project" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
@@ -210,6 +201,15 @@
                                             </span>
                                         </div>
                                     </th>
+
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="category">
+                                        <div class="tc-data tc-category" style="clear: both; float:left; width: 100%; visibility: visible;">
+                                            <span>
+                                            </span>
+                                        </div>
+                                    </th>
+
+
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE">
                                         <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: visible;">
                                         </div>
@@ -380,16 +380,6 @@
                         </div>
                     </td>
 
-                    <td class="td-main" tabindex="@(counter++)" style="border: 1px solid #dee2e6;">
-                        <div class="td-label"  style="width: 90%; border: 0; margin: 0; padding: 0;">
-                            @Html.DisplayFor(modelItem => item.id)
-                        </div>
-
-                        <div class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            @Html.DisplayFor(modelItem => item.id)
-                        </div>
-                    </td>
-
                     <td class="td-main" tabindex="@(counter++)">
                         <span id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="td-label">
 
@@ -424,6 +414,17 @@
 
 
                     </td>
+
+                    <td class="td-main" tabindex="@(counter++)" style="border: 1px solid #dee2e6;">
+                        <div class="td-label"  style="width: 90%; border: 0; margin: 0; padding: 0;">
+                            @Html.DisplayFor(modelItem => item.id)
+                        </div>
+
+                        <div class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            @Html.DisplayFor(modelItem => item.id)
+                        </div>
+                    </td>
+
                     <td class="td-main" tabindex="@(counter++)">
                         <pre style="white-space:pre-wrap; word-wrap:break-word; width: 100%;" class="td-label">@Html.DisplayFor(modelItem => item.description)</pre>
 
