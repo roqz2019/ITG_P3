@@ -740,8 +740,10 @@ $(function() {
                                 url = "@Url.Action("UpdateTaskFinish")";
                                 break;
 
-
-
+                            case 'category':
+                                data = "id=" + taskId + "&category=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskCategory")";
+                                break;
                         }
 
                         $.ajax({
