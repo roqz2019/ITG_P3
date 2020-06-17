@@ -7,8 +7,8 @@ namespace ITGWebTimeSheet2.Models
 {
     public class CategoryModule
     {
-        public string id { get; set; }
-        public string projectid { get; set; }
+        public int id { get; set; }
+        public int projectid { get; set; }
         public string status { get; set; }
         public string code { get; set; }
         public string name { get; set; }
