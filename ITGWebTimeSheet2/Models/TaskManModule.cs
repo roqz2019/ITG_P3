@@ -16,6 +16,8 @@ namespace ITGWebTimeSheet2.Models
 
         public string proj { get; set; }
 
+        public string category { get; set; }
+
         public string staff { get; set; }
 
         public string description { get; set; }
