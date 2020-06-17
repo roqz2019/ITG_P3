@@ -614,6 +614,24 @@ namespace ITGWebTimeSheet2.Controllers
 
             return Content("{Result : { Message : 'Success' }}", "application/json");
         }
+
+        [HttpPost]
+        public ContentResult UpdateTaskCategory(string id, string category)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "UPDATE  [dbo].[taskman]  SET categoryid='" + category + "' WHERE id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+            }
+
+            return Content("{Result : { Message : 'Success' }}", "application/json");
+        }
+
         public ActionResult UpdateTaskStaff(string id, string pid)
         {
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
