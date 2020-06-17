@@ -231,21 +231,28 @@ right: -11px;
       </span>
    </td>
 
-   <td class="td-main" tabindex="__taskid__1001" style="border: 1px solid #dee2e6;">
-      <span id="custtask__iteratormask__" class="task_input2_TO_REMOVE td-label">Click to select</span> <input type="hidden" id="custtask_01" /> 
-      <span id="selcust__iteratormask__" class="sel_cust td-control" data-type="ddl" data-field="customer" data-taskid="__taskid__" style="display: none;">
+   <td class="td-main" tabindex="__taskid__1004" style="border: 1px solid #dee2e6;">
+      <span data-idx="__iteratormask__" class="td-label"></span>
+      <span class="td-control"  data-type="ddl" data-field="category" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
+         <select class="form-control td-ddl td-ddl-category" data-taskid="__taskid__" data-idx="__iteratormask__" style="width: 95%;">
+            <option value="">Select Category</option>
+            @if (ViewData["CategoryList"] != null) { foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>
+            ) { 
+            <option value="@category.id">@category.code</option>
+            } } 
+         </select>
       </span>
    </td>
 
 
-   <td class="td-main" tabindex="__taskid__1004">
+   <td class="td-main" tabindex="__taskid__1005">
       <span id="descriptiontask1__iteratormask__" class="task_input2_TO_REMOVE td-label"></span>
       <span id="seldesc__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="task" data-taskid="__taskid__" style="display: none;">
           <textarea id="descriptiontask__iteratormask__" class="autoExpand form-control task_input td-txt" rows="1" data-min-rows="1" placeholder="description" name="description">Add Comments</textarea>
       </span> 
    </td >
 
-   <td class="td-main" tabindex="__taskid__1005">
+   <td class="td-main" tabindex="__taskid__1006">
       <span id="taskdev__iteratormask__" class="task_input2_TO_REMOVE td-label">Select</span> 
       <span id="seldev__iteratormask__" class="sel_pr td-control" data-type="ddl" data-field="type" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectdev__iteratormask__" style="width: 95%;">
@@ -256,7 +263,7 @@ right: -11px;
       </span>
    </td>
 
-   <td class="td-main" tabindex="__taskid__1006">
+   <td class="td-main" tabindex="__taskid__1007">
       <span id="taskresc__iteratormask__" class="task_input2_TO_REMOVE td-label">Select Resouce </span>
       <input type="hidden" id="taskresc_01" /> 
       <span id="selresc__iteratormask__" class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="__taskid__" style="display: none;">
@@ -271,11 +278,11 @@ right: -11px;
       </span>
    </td>
 
-   <td class="td-main" tabindex="__taskid__1007">
+   <td class="td-main" tabindex="__taskid__1006">
        <i class="fas fa-circle" color="#5fac11" aria-hidden="true"></i>
    </td>
 
-   <td class="td-main" tabindex="__taskid__1008">
+   <td class="td-main" tabindex="__taskid__1009">
       <span id="taskstat__iteratormask__" class="task_input2_TO_REMOVE td-label">Please select </span> 
       <span id="selstat__iteratormask__" class="sel_stat td-control" data-type="ddl" data-field="status" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectstat__iteratormask__" style="width: 95%;">
@@ -292,21 +299,21 @@ right: -11px;
       </span>
    </td>
 
-   <td class="td-main" tabindex="__taskid__1009">
+   <td class="td-main" tabindex="__taskid__1010">
        <span id="taskstart__iteratormask__" class="task_input2_TO_REMOVE td-label">Select date </span>
        <span id="selstart__iteratormask__" class="sel_stat td-control" data-type="txt" data-field="date" data-taskid="__taskid__" style="display: none;">
         <input class="datepicker5 td-txt" id="starttask__iteratormask__" type="text" style="width: 95%;" />
        </span>
    </td>
    
-   <td class="td-main" tabindex="__taskid__1009">
+   <td class="td-main" tabindex="__taskid__1011">
        <span id="taskstart__iteratormask__" class="task_input2_TO_REMOVE td-label">Select date </span>
        <span id="selstart__iteratormask__" class="sel_stat td-control" data-type="txt" data-field="finish" data-taskid="__taskid__" style="display: none;">
         <input class="datepicker5 td-txt" type="text" style="width: 95%;" />
        </span>
    </td>
    
-   <td class="td-main" tabindex="1010">
+   <td class="td-main" tabindex="1012">
        <span id="taskest__iteratormask__" class="task_input2_TO_REMOVE td-label">0.00</span>
        <span id="selest__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="esthours" data-taskid="__taskid__" style="display: none;">
            <input id="esttask__iteratormask__" class="form-control td-txt" type="text" value="0.00" style="width: 95%;" />
