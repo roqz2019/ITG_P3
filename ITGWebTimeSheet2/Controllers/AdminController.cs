@@ -99,6 +99,9 @@ namespace ITGWebTimeSheet2.Controllers
                             case "C":
                                 status = "Closed";
                                 break;
+                            case "CN":
+                                status = "Cancelled";
+                                break;
                             case "Q":
                                 status = "In Queue";
                                 break;
@@ -176,32 +179,6 @@ namespace ITGWebTimeSheet2.Controllers
                         query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] " + where + " ORDER BY  datecreated DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY";
                     }
                 }
-
-
-
-                /*
-                if (!String.IsNullOrEmpty(filter) && !String.IsNullOrEmpty(value) && filter == "stat" && value == "All")
-                {
-                    query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where stat != 'Closed' ORDER BY  datecreated," + filter + " DESC OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY  ";
-
-                    string query22 = "Select count(id) as pages from  [dbo].[taskman] where stat != 'Closed' ";
-                    SqlCommand cmd22 = new SqlCommand(query22, con);
-                    SqlDataReader dataReader22 = cmd22.ExecuteReader();
-                    while (dataReader22.Read())
-                    {
-                        pageCount = Convert.ToInt16(dataReader22["pages"]);
-                    }
-
-                    //pageCount = pageCount / pageRows;
-                    pageCount = (int)Math.Ceiling((double)pageCount / (double)pageRows);
-                    query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where stat != 'Closed' ORDER BY  datecreated," + filter + " DESC ";
-                    if (pageCount > 0)
-                    {
-                        query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] where stat != 'Closed' ORDER BY  datecreated," + filter + " DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY  ";
-                    }
-                }
-                */
-
 
 
                 string tempAnnounce = string.Empty;
@@ -343,30 +320,34 @@ namespace ITGWebTimeSheet2.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ContentResult UpdateTimeNote(string id, string name)
         {
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string query = "UPDATE  [dbo].[taskman]  SET note='" + name + "' WHERE id='" + id + "'";
+                string query = "UPDATE  [dbo].[taskman]  SET note=@note WHERE id=@id";
                 SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@note", name);
+                cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
             return Content("{Result : { Message : 'Success' }}", "application/json");
         }
 
+        [HttpPost, ValidateInput(false)]
         public ActionResult UpdateTaskNote(string id, string name)
         {
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string query = "UPDATE  [dbo].[taskman]  SET note=@pid WHERE id='" + id + "'";
+                string query = "UPDATE  [dbo].[taskman]  SET note=@pid WHERE id=@id";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@pid", name);
+                cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -584,15 +565,17 @@ namespace ITGWebTimeSheet2.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ContentResult UpdateTaskProjectStatus(string id, string name)
         {
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string query = "UPDATE  [dbo].[project]  SET status= '" + name + "' WHERE id= (select projectid from taskman where id = '" + id + "')";
+                string query = "UPDATE  [dbo].[project]  SET status=@status WHERE id= (select projectid from taskman where id =@id)";
                 SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@status", name);
+                cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
@@ -649,15 +632,17 @@ namespace ITGWebTimeSheet2.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ContentResult UpdateTaskDesc(string id, string descr)
         {
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string query = "UPDATE  [dbo].[taskman]  SET description='" + descr + "' WHERE id='" + id + "'";
+                string query = "UPDATE  [dbo].[taskman]  SET description=@description WHERE id=@id";
                 SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@description", descr);
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
@@ -673,8 +658,10 @@ namespace ITGWebTimeSheet2.Controllers
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string query = "INSERT INTO  [dbo].[planner_history] (planner_id, history)  VALUES ('" + id + "', '" + history + "');  SELECT SCOPE_IDENTITY();";
+                string query = "INSERT INTO  [dbo].[planner_history] (planner_id, history)  VALUES (@id, @history);  SELECT SCOPE_IDENTITY();";
                 SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@history", history);
                 historyId = Convert.ToInt32(cmd.ExecuteScalar());
                 con.Close();
             }
@@ -724,6 +711,22 @@ namespace ITGWebTimeSheet2.Controllers
                 con.Close();
                 return Json(listTaskHistory, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public ContentResult UpdateTaskFinish(string id, string finish)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = "UPDATE [timesheet].[dbo].[taskman]  SET finish='" + finish + "' WHERE id=" + id;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+
+            return Content("{Result : { Message : 'Success' }}", "application/json");
         }
         #endregion
 
@@ -1600,23 +1603,7 @@ string tempAnnounce = string.Empty;
             return View();
         }
 
-        public ActionResult UpdateFinish(string id, string pid)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = "UPDATE [timesheet].[dbo].[taskman]  SET finish=@pid WHERE id=@id";
-                cmd.Parameters.AddWithValue("@pid", pid);
-                cmd.Parameters.AddWithValue("@id", id);
 
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-
-            return View();
-        }
 
         
   
