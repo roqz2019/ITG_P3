@@ -216,6 +216,12 @@ right: -11px;
       </span>
    </td>
 
+   <td class="td-main" tabindex="__taskid__1001" style="border: 1px solid #dee2e6;">
+      <span id="custtask__iteratormask__" class="task_input2_TO_REMOVE td-label">Click to select</span> <input type="hidden" id="custtask_01" /> 
+      <span id="selcust__iteratormask__" class="sel_cust td-control" data-type="ddl" data-field="customer" data-taskid="__taskid__" style="display: none;">
+      </span>
+   </td>
+
    <td class="td-main" tabindex="__taskid__1003">
       <span id="taskproj__iteratormask__" data-idx="__iteratormask__" class="task_input2_TO_REMOVE spn_taskproj td-label"></span>
       <span id="selproj__iteratormask__" class="sel_cust td-control"  data-type="ddl" data-field="project" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
@@ -275,6 +281,7 @@ right: -11px;
             <option value="Opened">Opened</option>
             <option value="In Progress">In Progress</option>
             <option value="Ready to close">Ready to close</option>
+            <option value="Cancelled">Cancelled</option>
             <option value="Issues">Issues</option>
             <option value="Monitor">Monitor</option>
             <option value="In Queue">In Queue</option>
@@ -290,7 +297,12 @@ right: -11px;
        </span>
    </td>
    
-   <td> </td>
+   <td class="td-main" tabindex="__taskid__1009">
+       <span id="taskstart__iteratormask__" class="task_input2_TO_REMOVE td-label">Select date </span>
+       <span id="selstart__iteratormask__" class="sel_stat td-control" data-type="txt" data-field="finish" data-taskid="__taskid__" style="display: none;">
+        <input class="datepicker5 td-txt" type="text" style="width: 95%;" />
+       </span>
+   </td>
    
    <td class="td-main" tabindex="1010">
        <span id="taskest__iteratormask__" class="task_input2_TO_REMOVE td-label">0.00</span>
@@ -309,7 +321,7 @@ right: -11px;
        <a href="#" id="remove__iteratormask__" class="remove_field2" style="position:relative;top: 135px;"><i class="fas fa-minus-circle"></i></a>
     </td>
 
-   <td colspan="12">
+   <td colspan="13">
 
       <div class="row3" style="width: 100%;">
          
@@ -713,6 +725,12 @@ $(function() {
                                 data = "id=" + taskId + "&name=" + fieldValue;
                                 url = "@Url.Action("UpdateTaskProjectStatus")";
                                 break;
+
+                            case 'finish':
+                                data = "id=" + taskId + "&finish=" + fieldValue;
+                                url = "@Url.Action("UpdateTaskFinish")";
+                                break;
+
 
 
                         }
@@ -1458,6 +1476,7 @@ $(function() {
         $('body').on('click', '.btn_addtaskhistory', function() {
              $(".his_list").hide();
              $(".his_form").show();
+             $(".txt-history").val("");
         });
 
 
