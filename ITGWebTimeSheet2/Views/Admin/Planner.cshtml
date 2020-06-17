@@ -416,13 +416,36 @@
                     </td>
 
                     <td class="td-main" tabindex="@(counter++)" style="border: 1px solid #dee2e6;">
-                        <div class="td-label"  style="width: 90%; border: 0; margin: 0; padding: 0;">
-                            @Html.DisplayFor(modelItem => item.id)
-                        </div>
+                        <span class="td-label">
+                            @if (ViewData["CategoryList"] != null)
+                            {
+                                foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>)
+                                {
+                                    if (item.category == category.id.ToString())
+                                    {
+                                        @:@category.code
+                                    }
+                                    if (Convert.ToString(item.category) == "")
+                                    {
+                                        @:Please select
+                                         break;
+                                    }
+                                }
+                            }
+                        </span>
+                        <span id="selproj_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="ddl" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <select class="form-control td-ddl td-ddl-project selectproj" id="selectproj_@Html.DisplayFor(modelItem => item.id)">
+                                <option value="">Select Category</option>
+                                @if (ViewData["CategoryList"] != null)
+                                {
+                                    foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>)
+                                    {
+                                        <option value="@category.id">@category.code</option>
+                                    }
+                                }
+                            </select>
+                        </span>
 
-                        <div class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            @Html.DisplayFor(modelItem => item.id)
-                        </div>
                     </td>
 
                     <td class="td-main" tabindex="@(counter++)">
