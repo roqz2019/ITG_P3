@@ -20,7 +20,7 @@ namespace ITGWebTimeSheet2.Controllers
             IList<Staff> stafflist = new List<Staff>();
             IList<ProjectModule> projectlist = new List<ProjectModule>();
             IList<TaskManModule> taskmode = new List<TaskManModule>();
-
+            IList<CategoryModule> categorylist = new List<CategoryModule>();
             IList<TaskManModule> tasklist = new List<TaskManModule>();
 
 
@@ -93,6 +93,26 @@ namespace ITGWebTimeSheet2.Controllers
                 }
 
 
+
+                query = "Select id, projectid, status code, name, description, datecreated from [timesheet].[dbo].[category]";
+                SqlCommand cmd6 = new SqlCommand(query, con);
+                SqlDataReader dataReader6 = cmd6.ExecuteReader();
+
+                while (dataReader6.Read())
+                {
+                    CategoryModule cat = new CategoryModule();
+                    
+                    cat.id = Convert.ToInt16(dataReader6["id"].ToString());
+                    cat.projectid = Convert.ToInt16(dataReader6["id"].ToString());
+                    cat.code = Convert.ToString(dataReader6["code"]);
+                    cat.name = Convert.ToString(dataReader6["name"]);
+                    cat.description = Convert.ToString(dataReader6["description"]);
+                    cat.status = Convert.ToString(dataReader6["status"]);
+                    cat.datecreated = Convert.ToDateTime(dataReader6["datecreated"]);
+                    categorylist.Add(cat);
+                }
+
+
                 //--------------------------------------------------------------------------------
                 query = " SELECT T.id as id, C.code as cust,P.code as proj, T.description as descr, T.dev as dev, T.note as note, (Select fullname from[timesheet].[dbo].[staff] where id = T.resource) as resc, T.pr as pr,T.start as start,T.finish as finish, T.stat as stat, T.esthours as est,T.ddate as ddate from[timesheet].[dbo].[taskman] as T,[timesheet].[dbo].[customers] as C,[timesheet].[dbo].[project] as P,[timesheet].[dbo].[staff] as S WHERE C.id=T.customerid AND P.id=T.projectid AND T.resource=S.id ORDER BY T.id DESC";
 
@@ -135,6 +155,7 @@ namespace ITGWebTimeSheet2.Controllers
                 ViewData["StaffList"] = stafflist;
                 ViewData["ProjectList"] = projectlist;
                 ViewData["Taskman"] = taskmode;
+                ViewData["CategoryList"] = categorylist;
 
             ViewData["TaskList"] = tasklist;
 
