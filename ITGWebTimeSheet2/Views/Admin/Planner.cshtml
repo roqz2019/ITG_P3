@@ -12,7 +12,7 @@
         </div>
 
         <ul class="app-breadcrumb breadcrumb">
-            <li class=""><a class="btn btn-success btn-sm" href="@Url.Action("Planner")/?page=1&customerid=&pr=&projectid=&dev=&resource=&stat=&refresh=1">Reset</a></li>
+            <li class=""><a class="btn btn-success btn-sm" href="@Url.Action("Planner")/?page=1&customerid=&pr=&category=&projectid=&dev=&resource=&stat=&refresh=1">Reset</a></li>
             <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
             <li class="breadcrumb-item"><a href="@Url.Action("Planner")/?page=1&customerid=&pr=&projectid=&dev=&resource=&stat=">Planner</a></li>
         </ul>
@@ -441,7 +441,7 @@
                                 {
                                     if (item.category == category.id.ToString())
                                     {
-                                        @:@category.name
+                                        @:@category.code
                                     }
                                     if (Convert.ToString(item.category) == "")
                                     {
