@@ -37,7 +37,7 @@ namespace ITGWebTimeSheet2.Controllers
                 sessionURL = "";
             }
 
-            Session["Username"] = "alistair.bugay@iwestgroup.com";
+            //sSession["Username"] = "alistair.bugay@iwestgroup.com";
 
             using (SqlConnection con = new SqlConnection(conString))
             {
