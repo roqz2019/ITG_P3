@@ -22,7 +22,7 @@ namespace ITGWebTimeSheet2.Controllers
 
         #region "Alistair"
 
-        public ActionResult Planner(string customerid, string projectid, string pr, string dev, string resource, string stat, string page, string refresh)
+        public ActionResult Planner(string customerid, string projectid, string pr, string dev, string resource, string stat, string category, string page, string refresh)
         {
             List<TaskManModule> taskmanlist = new List<TaskManModule>();
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
@@ -70,6 +70,12 @@ namespace ITGWebTimeSheet2.Controllers
                 {
                     listWhere.Add(" resource = '" + resource + "'");
                 }
+
+                if (!String.IsNullOrEmpty(category))
+                {
+                    listWhere.Add(" categoryid = '" + category + "'");
+                }
+
 
                 if (!String.IsNullOrEmpty(stat))
                 {
@@ -201,6 +207,7 @@ namespace ITGWebTimeSheet2.Controllers
                     sitems.finish = Convert.ToString(dataReader["finish"]);
                     sitems.dev = Convert.ToString(dataReader["dev"]);
                     sitems.note = Convert.ToString(dataReader["note"]);
+                    sitems.category = Convert.ToString(dataReader["categoryid"].ToString());
                     sitems.project_status = Convert.ToString(dataReader["project_status"]);
                     taskmanlist.Add(sitems);
                 }
@@ -626,7 +633,6 @@ namespace ITGWebTimeSheet2.Controllers
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.ExecuteNonQuery();
                 con.Close();
-
             }
 
             return Content("{Result : { Message : 'Success' }}", "application/json");
