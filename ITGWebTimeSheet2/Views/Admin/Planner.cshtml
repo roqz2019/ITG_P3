@@ -205,8 +205,26 @@
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="category">
                                         <div class="tc-data tc-category" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
+                                                <select class="form-control td-ddl td-ddl-filter" data-field="category">
+                                                    <option value="">Please Select</option>
+                                                    @if (ViewData["CategoryList"] != null)
+                                                    {
+                                                        foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>)
+                                                        {
+                                                            if(this.Request["category"] == category.id.ToString())
+                                                            {
+                                                                <option value="@category.id" selected="selected">@category.code</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@category.id">@category.code</option>
+                                                            }
+                                                        }
+                                                    }
+                                                </select>
                                             </span>
                                         </div>
+
                                     </th>
 
 
@@ -423,7 +441,7 @@
                                 {
                                     if (item.category == category.id.ToString())
                                     {
-                                        @:@category.code
+                                        @:@category.name
                                     }
                                     if (Convert.ToString(item.category) == "")
                                     {
