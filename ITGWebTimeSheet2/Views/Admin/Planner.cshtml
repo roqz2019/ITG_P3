@@ -42,7 +42,7 @@
                                     </th>
                                     <th style="border: 1px solid #dee2e6; border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="customer">
                                         <div style="float:left;">
-                                            CUST
+                                            Customer
                                         </div>
                                     </th>
                                     <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="priority">
@@ -52,12 +52,12 @@
                                     </th>
                                     <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="project">
                                         <div style="float:left;">
-                                            PROJ
+                                            Project
                                         </div>
                                     </th>
                                     <th style="border-bottom: 0;" class="tc-mainDEACTIVATE" data-field="project">
                                         <div style="float:left;">
-                                            CAT
+                                            Category
                                         </div>
                                     </th>
                                     <th style="border-bottom: 0; width: 250px;" class="tc-mainDEACTIVATE" data-field="task">
@@ -362,8 +362,8 @@
                             }
                         </div>
 
-                        <div id="selcust_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="ddl" data-field="customer" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl" id="@Html.DisplayFor(modelItem => item.id)">
+                        <div id="" class="td-control" data-type="ddl" data-field="customer" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <select class="form-control td-ddl td-ddl-customer td-ddl-customer-@Html.DisplayFor(modelItem => item.id)" id="@Html.DisplayFor(modelItem => item.id)">
                                 @if (ViewData["CustomerList"] != null)
                                 {
                                     foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
@@ -380,8 +380,8 @@
 
 
                     <td class="td-main" tabindex="@(counter++)">
-                        <div id="taskpr_@Html.DisplayFor(modelItem => item.id)" class="td-label"  style="width: 90%; border: 0; margin: 0; padding: 0;">@Html.DisplayFor(modelItem => item.pr) </div>
-                        <div id="selpr_@Html.DisplayFor(modelItem => item.id)" class="sel_pr td-control" data-type="ddl" data-field="priority" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                        <div class="td-label"  style="width: 90%; border: 0; margin: 0; padding: 0;">@Html.DisplayFor(modelItem => item.pr) </div>
+                        <div class="td-control" data-type="ddl" data-field="priority" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
                             <select class="form-control td-ddl" data-taskid="@Html.DisplayFor(modelItem => item.id)" id="selectpr_@Html.DisplayFor(modelItem => item.id)">
                                 <option value="">Select</option>
                                 <option value="">None</option> 
@@ -418,7 +418,7 @@
                             }
                         </span>
                         <span class="sel_cust td-control" data-type="ddl" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl td-ddl-project" id="selectproj_@Html.DisplayFor(modelItem => item.id)">
+                            <select class="form-control td-ddl td-ddl-project td-ddl-project-@Html.DisplayFor(modelItem => item.id)" data-taskid="@Html.DisplayFor(modelItem => item.id)">
                                 <option value="0">Select Project</option>
                                 @if (ViewData["ProjectList"] != null)
                                 {
@@ -452,7 +452,7 @@
                             }
                         </span>
                         <span class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl td-ddl-category">
+                            <select class="form-control td-ddl td-ddl-category td-ddl-category-@Html.DisplayFor(modelItem => item.id)" data-taskid="@Html.DisplayFor(modelItem => item.id)">
                                 <option value="">Select Category</option>
                                 @if (ViewData["CategoryList"] != null)
                                 {
