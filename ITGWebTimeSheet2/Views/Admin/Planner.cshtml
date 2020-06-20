@@ -363,7 +363,7 @@
                         </div>
 
                         <div id="" class="td-control" data-type="ddl" data-field="customer" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl td-ddl-customer td-ddl-customer-@Html.DisplayFor(modelItem => item.id)" id="@Html.DisplayFor(modelItem => item.id)">
+                            <select class="form-control td-ddl td-ddl-customer td-ddl-reload td-ddl-customer-@Html.DisplayFor(modelItem => item.id)" id="@Html.DisplayFor(modelItem => item.id)">
                                 @if (ViewData["CustomerList"] != null)
                                 {
                                     foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
@@ -418,7 +418,7 @@
                             }
                         </span>
                         <span class="sel_cust td-control" data-type="ddl" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl td-ddl-project td-ddl-project-@Html.DisplayFor(modelItem => item.id)" data-taskid="@Html.DisplayFor(modelItem => item.id)">
+                            <select class="form-control td-ddl td-ddl-reload td-ddl-project td-ddl-project-@Html.DisplayFor(modelItem => item.id)" data-taskid="@Html.DisplayFor(modelItem => item.id)">
                                 <option value="0">Select Project</option>
                                 @if (ViewData["ProjectList"] != null)
                                 {
@@ -452,7 +452,7 @@
                             }
                         </span>
                         <span class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl td-ddl-category td-ddl-category-@Html.DisplayFor(modelItem => item.id)" data-taskid="@Html.DisplayFor(modelItem => item.id)">
+                            <select class="form-control td-ddl td-ddl-reload td-ddl-category td-ddl-category-@Html.DisplayFor(modelItem => item.id)" data-taskid="@Html.DisplayFor(modelItem => item.id)">
                                 <option value="">Select Category</option>
                                 @if (ViewData["CategoryList"] != null)
                                 {
