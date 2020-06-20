@@ -344,6 +344,7 @@ namespace ITGWebTimeSheet2.Controllers
             return Content("{Result : { Message : 'Success' }}", "application/json");
         }
 
+
         [HttpPost, ValidateInput(false)]
         public ActionResult UpdateTaskNote(string id, string name)
         {
@@ -752,6 +753,70 @@ namespace ITGWebTimeSheet2.Controllers
 
             return Content("{Result : { Message : 'Success' }}", "application/json");
         }
+
+        [HttpPost, ValidateInput(false)]
+        public JsonResult FetchProjectsByCustomerId(string id)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "SELECT * FROM [dbo].[project] WHERE custid=@id";
+
+                List<ProjectModule> listProject = new List<ProjectModule>();
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", id);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    ProjectModule itemProject = new ProjectModule();
+                    itemProject.id = Convert.ToString(dataReader["id"]);
+                    itemProject.name = Convert.ToString(dataReader["name"]);
+                    itemProject.code = Convert.ToString(dataReader["code"]);
+                    //sitemProject. = Convert.ToString(dataReader["status"]));
+                    ;
+                    listProject.Add(itemProject);
+                }
+                con.Close();
+                return Json(listProject, JsonRequestBehavior.AllowGet);
+
+
+            }
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public JsonResult FetchCategoriesByProjectId(string id)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "SELECT * FROM [dbo].[categories] WHERE projectid=@id";
+
+                List<CategoryModule> listCategory = new List<CategoryModule>();
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", id);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    CategoryModule itemCategory = new CategoryModule();
+                    itemCategory.id = Convert.ToInt16(dataReader["id"]);
+                    itemCategory.name = Convert.ToString(dataReader["name"]);
+                    itemCategory.code = Convert.ToString(dataReader["code"]);
+                    itemCategory.status = Convert.ToString(dataReader["status"]);
+                    ;
+                    listCategory.Add(itemCategory);
+                }
+                con.Close();
+                return Json(listCategory, JsonRequestBehavior.AllowGet);
+
+
+            }
+        }
+
+
         #endregion
 
 
