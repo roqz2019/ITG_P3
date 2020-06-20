@@ -399,7 +399,7 @@
                     </td>
 
                     <td class="td-main" tabindex="@(counter++)">
-                        <span id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="td-label">
+                        <span class="td-label">
 
                             @if (ViewData["ProjectList"] != null)
                             {
@@ -452,7 +452,7 @@
                             }
                         </span>
                         <span class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
-                            <select class="form-control td-ddl td-ddl-reload" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)">
+                            <select class="form-control td-ddl td-ddl-reload td-ddl-category-@Html.DisplayFor(modelItem => item.id)" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)">
                                 <option value="">Select Category</option>
                                 @if (ViewData["CategoryList"] != null)
                                 {
