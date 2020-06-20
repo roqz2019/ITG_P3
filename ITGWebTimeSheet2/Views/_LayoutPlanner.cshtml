@@ -1,4 +1,4 @@
-﻿@using ITGWebTimeSheet2.Models
+@using ITGWebTimeSheet2.Models
 
 <!DOCTYPE html>
 <html>
@@ -824,31 +824,66 @@ $(function() {
 
             let reloadId = 'td-ddl-';
 
+            let filterId = $(this).val();
+
+            console.log('----------- RELOAD ------------------')
+            
+
             if(field == 'customer')
             {
-                reloadId += 'project' + '-' + taskid;
-                reloadDropdown('project', reloadId);
+                console.log('reload project');
+                reloadId += 'project' + '-' + taskId;
+                reloadDropdown('project', reloadId, filterId);
             }
 
             if(field == 'project')
             {
-                reloadId += 'category' + '-' + taskid;
-                reloadDropdown('category', reloadId);
+                console.log('reload categories');
+                reloadId += 'category' + '-' + taskId;
+                reloadDropdown('category', reloadId, filterId);
             }
         });
 
 
-        function reloadDropdown(reloadType, reloadId){
+        function reloadDropdown(reloadType, reloadId, filterId){
 
-            var data_d = 'page=1&column=customer&value=ITG&sort=desc&reloadtype=' + reloadType;
+            let data = 'id=' + filterId;
+            let url = "@Url.Action("FetchCategoriesByProjectId")";
+
+            if(reloadType == 'project')
+            {
+                url = "@Url.Action("FetchProjectsByCustomerId")";
+            }
+
             $.ajax({
-                    type: "GET",
-                    url: "@Url.Action("GetPlannerDataBy")",
+                    type: "POST",
+                    url: url,
                     cache: false,
-                    data: data_d,
-                    dataType: 'application/json',
-                    complete: function (res) {
+                    data: data,
+                    //dataType: 'application/json',
+                    complete: function(response){
+                        //alert(response);
+                        },
+
+                    success: function (res) {
+                            //alert('AAA');
+                            console.log(res);
+                            console.dir(res);
                             //alert(res.responseText);
+
+                            console.dir(res)
+
+                            let options = '';
+                            let data = res;
+                            data.forEach(function(data, i){
+                            
+                                options += `<option value="${data.id}">${data.code}</option>`;
+                            });
+                            console.log(options);
+                            console.log(reloadId);
+                            console.log("$(`.${reloadId}`).html(" + options + ");");
+                            $(`.${reloadId}`).html(options);
+                            
                             
                         }
             });
