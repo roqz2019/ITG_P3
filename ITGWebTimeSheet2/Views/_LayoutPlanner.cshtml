@@ -183,7 +183,7 @@ right: -11px;
    <td class="td-main" tabindex="__taskid__1001" style="border: 1px solid #dee2e6;">
       <span id="custtask__iteratormask__" class="task_input2_TO_REMOVE td-label">Click to select</span> <input type="hidden" id="custtask_01" /> 
       <span id="selcust__iteratormask__" class="sel_cust td-control" data-type="ddl" data-field="customer" data-taskid="__taskid__" style="display: none;">
-         <select class="form-control td-ddl" id="selectcust__iteratormask__" style="width: 95%;">
+         <select class="form-control td-ddl td-ddl-reload td-ddl-customer-__taskid__" data-field="customer" data-taskid="__taskid__"  style="width: 95%;">
             <option value="0">Select Customer</option>
             @if (ViewData["CustomerList"] != null) { foreach (var item1 in ViewData["CustomerList"] as IList
             <CustomersModule>
@@ -216,8 +216,8 @@ right: -11px;
 
    <td class="td-main" tabindex="__taskid__1003">
       <span id="taskproj__iteratormask__" data-idx="__iteratormask__" class="task_input2_TO_REMOVE spn_taskproj td-label"></span>
-      <span id="selproj__iteratormask__" class="sel_cust td-control"  data-type="ddl" data-field="project" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
-         <select class="form-control selectproj td-ddl td-ddl-project" data-taskid="__taskid__" id="selectproj__iteratormask__" data-idx="__iteratormask__" style="width: 95%;">
+      <span id="selproj__iteratormask__" class="td-control"  data-type="ddl" data-field="project" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
+         <select class="form-control selectproj td-ddl td-ddl-reload td-ddl-project-__taskid__" data-field="project"" data-taskid="__taskid__" data-idx="__iteratormask__" style="width: 95%;">
             <option value="0">Select Project</option>
             @if (ViewData["ProjectList"] != null) { foreach (var item1 in ViewData["ProjectList"] as IList
             <ProjectModule>
@@ -231,7 +231,7 @@ right: -11px;
    <td class="td-main" tabindex="__taskid__1004" style="border: 1px solid #dee2e6;">
       <span data-idx="__iteratormask__" class="td-label"></span>
       <span class="td-control"  data-type="ddl" data-field="category" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
-         <select class="form-control td-ddl" data-taskid="__taskid__" data-idx="__iteratormask__" style="width: 95%;">
+         <select class="form-control td-ddl td-ddl-reload td-ddl-category-__taskid__" data-field="category" data-taskid="__taskid__" style="width: 95%;">
             <option value="">Select Category</option>
             @if (ViewData["CategoryList"] != null) { foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>
             ) { 
@@ -757,6 +757,19 @@ $(function() {
                     }
 
         }
+
+
+        $('body').on('click', '.tc-sort', function(){
+
+            let field = $(this).data('field');
+            alert(field);
+
+            $(this).children().find('.tc-sort').data('sort', 'asc');
+
+
+
+
+        });
 
 
         $('body').on('click', '.tc-main', function(){
