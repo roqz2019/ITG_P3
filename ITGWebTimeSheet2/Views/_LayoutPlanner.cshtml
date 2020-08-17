@@ -1,5 +1,4 @@
-@using ITGWebTimeSheet2.Models
-
+﻿@using ITGWebTimeSheet2.Models
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,79 +6,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InterWest Human Resources Portal</title>
     <link rel="icon" href="@Url.Content("~/Content/Images/ITG_Brand.gif")">
-
     <link rel="stylesheet" href="@Url.Content("~/Content/main.css")">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
-    <link rel="stylesheet" href="@Url.Content("~/Content/fontawesome.min.css.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/fontawesome.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/Bootstrap-4---Tabs-with-Arrows.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/iframe.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/table.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/login.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/menubtn.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-datetimepicker.min.css")">
-
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
     <script src="https://kit.fontawesome.com/1b585ee530.js" crossorigin="anonymous"></script>
 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
     <style type="text/css">
-    /*
-        .datepicker5,.datepicker99
-        {
-        width: fit-content;
-        }
-    */    
+
+            /*
+            .datepicker5,.datepicker99
+            {
+            width: fit-content;
+            }
+        */
 
 
 
-.image-area {
-  position: relative;
-  width: 50%;
-  background: #333;
-}
-.image-area img{
-  max-width: 100%;
-  height: auto;
-}
-.remove-image {
-display: none;
-position: absolute;
-top: -10px;
-right: -10px;
-border-radius: 10em;
-padding: 2px 6px 3px;
-text-decoration: none;
-font: 700 21px/20px sans-serif;
-background: #555;
-border: 3px solid #fff;
-color: #FFF;
-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-  -webkit-transition: background 0.5s;
-  transition: background 0.5s;
-}
-.remove-image:hover {
- background: #E54E4E;
-  padding: 3px 7px 5px;
-  top: -11px;
-right: -11px;
-}
-.remove-image:active {
- background: #E54E4E;
-  top: -10px;
-right: -11px;
-}
+            .image-area {
+                position: relative;
+                width: 50%;
+                background: #333;
+            }
+
+                .image-area img {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+            .remove-image {
+                display: none;
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                border-radius: 10em;
+                padding: 2px 6px 3px;
+                text-decoration: none;
+                font: 700 21px/20px sans-serif;
+                background: #555;
+                border: 3px solid #fff;
+                color: #FFF;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+                text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+                -webkit-transition: background 0.5s;
+                transition: background 0.5s;
+            }
+
+                .remove-image:hover {
+                    background: #E54E4E;
+                    padding: 3px 7px 5px;
+                    top: -11px;
+                    right: -11px;
+                }
+
+                .remove-image:active {
+                    background: #E54E4E;
+                    top: -10px;
+                    right: -11px;
+                }
     </style>
-
 </head>
 <body class="app sidebar-mini sidenav-toggled">
     <!-- Navbar-->
@@ -89,14 +85,12 @@ right: -11px;
         <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> -->
         <!-- Navbar Right Menu-->
         <ul class="app-nav">
-
             <!--Notification Menu-->
             <!-- End Notification Menu-->
             <!-- User Menu-->
             <li class="dropdown">
                 <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
                 <ul class="dropdown-menu settings-menu dropdown-menu-right">
-
                     <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
                 </ul>
             </li>
@@ -104,7 +98,6 @@ right: -11px;
     </header>
     <!-- Sidebar menu
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div> -->
-
     <aside class="app-sidebar">
         <div class="app-sidebar__user">
             <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
@@ -114,15 +107,12 @@ right: -11px;
             </div>
         </div>
         <ul class="app-menu">
-
             <li><a class="app-menu__item" href="~/Admin/Login"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Timesheet</span></a></li>
             <li><a class="app-menu__item" href="~/Admin/Planner"><i class="app-menu__icon fa fa-tasks"></i><span class="app-menu__label">Planner</span></a></li>
             <li><a class="app-menu__item" href="~/Admin/Reporting"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reporting</span></a></li>
             <li><a class="app-menu__item" href="~/Admin/Project"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Program/Projects</span></a></li>
             <li><a class="app-menu__item" href="~/Admin/Customers"><i class="app-menu__icon fas fa-address-book"></i><span class="app-menu__label">Customers</span></a></li>
-
             <li><a class="app-menu__item" href="~/Admin/Staff"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Staffs</span></a></li>
-
 
         </ul>
     </aside>
@@ -134,22 +124,16 @@ right: -11px;
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
     <script src="@Url.Content("~/Scripts/clean-blog.js")"></script>
     <script src="@Url.Content("~/Scripts/SearchTable.js")"></script>
-  
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <script src="@Url.Content("~/Scripts/main.js")"></script>
-
-    <script type="text/javascript" src="@Url.Content("~/Scripts//jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.dataTables.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/dataTables.bootstrap.min.js")"></script>
-
     <script type="text/javascript">$('#sampleTable').DataTable();</script>
-
 
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-
     <script src="@Url.Content("~/Scripts/popper.min.js")"></script>
-
     <script>
         $('.datepicker3').datepicker({
             uiLibrary: 'bootstrap4',
@@ -160,9 +144,7 @@ right: -11px;
             uiLibrary: 'bootstrap4',
             format: 'mm/dd/yyyy',
             formatSubmit: 'mm/dd/yyyy',
-        });
-    </script>
-
+        });</script>
 
     <script>
 
@@ -171,34 +153,64 @@ right: -11px;
 
                 let intRecords = taskId; //$('.record').length + 1;
                 let rowHeight = $('.record').last().height();
-                let dy = 
+                let dy =
 `
-<tr class="record record-first" id="row__iteratormask__" style="background-color:#dee2e6;">
-   
+<tr class="record record-first" id="row__iteratormask__" style="">
+
     <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
       <a href="#" id="toogle__iteratormask__" class="dplay record-first-play" style="margin-top:25px;display:none"><i id="drop__iteratormask__" class="fas fa-play"></i></a>
       <a href="#" id="d__iteratormask__" style="display:none" class="down_arrow"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>
    </td >
 
    <td class="td-main" tabindex="__taskid__1001" style="border: 1px solid #dee2e6;">
-      <span id="custtask__iteratormask__" class="task_input2_TO_REMOVE td-label">Click to select</span> <input type="hidden" id="custtask_01" /> 
+      <span id="custtask__iteratormask__" class="task_input2_TO_REMOVE td-label">Click to select</span> <input type="hidden" id="custtask_01" />
       <span id="selcust__iteratormask__" class="sel_cust td-control" data-type="ddl" data-field="customer" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl td-ddl-reload td-ddl-customer-__taskid__" data-field="customer" data-taskid="__taskid__"  style="width: 95%;">
             <option value="0">Select Customer</option>
             @if (ViewData["CustomerList"] != null) { foreach (var item1 in ViewData["CustomerList"] as IList
             <CustomersModule>
-            ) { 
+            ) {
             <option value="@item1.id">@item1.code</option>
-            } } 
+            } }
+         </select>
+      </span>
+   </td>
+ <td class="td-main tdnumtext">
+</td>
+
+ <td class="td-main" tabindex="__taskid__1003">
+      <span id="taskproj__iteratormask__" data-idx="__iteratormask__" class="task_input2_TO_REMOVE spn_taskproj td-label"></span>
+      <span id="selproj__iteratormask__" class="td-control"  data-type="ddl" data-field="project" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
+         <select class="form-control selectproj td-ddl td-ddl-reload td-ddl-project-__taskid__" data-field="project"" data-taskid="__taskid__" data-idx="__iteratormask__" style="width: 95%;">
+            <option value="0">Select Project</option>
+            @if (ViewData["ProjectList"] != null) { foreach (var item1 in ViewData["ProjectList"] as IList
+            <ProjectModule>
+            ) {
+            <option value="@item1.id">@item1.code</option>
+            } }
+         </select>
+      </span>
+   </td>
+
+
+   <td class="td-main" tabindex="__taskid__1004" style="border: 1px solid #dee2e6;">
+      <span data-idx="__iteratormask__" class="td-label"></span>
+      <span class="td-control"  data-type="ddl" data-field="category" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
+         <select class="form-control td-ddl td-ddl-reload td-ddl-category-__taskid__" data-field="category" data-taskid="__taskid__" style="width: 95%;">
+            <option value="">Select Category</option>
+            @if (ViewData["CategoryList"] != null) { foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>
+            ) {
+            <option value="@category.id">@category.code</option>
+            } }
          </select>
       </span>
    </td>
 
    <td class="td-main" tabindex="__taskid__1002">
-      <span id="taskpr__iteratormask__" class="task_input2_TO_REMOVE td-label">PR</span> 
+      <span id="taskpr__iteratormask__" class="task_input2_TO_REMOVE td-label">None</span>
       <span id="selpr__iteratormask__" class="sel_pr td-control" data-type="ddl" data-field="priority" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectpr__iteratormask__" onchange="prchange(this.id)" style="width: 95%;">
-            <option value="">Select</option> 
+            <option value="">Select</option>
             <option value="">None</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -209,48 +221,30 @@ right: -11px;
             <option value="7">7</option>
             <option value="8">8</option>
             <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
          </select>
       </span>
    </td>
-
-
-   <td class="td-main" tabindex="__taskid__1003">
-      <span id="taskproj__iteratormask__" data-idx="__iteratormask__" class="task_input2_TO_REMOVE spn_taskproj td-label"></span>
-      <span id="selproj__iteratormask__" class="td-control"  data-type="ddl" data-field="project" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
-         <select class="form-control selectproj td-ddl td-ddl-reload td-ddl-project-__taskid__" data-field="project"" data-taskid="__taskid__" data-idx="__iteratormask__" style="width: 95%;">
-            <option value="0">Select Project</option>
-            @if (ViewData["ProjectList"] != null) { foreach (var item1 in ViewData["ProjectList"] as IList
-            <ProjectModule>
-            ) { 
-            <option value="@item1.id">@item1.code</option>
-            } } 
-         </select>
-      </span>
-   </td>
-
-   <td class="td-main" tabindex="__taskid__1004" style="border: 1px solid #dee2e6;">
-      <span data-idx="__iteratormask__" class="td-label"></span>
-      <span class="td-control"  data-type="ddl" data-field="category" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
-         <select class="form-control td-ddl td-ddl-reload td-ddl-category-__taskid__" data-field="category" data-taskid="__taskid__" style="width: 95%;">
-            <option value="">Select Category</option>
-            @if (ViewData["CategoryList"] != null) { foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>
-            ) { 
-            <option value="@category.id">@category.code</option>
-            } } 
-         </select>
-      </span>
-   </td>
-
 
    <td class="td-main" tabindex="__taskid__1005">
       <span id="descriptiontask1__iteratormask__" class="task_input2_TO_REMOVE td-label"></span>
       <span id="seldesc__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="task" data-taskid="__taskid__" style="display: none;">
           <textarea id="descriptiontask__iteratormask__" class="autoExpand form-control task_input td-txt" rows="1" data-min-rows="1" placeholder="description" name="description">Add Comments</textarea>
-      </span> 
+      </span>
    </td >
 
    <td class="td-main" tabindex="__taskid__1006">
-      <span id="taskdev__iteratormask__" class="task_input2_TO_REMOVE td-label">Select</span> 
+      <span id="taskdev__iteratormask__" class="task_input2_TO_REMOVE td-label">Select</span>
       <span id="seldev__iteratormask__" class="sel_pr td-control" data-type="ddl" data-field="type" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectdev__iteratormask__" style="width: 95%;">
             <option value="0">Select</option>
@@ -262,25 +256,25 @@ right: -11px;
 
    <td class="td-main" tabindex="__taskid__1007">
       <span id="taskresc__iteratormask__" class="task_input2_TO_REMOVE td-label">Select Resouce </span>
-      <input type="hidden" id="taskresc_01" /> 
+      <input type="hidden" id="taskresc_01" />
       <span id="selresc__iteratormask__" class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectresc__iteratormask__" style="width: 95%;">
             <option value="">None</option>
             @if (ViewData["StaffList"] != null) { foreach (var item2 in ViewData["StaffList"] as IList
             <Staff>
-            ) { 
+            ) {
             <option value="@item2.id">@item2.fullname</option>
-            } } 
+            } }
          </select>
       </span>
    </td>
 
-   <td class="td-main" tabindex="__taskid__1006">
-       <i class="fas fa-circle" color="#5fac11" aria-hidden="true"></i>
-   </td>
+
+ <td class="td-main">
+ </td>
 
    <td class="td-main" tabindex="__taskid__1009">
-      <span id="taskstat__iteratormask__" class="task_input2_TO_REMOVE td-label">Please select </span> 
+      <span id="taskstat__iteratormask__" class="task_input2_TO_REMOVE td-label">Please select </span>
       <span id="selstat__iteratormask__" class="sel_stat td-control" data-type="ddl" data-field="status" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectstat__iteratormask__" style="width: 95%;">
             <option value="Please select">Please select</option>
@@ -302,45 +296,51 @@ right: -11px;
         <input class="datepicker5 td-txt" id="starttask__iteratormask__" type="text" style="width: 95%;" />
        </span>
    </td>
-   
+
    <td class="td-main" tabindex="__taskid__1011">
        <span id="taskstart__iteratormask__" class="task_input2_TO_REMOVE td-label">Select date </span>
        <span id="selstart__iteratormask__" class="sel_stat td-control" data-type="txt" data-field="finish" data-taskid="__taskid__" style="display: none;">
         <input class="datepicker5 td-txt" type="text" style="width: 95%;" />
        </span>
    </td>
-   
+
    <td class="td-main" tabindex="1012">
        <span id="taskest__iteratormask__" class="task_input2_TO_REMOVE td-label">0.00</span>
        <span id="selest__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="esthours" data-taskid="__taskid__" style="display: none;">
            <input id="esttask__iteratormask__" class="form-control td-txt" type="text" value="0.00" style="width: 95%;" />
        </span>
    </td>
-   
-   <td></td>
+ <td class="td-main" tabindex="1012">
+       <span id="taskest__iteratormask__" class="task_input2_TO_REMOVE td-label">0.00</span>
+       <span id="selest__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="esthours" data-taskid="__taskid__" style="display: none;">
+           <input id="esttask__iteratormask__" class="form-control td-txt" type="text" value="0.00" style="width: 95%;" />
+       </span>
+   </td>
+
+    <td class="td-main" tabindex="__taskid__1006">
+       <i class="fas fa-circle" color="#5fac11" aria-hidden="true"></i>
+   </td>
 </tr>
 
 
 
-<tr style="background-color:#dee2e6" class="notShow hideall" id="secondrow__iteratormask__">
+<tr style="" class="notShow hideall" id="secondrow__iteratormask__">
    <td colspan="1" style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
        <a href="#" id="remove__iteratormask__" class="remove_field2" style="position:relative;top: 135px;"><i class="fas fa-minus-circle"></i></a>
     </td>
 
-   <td colspan="13">
+    <td colspan="5" style="width: 100%; padding: 0; border: 1px solid #dee2e6; margin: 0; padding: 0; border-spacing: 0;">
 
-      <div class="row3" style="width: 100%;">
-         
 
-            <div style="position:relative;min-height:150px; height: auto; overflow: none;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29 td-main">
-                <div style="float:left;" class="w-100">
+                                        <div style="position:relative;min-height:150px; height: auto; overflow: hidden; border: 1px solid #dee2e6; padding: 10px 10px 10px 10px;" class="td-main">
+                                               <div style="float:left;" class="w-100">
                     <div class="td-main"  style="float:left; display: block; width: 100%;">
-                        Project Status:<br />
+                        Task Summary:<br />
                         <pre class="td-label td-lbl-projectstatus"></pre>
                         <span class="td-control" data-type="txt" data-field="project_status" data-taskid="" style="display: none;">
-                            <textarea 
-                            style="display: block; width: 100%; height: 80%;" 
-                            class="form-control td-txt td-txt-projectstatus" data-projectid="0" rows="4" data-min-rows="4" placeholder="description" 
+                            <textarea
+                            style="display: block; width: 100%; height: 80%;"
+                            class="form-control td-txt td-txt-projectstatus" data-projectid="0" rows="4" data-min-rows="4" placeholder="description"
                             name="description"></textarea>
                         </span>
                     </div>
@@ -353,47 +353,60 @@ right: -11px;
                 </div>
 
             </div>
+ </td>
+
+  <td colspan="3" style="width: 100%; padding: 0; border: 1px solid #dee2e6;margin: 0; padding: 0; border-spacing: 0;">
+
+                                        <div style="background-color:white;position:relative;min-height:150px; height: auto;border: 1px solid #dee2e6; padding: 10px 10px 10px 10px;" class="td-main">
+                                                                                                         <div style="float:left;" class="w-100">
+                                                                            <div style="float:left; display: block; width: 100%;">
+                                                                                Subtask v2: &nbsp;<a id="add_subtask__iteratormask__" href="#" class="subtasklist"><i class="fas fa-plus-circle"></i></a>&nbsp;&nbsp;
+                                                                                <a id="save_subtask__iteratormask__" href="#" style="display:none" class="savetasklist"><i class="fas fa-save"></i></a>
+
+                                                                                <div style="height:101px;overflow-y: auto;" id="divlist__iteratormask__">
+                                                                                    <ul class="list-group checked-list-box" id="tasklist__iteratormask__">
 
 
-         
-         <div class="w-1"> </div>
-         
-         <div style="background-color:white;position:relative;min-height:150px; height: auto; overflow: none;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29 td-main">    
-            <div style="float:left;" class="w-100">    
-               <div class="td-main" style="float:left; display: block; width: 100%;">    
-                   Subtasks:<br />
-                   
-                   <pre id="notetask__iteratormask__" class="td-label"></pre>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <span id="selnote2__iteratormask__" style="display: none;">
+                                                                                    <textarea id="subtaskinfo__iteratormask__" style=" display: block; width: 100%; height: 80%;" class="form-control " rows="4" data-min-rows="4" placeholder="description" name="description"></textarea>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div style="float:right">
+                                                                            </div>
+                                                                        </div>
 
-                   <span id="selnote__iteratormask__" class="sel_cust td-control" data-type="txt" data-field="notes" data-taskid="__taskid__" style="display: none;">
-                       <textarea id="notetask2__iteratormask__" style="display: block; width: 100%; height: 80%;" class="form-control td-txt" rows="4" data-min-rows="4" placeholder="Click to edit">Add Subtasks</textarea>
-                   </span>
+                                                                        <div style="height: 20px;float: right; width: 100%;">
+                                                <div style="position:absolute;bottom: 0px;font-size: 11px;background-color: #002080;color:white;height:20px;width:100%;display:block;margin-left:-10px">
+                                                                                <span style="float:left;margin-left:5px;"><strong>Status: </strong></span>
+                                                                                <span style="float:right;margin-right:5px"><a href="#" style="color:white" class="loadallsubtask" id="allsubtask__iteratormask__"><i class="fas fa-external-link-alt"></i></a></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
-                </div>
-               <div style="float:right"> </div>
-            </div>
-            <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div>
-         </div>
-         
-         <div class="w-1"> </div>
+   </td>
+  <td colspan="5" style="width: 100%; padding: 0;border: 1px solid #dee2e6;margin: 0; padding: 0; border-spacing: 0;">
 
-         <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29 td-main">
-            <div style="float:left;" class="w-100">
+
+                                        <div style="position:relative;height:150px;border: 1px solid #dee2e6;padding: 10px 10px 10px 10px; " class="td-main">
+                                   <div style="float:left;" class="w-100">
                <div style="float:left"> Discussion:<br /> </div>
                <div style="float:right"> 04/20/2020 </div>
             </div>
             <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div>
          </div>
+</td>
+  <td colspan="2" style="width: 100%; padding: 0;border: 1px solid #dee2e6; margin: 0; padding: 0; border-spacing: 0;">
+                                 <div style="border: 1px solid #dee2e6;text-align:center">
 
-         <div class="w-1"> </div>
+            <button type="button" class="btn btn-success w-80 btn2" data-taskid="__taskid__" style="margin-bottom:5px;">Save</button>
+             <button type="button" class="btn btn-primary w-80 btn_history btn2" data-taskid="__taskid__" style="margin-bottom:5px;">Notes</button>
+             <button type="button" class="btn btn-primary w-80 btn2" style="margin-bottom:5px;">Files</button>
+             <button type="button" class="btn btn-primary w-80 btn_images btn2" data-taskid="__taskid__" style="margin-bottom:5px;">Images</button>
+             <button type="button" class="btn btn-primary w-80 btn2">Audit</button> </div>
 
-         <div class="w-10">
-             <button type="button" class="btn btn-primary w-100 btn_history" data-taskid="__taskid__" style="margin-bottom:5px;">History / Notes</button>
-             <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button>
-             <button type="button" class="btn btn-primary w-100 btn_images" data-taskid="__taskid__" style="margin-bottom:5px;">Images</button>
-             <button type="button" class="btn btn-primary w-100">Audit</button> </div>
 
-      </div>
    </td >
 </tr >
 `;
@@ -435,17 +448,17 @@ right: -11px;
                         $(this).hide();
                     });
 
-                  
+
 
                     $('#toogle_' + intRecords).hide();
                     $('#remove_' + intRecords).show();
-                  
+
                 }
 
                                 }catch(ex){
                                     alert(ex);
                                 }
-    }    
+    }
     function addTask(){
 
                      var cust_d = '0';
@@ -480,14 +493,12 @@ right: -11px;
         }
 
     </script>
-
-<script type="text/javascript">
-$(function() {
-    $('.multiselect-ui').multiselect({
-        includeSelectAllOption: true
-    });
-});
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $('.multiselect-ui').multiselect({
+                includeSelectAllOption: true
+            });
+        });</script>
     <script>
         $('body').on('click', '.td-main', function(){
 
@@ -514,7 +525,7 @@ $(function() {
                 //$(this).find('.td-control').css('width', (  $(this).find('.td-control').width() - 10) + 'px');
                 //alert( $(this).find('.td-control').width());
 
-               
+
 
                 //-- new
                 let txt = $(this).find('.td-label').html();
@@ -540,7 +551,7 @@ $(function() {
                         control.find(".td-ddl").css('width', '80%');
                         text = control.find(".td-ddl").children("option:selected").html();
                         control.find('.td-ddl').attr('id', 'ddl_selected');
-                        
+
                         $("#ddl_selected option:contains('" + txt + "')").attr('selected', 'selected');
                         //control.find('.td-ddl').attr('id', '');
 
@@ -638,13 +649,13 @@ $(function() {
                     break;
 
                 case 'ddl':
-                    
+
                     text = $(this).find(".td-ddl").children("option:selected").html();
                     value = $(this).find(".td-ddl").children("option:selected").val();
                     break;
             }
-            
-            
+
+
             $(this).parent('.td-main').find('.td-label').html(text);
             $(this).parent('.td-main').find('.td-label').show();
 
@@ -747,7 +758,15 @@ $(function() {
                             type: type,
                             url: url,
                             data: data,
-                            success: function () {}
+                            success: function (data) {
+                                console.log(data);
+
+                                var t = data.split(':');
+                                if (t[0] == "tasknum") {
+                                    $('.tdnumtext').append(t[1]);
+                                }
+                            }
+
                         });
 
                     }
@@ -777,9 +796,9 @@ $(function() {
             //alert( $(this).data('field') );
             /*
             2 tc-main
-            once clicked it will show 
+            once clicked it will show
 
-            
+
             */
 
             $('.td-main').removeClass('td-active');
@@ -800,7 +819,7 @@ $(function() {
 
                 $('.tc-data').show();
                 $('.tc-data').css('visibility', 'hidden');
-                
+
                 $(tc_control).css('visibility', 'visible');
 
                 $('.tc-main').removeClass('tc-active');
@@ -840,7 +859,7 @@ $(function() {
             let filterId = $(this).val();
 
             console.log('----------- RELOAD ------------------')
-            
+
 
             if(field == 'customer')
             {
@@ -889,15 +908,15 @@ $(function() {
                             let options = '';
                             let data = res;
                             data.forEach(function(data, i){
-                            
+
                                 options += `<option value="${data.id}">${data.code}</option>`;
                             });
                             console.log(options);
                             console.log(reloadId);
                             console.log("$(`.${reloadId}`).html(" + options + ");");
                             $(`.${reloadId}`).html(options);
-                            
-                            
+
+
                         }
             });
 
@@ -910,7 +929,7 @@ $(function() {
 
             //alert( $(this).data('field') );
             if( $(this).data('field') == 'stat' ){
-                //deactivate return 
+                //deactivate return
                 //as requested by Sir Greg
                 //return;
                 $('body').click();
@@ -920,9 +939,9 @@ $(function() {
                 $('body').click();
             }
 
-            
-            
-            
+
+
+
             let field = $(this).data('field');
 
 
@@ -945,7 +964,7 @@ $(function() {
             let url = "@Url.Action("FetchTaskProjectStatus")";
             let type = "GET";
 
-            
+
             $.ajax({
                 type: type,
                 url: url,
@@ -954,12 +973,12 @@ $(function() {
                     let txt = res.responseText;
                     //alert(txt);
                     //update project status with task id
-                    //update all rows with project id    
+                    //update all rows with project id
                     $('.td-txt-projectstatus').val(txt);
                     $('.td-lbl-projectstatus').html(txt);
                 }
             });
-            
+
 
         });
 
@@ -1014,7 +1033,7 @@ $(function() {
         // ----------------------add and delete layout ------------------------
         $(document).ready(function () {
             $('.add_fields3').on('click', function (e) {
-               addTask();
+                addTask();
             });
 
             $('.datepicker3').on('change', function (e) {
@@ -1033,29 +1052,21 @@ $(function() {
                 return false;
             });
 
-        });
-
-
-    </script>
+        });</script>
     <script>
         // ---------------------- New Add task manager ------------------------
         $(document).ready(function () {
 
-            $("est_t").on('keypress',function () {
+            $("est_t").on('keypress', function () {
                 var est_d = $('#est_t').val();
-                if (est_d.trim() == '')
-                {
+                if (est_d.trim() == '') {
                     $('#est_t').val('0');
                 }
             });
 
 
-        });
-    </script>
+        });</script>
     <script>
-
-
-
         //--------------- modal for add files -----------------------
         $('#mod_images').on('show.bs.modal', function (event) {
             //var button = $(event.relatedTarget) // Button that triggered the modal
@@ -1065,13 +1076,7 @@ $(function() {
             let modal = $(this);
             modal.find('.modal-title').text('New message to ');
             //modal.find('.modal-body input').val(recipient)
-        });
-
-
-
-
-    </script>
-
+        });</script>
     <div class="modal fade" id="mod_images" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" style="width:90%">
             <div class="modal-content">
@@ -1081,18 +1086,16 @@ $(function() {
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" style="with: 100%;">
+                <div class="modal-body" style="width: 100%;">
                     <div class="" data-taskid="0" style="background-image:  no-repeat center center fixed; background-size: cover; display: block; width: 100%; min-height: 400px; overflow: hidden; border: 1px solid #eee; margin-bottom: 20px;">
                         <img class="img_receiver" style="width: 100%; min-width: 400px; display: block;" />
                     </div>
-                    <div class="img_list" style="background-image:  no-repeat center center fixed; background-size: cover; display: block; width: 100%; height: 180px; border: 0 solid #eee;">
+                    <div class="img_list" style="background-image: no-repeat center center fixed; background-size: cover; display: block; width: 100%; height: 180px; border: 0 solid #eee;">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
 
 
     <div class="modal fade" id="mod_history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1105,43 +1108,30 @@ $(function() {
                     </button>
                 </div>
 
-
-
                 <div class="modal-body" style="width: 100%;">
                     <div class="his_form" data-taskid="0" style="display: none; width: 100%; min-height: 400px; overflow: hidden;">
                         <textarea class="txt-history" style="width: 100%; display: block; height: 400px; border: 1px solid #eee; margin-bottom: 20px;">
                         </textarea>
-
-                        <div style="display: block; clear: both; postiion: relative; width: 100%;">
+                        <div style="display: block; clear: both; position: relative; width: 100%;">
                             <button class="btn btn-primary btn_savetaskhistory float-right" data-taskid="0" style="margin-left: 3px;">Save</button>
                             <button class="btn btn-danger btn_fetchtaskhistory float-right" data-taskid="0" style="margin-right: 3px;">Cancel</button>
                         </div>
-
                     </div>
-
 
                     <div class="his_list" data-taskid="0" style="display: none; width: 100%; min-height: 400px; overflow: scroll;">
-                        
-                        <div class="his_items" style="display: block; width: 100%; min-height: 400px; overflow: scroll;">
 
+                        <div class="his_items" style="display: block; width: 100%; min-height: 400px; overflow: scroll;">
                         </div>
 
-                        
-                        <div style="display: block; clear: both; postiion: relative; width: 100%;">
+                        <div style="display: block; clear: both; position: relative; width: 100%;">
                             <button class="btn btn-primary btn_addtaskhistory float-right" data-taskid="0">Add</button>
                         </div>
-
                     </div>
                 </div>
-
-
 
             </div>
         </div>
     </div>
-
-
-
 
 
 
@@ -1182,7 +1172,7 @@ $(function() {
             $('[id^=remove_]').each(function () {
                 $(this).hide();
             });
-        
+
 
             //enable delete field remove
             $('#toogle_' + del_id[1]).hide();
@@ -1204,7 +1194,7 @@ $(function() {
 
             var del_id = id_string.split("_");
             var info = 'id=' + del_id[1];
-            
+
 
             let tr = $('#row_' + del_id[1]);
             console.log(info);
@@ -1228,13 +1218,13 @@ $(function() {
 
         });
 
-       
-       
+
+
         $(function () {
             $(".datepicker99").datepicker();
         });
 
-     
+
 
         $(document).on('focus', ".datepicker5", function () {
             $(this).datepicker();
@@ -1356,8 +1346,6 @@ $(function() {
 
     </script>
 
-
-
     <script>
 
         $(document).ready(function(){
@@ -1371,7 +1359,7 @@ $(function() {
                             dataType: 'application/json',
                             complete: function (res) {
                                     //alert(res.responseText);
-                                    
+
                                 }
                             });
         });
@@ -1380,8 +1368,6 @@ $(function() {
 
     </script>
 
-
-    
 
 
     <script>
@@ -1473,14 +1459,14 @@ $(function() {
                             url: url,
                             data: data,
                             success: (data) => {
-            
+
                                 let html = '';
                                 $(".his_items").html("");
                                 data.forEach(function(historyItem){
 
                                     html = '';
                                     html += '<div style="clear: both; display: block; width: 100%; position: relative; margin-top: 0px; margin-bottom: 25px;">';
-                                    html += '<div class="float-left">' + historyItem.datecreated + '</div>';    
+                                    html += '<div class="float-left">' + historyItem.datecreated + '</div>';
                                     html += '<button class="btn btn-danger btn-small btn_removetaskhistory float-right" data-taskid="' + taskid + '" data-historyid="' + historyItem.id + '" style="margin-right: 3px;">';
                                     html += 'Remove';
                                     html += '</button>';
@@ -1776,24 +1762,257 @@ function copy(text) {
 	}
 }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"></script>
+    <!-- new code for subtask v2-->
+    <script>
+        $(function () {
+            $('.list-group.checked-list-box .list-group-item').each(function () {
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"></script>
+                // Settings
+                var $widget = $(this),
+                    $checkbox = $('<input type="checkbox" class="hidden" style="margin-left:-20px;margin-right:10px;" />'),
+                    color = ($widget.data('color') ? $widget.data('color') : "primary"),
+                    style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
+                        }
+                    };
+
+                $widget.css('cursor', 'pointer')
+                //  $widget.append($checkbox);
+
+                $widget.prepend($checkbox);
+
+                // Event Handlers -- click event
+                //$widget.on('click', function () {
+                //    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                //    $checkbox.triggerHandler('change');
+                //    updateDisplay();
+                //});
+                $checkbox.on('change', function () {
+                    updateDisplay();
+                });
 
 
-<script>
-  (function(d,t) {
-    var BASE_URL = "https://app.chatwoot.com";
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src= BASE_URL + "/packs/js/sdk.js";
-    s.parentNode.insertBefore(g,s);
-    g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: 'VC7vqxVwTTcvAAm56nKW8mkF',
-        baseUrl: BASE_URL
-      })
-    }
-  })(document,"script");
-</script>
+                // Actions
+                function updateDisplay() {
+                    var isChecked = $checkbox.is(':checked');
+
+                    // Set the button's state
+                    $widget.data('state', (isChecked) ? "on" : "off");
+
+                    // Set the button's icon
+                    $widget.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$widget.data('state')].icon);
+
+                    // Update the button's color
+                    if (isChecked) {
+                        $widget.addClass(style + color + ' active');
+                    } else {
+                        $widget.removeClass(style + color + ' active');
+                    }
+                }
+
+                // Initialization
+                function init() {
+
+                    if ($widget.data('checked') == true) {
+                        $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    }
+
+                    updateDisplay();
+
+                    // Inject the icon if applicable
+                    if ($widget.find('.state-icon').length == 0) {
+                        $widget.append('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span>');
+                    }
+                }
+                init();
+            });
+
+            $('#get-checked-data').on('click', function (event) {
+                event.preventDefault();
+                var checkedItems = {}, counter = 0;
+                $("#check-list-box li.active").each(function (idx, li) {
+                    checkedItems[counter] = $(li).text();
+                    counter++;
+                });
+                $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
+            });
+        });
+
+        //---------------------------------------------------------------
+        $('body').on('click', '.subtasklist', function (e) {
+            var element = $(this);
+
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            var xid = del_id[2];
+
+            var info = 'id=' + xid;
+            $(this).hide();
+            $('#divlist_' + xid).hide();
+            $('#save_subtask_' + xid).show();
+
+            $('#selnote2_' + xid).show();
+
+
+            console.log(del_id[1]);
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+
+        });
+
+        $('body').on('click', '.savetasklist', function (e) {
+            var element = $(this);
+
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            var xid = del_id[2];
+
+            var info = 'id=' + xid;
+
+            //---- add to list  --
+            console.log(xid);
+            var newitem = $('#subtaskinfo_' + xid).val();
+            console.log(newitem);
+            $('#tasklist_' + xid).append('<li class="list-group-item" style="cursor: pointer;"><span class="state-icon glyphicon glyphicon-unchecked"></span><input type="checkbox" class="hidden" style="margin-left:-20px;margin-right:10px;">' + newitem + '</li>');
+
+            //   ---- end add to list  --
+            //   ---- add to db ---
+            var url = '@Url.Action("AddSubTaskItem")';
+            console.log(url);
+            var info = 'plannerId=' + xid + '&item=' + newitem;
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: info,
+                success: function (data) {
+
+                }
+            });
+
+            //---- end add to db ---
+            $(this).hide();
+            $('#add_subtask_' + xid).show();
+            $('#divlist_' + xid).show();
+            $('#selnote2_' + xid).hide();
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+
+        });
+
+        $('body').on('click', '.loadallsubtask', function (e) {
+
+
+            var element = $(this);
+
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            var xid = del_id[1];
+
+            var info = 'id=' + xid;
+
+
+
+            $("#modalCon").load("DisplayAllSubTask?planner_id=" + xid);
+            $('#Modal').modal('show');
+
+
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+
+        });
+
+        $('body').on('click', '.require', function (e) {
+
+
+            var element = $(this);
+
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            var xid = del_id[1];
+
+            var info = 'id=' + xid;
+
+
+            var i = $('#projlist_' + xid).text();
+
+
+           $("#modalCon2").load("DisplayReq?planner_id=" +i);
+           $('#Modal2').modal('show');
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+
+        });
+
+
+
+        $('a[href$="#Modal"]').on("click", function () {
+            //   $('#modebody').text("");
+            //     $("#modalCon").load("TaskPartial");
+            $('#Modal').modal('show');
+        });
+
+    </script>
+
+
+    <div id="Modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">List of Subtask</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="modalCon"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="Modal2" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Requirements</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="modalCon2"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- new code for subtask v2-->
 
 </body>
-</html >
+</html>

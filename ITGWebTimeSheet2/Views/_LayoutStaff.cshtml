@@ -1,0 +1,1688 @@
+﻿@using ITGWebTimeSheet2.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterWest Human Resources Portal</title>
+    <link rel="icon" href="@Url.Content("~/Content/Images/ITG_Brand.gif")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/main.css")">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="@Url.Content("~/Content/fontawesome.min.css.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Bootstrap-4---Tabs-with-Arrows.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/iframe.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/table.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/login.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menubtn.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-datetimepicker.min.css")">
+    <link rel="stylesheet" href="http://www.inputpicker.com/src/jquery.inputpicker.css?1588061795">
+
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+    <script src="https://kit.fontawesome.com/1b585ee530.js" crossorigin="anonymous"></script>
+
+    <link href="@Url.Content("~/Content/jquery.timepicker.css")" rel="stylesheet" />
+
+    <sytle>
+        .datepicker5
+        {
+        width: fit-content;
+        }
+    </sytle>
+
+</head>
+<body class="app sidebar-mini sidenav-toggled">
+    <!-- Navbar-->
+    <header class="app-header">
+        <a class="app-header__logo" href="#"></a>
+        <!-- Sidebar toggle button
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> -->
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+
+            <!--Notification Menu-->
+            <!-- End Notification Menu-->
+            <!-- User Menu-->
+            <li class="dropdown">
+                <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+                <ul class="dropdown-menu settings-menu dropdown-menu-right">
+
+                    <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <!-- Sidebar menu
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div> -->
+
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="~/Content/Images/rsz_interwest_logo.png" alt="User Image">
+            <div>
+                <p class="app-sidebar__user-name">Admin</p>
+                <p class="app-sidebar__user-designation">Administrator</p>
+            </div>
+        </div>
+        <ul class="app-menu">
+
+            <li><a class="app-menu__item" href="~/Admin/Login"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Timesheet</span></a></li>
+
+
+        </ul>
+    </aside>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/clean-blog.js")"></script>
+    <script src="@Url.Content("~/Scripts/SearchTable.js")"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="@Url.Content("~/Scripts/main.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts//jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dataTables.bootstrap.min.js")"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/popper.min.js")"></script>
+    <script src="http://www.inputpicker.com/src/jquery.inputpicker.js"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.weekpicker.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.timepicker.js")"></script>
+
+
+
+
+
+
+    <script>
+        $('.datepicker3').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        $('.datepicker4').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        $('#testweek').weekpicker();
+    </script>
+
+
+    <script>
+        //--------------- modal for add files -----------------------
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        });
+
+        $('#ssModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+
+
+
+    </script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Files</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control" type="file" id="fileInput1" multiple>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="filesubmit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ssModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Screenshot</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <button type="button" id="ss" class="btn btn-primary">Paste Image</button>
+                        </div>
+                        <textarea id="pasteArea" placeholder="Paste Image Here"></textarea>
+                        <img id="pastedImage" />
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var lastid = 0;
+
+             var dy2 = '<tr class="record" id="row_0" class="rowtoClick"> <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">';
+        dy2 = dy2 + '<a href="#" id="toogle_0" class="dplay" style="margin-top:25px;"><i class="fas fa-play"></i></a>';
+
+             dy2 = dy2 +'<a href="#" id="d_0"  class="down_arrow"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>';
+             dy2 = dy2 +'</td>';
+        dy2 = dy2 +'<td style="border: 1px solid #dee2e6;" id="tdcust_0" class="tdnote"> <span id="custtask_0" class="task_input2">Click to select</span> <input type="hidden" id="custid_0"  />';
+        dy2 = dy2 + '<td id="tdproj_0" class="tdnote"><span id="taskproj_0" class="task_input2"></span> <input type="hidden" id="projid_0" /> </td>';
+        dy2 = dy2 + '<td id="tdtask_0" class="tdnote"> <span id="descriptiontask1_0" class="task_input2"></span><input type="hidden" id="taskid_0" /></td >';
+        dy2 = dy2 + '<td id="tdnote_0" class="tdnote"><span id="notetask_0" class="task_input2">Add comment</span> <span id="selnote_0" class="sel_cust" style="display: none;"> <textarea id="notetask2_0" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="description" name="description" maxlength="250">Add comment</textarea> </span></td>';
+        dy2 = dy2 + '<td id="tdstart_0" class="tdnote"><span id="taskstart_0" class="task_input2">@ViewData["SystemDate"]</span> <span id="selstart_0" class="sel_stat" style="display: none;"> <input class="datepicker5" id="starttask_0" type="text" /> </span> </td >';
+        dy2 = dy2 + '<td id="tdest_0" class="tdnote">';
+             dy2 = dy2 + '<span id="taskest_0" class="task_input2">0.00</span><span id="selest_0" class="sel_cust" style="display: none;">';
+             dy2 = dy2 + '<input id="esttask_0" class="form-control task_input" type="text" value="0.00" /></span> </td>';
+        dy2 = dy2 + '<td id="tdstime_0" class="tdnote"> <span id="taskstime_0" class="task_input2">Set time</span> <span id="selstime_0" class="sel_cust" style="display: none;"> <input id="eststime_0" class="timepicker89" type="text" /> </span> </td> <td> <span id="taskftime_0" class="task_input2"></span> </td>';
+             dy2 = dy2 + '<tr style="background-color:#dee2e6" class="notShow hideall" id="secondrow_0" style="display:none"><td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;"><a href="#" id="remove_0" class="remove_field2" style="position:relative;top: 62px;"><i class="fas fa-minus-circle"></i></a></td>';
+
+             dy2 = dy2 + '<td colspan = "8" > <div class="row3"> <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Latest Status:<br /> This is a dummy text statement </div> <div style="float:right"> 04/21/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div> <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Subtasks:<br /> </div> <div style="float:right"> 04/21/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-29"> </div> <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div> </td > </tr > ';
+
+             //--------------- start to dynamic layout ------
+
+             $('body').on('click','.add_fields3', function () {
+                if ($('#row_0').length)         // use this if you are using id to check
+                {
+                  //  alert("The newly added row is not yet save. Please select customers to save it.")
+                    if (confirm("Do you want to quit the current record? Information will be lost. Yes / No")) {
+                        $("#row_0").fadeOut("slow", function () {
+                            // After animation completed:
+                            $("#row_0").remove();
+                            $("#secondrow_0").remove();
+                        });
+                    }
+                }
+                else {
+
+                    $('#taskmantable tbody').prepend(dy2);
+
+                    bugsolve();
+                    $('.hideall').hide();
+                    $('.down_arrow').hide();
+
+                    $('[id^=secondrow_]').each(function () {
+                        $(this).hide();
+                    });
+
+                    $('[id^=remove_]').each(function () {
+                        $(this).hide();
+                    });
+
+                    $('[id^=toogle_]').each(function () {
+                        $(this).show();
+                    });
+
+                    
+
+                   // $('#toogle_0').hide();
+                  //      $('#remove_0').show();
+                 //       $('#d_0').show();
+                //    $('#toogle_0').hide();
+                 //   $('#secondrow_0').show();
+
+                    $('#toogle_0').show();
+
+                   
+                   
+                   
+
+                    if (lastid !== 0) {
+                       // alert("test");
+                     //   $('#toogle_' + lastid).show();
+                     //   alert(lastid);
+                    }
+
+                }
+             });
+
+
+    </script>
+    <script>
+        $(function () {
+            $(".datepicker99").datepicker();
+            $(".timepicker99").timepicker();
+            $(".datepicker79").datepicker();
+           
+        });
+        // ---------------------- hide control and elements ------------------------
+        $(document).ready(function () {
+            bindEdit();
+        });
+        $(document).ajaxComplete(function (event, xhr, settings) {
+            bindEdit();
+        });
+
+        function bindEdit() {
+
+
+            $(".cust_name").hide();  // hide all inputs for customer name edit section
+            $(".savecustomers").hide();  // the save button
+            $(".proj_name").hide();
+            $(".saveproj").hide();
+
+            $(".staff1_name").hide();
+            $(".staff2_name").hide();
+            $(".staff3_name").hide();
+            $(".savestaff1").hide();
+            $(".savestaff2").hide();
+            $(".savestaff3").hide();
+
+            $(".sel_resc").hide();
+            $(".sel_staff").hide();
+            $(".sel_pr").hide();
+            $(".sel_stat").hide();
+
+            $
+
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+            $(".sel_cust").hide();   // hide customer dropdown
+        }
+
+        $('body').on('click', '.dplay', function (e) {
+            checktdnote();
+
+             $('.hideall').hide();
+
+             //------
+             $('.sel_cust').hide();
+             $('.sel_cus').hide();
+             $('.sel_stat').hide();
+             $('.task_input2').show();
+            //------
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            console.log(id_string);
+            var del_id = id_string.split("_");
+            var info = 'id=' + del_id[1];
+
+
+            $('[id^=d_]').each(function () {
+                $(this).hide();
+            });
+
+
+            $('[id^=toogle_]').each(function () {
+              //  $(this).removeClass('remove_field2').addClass('dplay');
+                $(this).show();
+            });
+
+            $('[id^=remove_]').each(function () {
+                $(this).hide();
+            });
+
+            //enable delete field remove
+            $('#toogle_' + del_id[1]).hide();
+            $('#remove_' + del_id[1]).show();
+            $('#d_' + del_id[1]).show();
+
+            $('#secondrow_' + del_id[1]).show();
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+
+        });
+
+        $('body').on("click", ".remove_field2", function (e) {
+            e.preventDefault();
+
+            //------
+            $('.sel_cust').hide();
+            $('.sel_cus').hide();
+            $('.sel_stat').hide();
+            $('.task_input2').show();
+            //------
+
+            var element = $(this);
+
+            var id_string = element.attr("id");
+
+            var del_id = id_string.split("_");
+            var info = 'id=' + del_id[1];
+
+
+            let tr = $('#row_' + del_id[1]);
+            console.log(info);
+
+            if (confirm("Are you sure? This cannot be undone Yes / No")) {
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("DeleteTaskList")",
+                    data: info,
+                    success: function () {
+                    }
+                });
+                $("#row_" + del_id[1]).fadeOut("slow", function () {
+                    // After animation completed:
+                    $("#row_" + del_id[1]).remove();
+                    $("#secondrow_" + del_id[1]).remove();
+                });
+            }
+
+        });
+        $("body").on('click', '.down_arrow', function (e) {
+            checktdnote();
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+
+            var control_name = del_id[0];
+            console.log(id_string);
+
+            $('.hideall').hide();
+
+            //------
+            $('.sel_cust').hide();
+            $('.sel_cus').hide();
+            $('.sel_stat').hide();
+            $('.task_input2').show();
+            //------
+
+            $('#secondrow_' + del_id[1]).hide();
+
+            $('#toogle_' + del_id[1]).show();
+            $('#remove_' + del_id[1]).hide();
+            $('#d_' + del_id[1]).hide();
+
+            $('[id^=toogle_]').each(function () {
+                //  $(this).removeClass('remove_field2').addClass('dplay');
+                $(this).show();
+            });
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+
+        $("body").on('click', '.tdnote', function (e) {
+
+            bugsolve();
+            checktdnote();
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+
+            var control_name = del_id[0];
+            console.log(id_string);
+
+          
+            $('.hideall').hide();
+
+
+            //------
+            $('.sel_cust').hide();
+            $('.sel_cus').hide();
+            $('.sel_stat').hide();
+            $('.task_input2').show();
+            //------
+
+            $('#secondrow_' + del_id[1]).show();
+
+
+            $('[id^=d_]').each(function () {
+                $(this).hide();
+            });
+
+
+            $('[id^=toogle_]').each(function () {
+
+                $(this).show();
+            });
+
+            $('[id^=remove_]').each(function () {
+                $(this).hide();
+            });
+
+            //enable delete field remove
+            $('#toogle_' + del_id[1]).hide();
+            $('#remove_' + del_id[1]).show();
+            $('#d_' + del_id[1]).show();
+            
+       
+
+            if (control_name == "tdcust") {
+                //------------------- get data from  sql server ----
+
+                
+
+               console.log(control_name);
+               $('#selcust_' + del_id[1]).remove();
+               $('#tdcust_' + del_id[1]).removeClass('tdnote');
+
+              var tm2= element.find('span').text();
+
+              
+
+                          $.ajax({
+                        type: "GET",
+                         url: "@Url.Action("ShowCustWithProj")",
+                              dataType: "text",
+                              success: function (data) {
+
+                            var numbers =data.split('^');
+                                //  var op = '<option value="0">Select Customer</option>';
+                                //  var op = '<option value="">' + tmp + '</option>';
+
+                                 
+                                  var op1 = '';
+                                  var op = '';
+                            for (var i = 0; i < numbers.length-1; i++) {
+                             var d2 = numbers[i].split(':')
+
+                                if (tm2.trim() != d2[1]) {
+                                    op = op + '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                                else {
+                                    op1 = '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                             
+                                  }
+                                  var op2 = '<option value="" disabled selected style="display:none;">' + tm2 + '</option>';
+                                  var me = '';
+                                  me = '<span id="selcust_' + del_id[1] + '" class="sel_cust">';
+                                  me = me + '<select class="form-control savetask2" id="selectcust_' + del_id[1] + '">';
+                                  me = me   + op2 + op1 + op;
+                                //  me = me  + op1 + op;
+                                  me = me + '</select></span>';
+                               
+
+                                  $('#custtask_' + del_id[1]).hide();
+                                  $(me).insertAfter('#custtask_' + del_id[1]);
+                                //  $('#selectcust_' + del_id[1]).prepend(op2);
+
+                                  $('#selectcust_' + del_id[1]).val('');
+                                 // element.find('span').text('');
+
+
+                },
+                error: function (xhr) {
+                    alert('error customer');
+                }
+            });
+
+
+            }
+            if (control_name == "tdproj") {
+
+               
+
+                $('#tdproj_' + del_id[1]).removeClass('tdnote');
+                $('#selproj_' + del_id[1]).remove();
+              //  $('#taskproj_' + del_id[1]).hide();// show control
+
+                var tm3 = element.find('span').text();
+
+                //---------------------------------------------------------------
+                 var cust_id = $('#custid_' + del_id[1]).val();
+                 $.ajax({
+                        type: "GET",
+                         url: "@Url.Action("ShowProject")",
+                     dataType: "text",
+                     data: "id=" + cust_id,
+                              success: function (data) {
+
+
+                            var numbers =data.split('^');
+                                 // var op = '<option value="0">Select Project</option>';
+
+                                
+                                  var op1 = '';
+                                  var op = '';
+                                  var op2 = '';
+                            for (var i = 0; i < numbers.length-1; i++) {
+                             var d2 = numbers[i].split(':')
+
+
+                                if (tm3.trim() != d2[1]) {
+                                    op = op + '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                                else {
+                                    op1 = '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                  
+                                }
+
+                                  }
+                                  op2 = '<option value="" disabled selected style="display:none;">' + tm3 + '</option>';
+                                  var me = '';
+                                //  var op2 = '<option value="" disabled selected style="display:none;">' + tm2 + '</option>';
+                                  me = '<span id="selproj_' + del_id[1] + '" class="sel_cust">';
+                                  me = me + '<select class="form-control savetask2" id="selectproj_' + del_id[1] + '">';
+                                  me = me + op2 + op1 + op;
+                                  me = me + '</select></span>';
+                                  console.log(me);
+
+                                  $('#taskproj_' + del_id[1]).hide();
+                                  $(me).insertAfter('#taskproj_' + del_id[1]);
+
+                                  $('#selectproj_' + del_id[1]).val('');
+                                 // element.find('span').text('');
+                },
+                error: function (xhr) {
+                    alert('error getting project list');
+                }
+            });
+            }
+            if (control_name == "tdtask") {
+
+               
+
+                $('#tdtask_' + del_id[1]).removeClass('tdnote');
+                $('#seldesc_' + del_id[1]).remove();                // show control
+              //  $('#descriptiontask1_' + del_id[1]).hide();
+
+
+                var tm4 = element.find('span').text();
+
+
+                var cust_id = $('#custid_' + del_id[1]).val();
+                var proj_id = $('#projid_' + del_id[1]).val();
+                 $.ajax({
+                        type: "GET",
+                         url: "@Url.Action("ShowTaskList")",
+                     dataType: "text",
+                     data: "custid=" + cust_id + "&projid=" + proj_id,
+                              success: function (data) {
+
+                              //    alert(data);
+                            var numbers =data.split('^');
+                               //   var op = '<option value="0">Select Task</option>';
+
+                                
+                                  var op1 = '';
+                                  var op = '';
+
+
+                            for (var i = 0; i < numbers.length-1; i++) {
+                             var d2 = numbers[i].split(':')
+
+                                if (tm4.trim() !== d2[1]) {
+                                    op = op + '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                                else {
+                                    op1 = '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                                  }
+
+                                  var op2 = '<option value="" disabled selected style="display:none;">' + tm4 + '</option>';
+                                  var me = '';
+                                  me = '<span id="seldesc_' + del_id[1] + '" class="sel_cust">';
+                                  me = me + '<select class="form-control savetask2" id="selecttask_' + del_id[1] + '">';
+                                  me = me + op2 + op1 + op;
+                                  me = me + '</select></span>';
+                                  console.log(me);
+
+                                  $('#descriptiontask1_' + del_id[1]).hide();
+                                  $(me).insertAfter('#descriptiontask1_' + del_id[1]);
+
+                                  $('#selecttask_' + del_id[1]).val('');
+                },
+                error: function (xhr) {
+                    alert('error customer');
+                }
+            });
+            }
+
+
+            if (control_name == "tdnote") {
+
+                $('#selnote_' + del_id[1]).show();                // show comment
+                $('#notetask_' + del_id[1]).hide();
+            }
+            if (control_name == "tdstart") {
+                $('#selstart_' + del_id[1]).show();               // start date
+                //   $('#starttask_' + del_id[1]).addClass('.datepicker99');
+                $('#taskstart_' + del_id[1]).hide();
+            }
+         
+          
+            if (control_name == "tdest") {
+                $('#selest_' + del_id[1]).show();                // show control
+                $('#taskest_' + del_id[1]).hide();
+
+            }
+          
+          
+            if (control_name == "tdstime") {
+                $('#selstime_' + del_id[1]).show();                // show control
+                $('#taskstime_' + del_id[1]).hide();
+
+            }
+          
+
+            //------------------------
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+
+        $("body").on('click', '.task_input2', function () {
+
+            bugsolve();
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+
+            var control_name = del_id[0];
+            console.log(id_string);
+
+            bugsolve();
+            $('.hideall').hide();
+
+
+            //------
+            $('.sel_cust').hide();
+            $('.sel_cus').hide();
+            $('.sel_stat').hide();
+            $('.task_input2').show();
+            //------
+
+            $('#secondrow_' + del_id[1]).show();
+
+
+            $('[id^=d_]').each(function () {
+                $(this).hide();
+            });
+
+
+            $('[id^=toogle_]').each(function () {
+
+                $(this).show();
+            });
+
+            $('[id^=remove_]').each(function () {
+                $(this).hide();
+            });
+
+            //enable delete field remove
+            $('#toogle_' + del_id[1]).hide();
+            $('#remove_' + del_id[1]).show();
+            $('#d_' + del_id[1]).show();
+
+
+
+            var tmp = element.text();
+
+            if (control_name == "custtask1") {
+                //------------------- get data from  sql server ----
+
+                console.log(control_name);
+                $('#selcust_' + del_id[1]).remove();
+
+               
+             //   alert(tmp);
+                console.log(tmp);
+
+                          $.ajax({
+                        type: "GET",
+                         url: "@Url.Action("ShowCustWithProj")",
+                              dataType: "text",
+                              success: function (data) {
+
+                            var numbers =data.split('^');
+                                //  var op = '<option value="0">Select Customer</option>';
+                                //  var op = '<option value="">' + tmp + '</option>';
+
+                                  var op2 = '<option value="" disabled selected style="display:none;">' + tmp +'</option>';
+                                  var op1 = '';
+                                  var op = '';
+                            for (var i = 0; i < numbers.length-1; i++) {
+                             var d2 = numbers[i].split(':')
+
+                                if (tmp.trim() !== d2[1]) {
+                                    op = op + '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                                else {
+                                    op1 = '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                             
+                                  }
+
+                                  var me = '';
+                                  me = '<span id="selcust_' + del_id[1] + '" class="sel_cust">';
+                                  me = me + '<select class="form-control savetask2" id="selectcust_' + del_id[1] + '">';
+                                  me = me + op2 + op1 + op;
+                                  me = me + '</select></span>';
+                               
+
+                                  $('#custtask_' + del_id[1]).hide();
+                                  $(me).insertAfter('#custtask_' + del_id[1]);
+
+                                  $('selectcust_' + del_id[1]).val('');
+
+
+                },
+                error: function (xhr) {
+                    alert('error customer');
+                }
+            });
+
+
+            }
+            if (control_name == "taskproj1") {
+                $('#selproj_' + del_id[1]).remove();
+                $('#taskproj_' + del_id[1]).hide();// show control
+
+                //---------------------------------------------------------------
+                 var cust_id = $('#custid_' + del_id[1]).val();
+                 $.ajax({
+                        type: "GET",
+                         url: "@Url.Action("ShowProject")",
+                     dataType: "text",
+                     data: "id=" + cust_id,
+                              success: function (data) {
+
+
+                            var numbers =data.split('^');
+                                 // var op = '<option value="0">Select Project</option>';
+
+                                  var op2 = '<option value="" disabled selected style="display:none;">' + tmp + '</option>';
+                                  var op1 = '';
+                                  var op = '';
+                            for (var i = 0; i < numbers.length-1; i++) {
+                             var d2 = numbers[i].split(':')
+
+
+                                if (tmp.trim() !== d2[1]) {
+                                    op = op + '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                                else {
+                                    op1 = '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+
+
+                          
+                                  }
+
+                                  var me = '';
+                                  me = '<span id="selproj_' + del_id[1] + '" class="sel_cust">';
+                                  me = me + '<select class="form-control savetask2" id="selectproj_' + del_id[1] + '">';
+                                  me = me + op2 + op1 + op;
+                                  me = me + '</select></span>';
+                                  console.log(me);
+
+                                  $('#taskproj_' + del_id[1]).hide();
+                                  $(me).insertAfter('#taskproj_' + del_id[1]);
+                },
+                error: function (xhr) {
+                    alert('error getting project list');
+                }
+            });
+            }
+            if (control_name == "descriptiontask11_") {
+                $('#seldesc_' + del_id[1]).remove();                // show control
+                $('#descriptiontask1_' + del_id[1]).hide();
+
+
+                var cust_id = $('#custid_' + del_id[1]).val();
+                var proj_id = $('#projid_' + del_id[1]).val();
+                 $.ajax({
+                        type: "GET",
+                         url: "@Url.Action("ShowTaskList")",
+                     dataType: "text",
+                     data: "custid=" + cust_id + "&projid=" + proj_id,
+                              success: function (data) {
+
+                              //    alert(data);
+                            var numbers =data.split('^');
+                               //   var op = '<option value="0">Select Task</option>';
+
+                                  var op2 = '<option value="" disabled selected style="display:none;">' + tmp + '</option>';
+                                  var op1 = '';
+                                  var op = '';
+
+
+                            for (var i = 0; i < numbers.length-1; i++) {
+                             var d2 = numbers[i].split(':')
+
+                                if (tmp.trim() !== d2[1]) {
+                                    op = op + '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                                else {
+                                    op1 = '<option value=' + d2[0] + '>' + d2[1] + '</option>';
+                                }
+                                  }
+
+                                  var me = '';
+                                  me = '<span id="seldesc_' + del_id[1] + '" class="sel_cust">';
+                                  me = me + '<select class="form-control savetask2" id="selecttask_' + del_id[1] + '">';
+                                  me = me + op2 + op1 + op;
+                                  me = me + '</select></span>';
+                                  console.log(me);
+
+                                  $('#descriptiontask1_' + del_id[1]).hide();
+                                  $(me).insertAfter('#descriptiontask1_' + del_id[1]);
+                },
+                error: function (xhr) {
+                    alert('error customer');
+                }
+            });
+            }
+            if (control_name == "taskresc") {
+                $('#selresc_' + del_id[1]).show();                // show control
+                $('#taskresc_' + del_id[1]).hide();
+            }
+            if (control_name == "taskstaff") {
+                $('#selstaff_' + del_id[1]).show();                // show control
+                $('#taskstaff_' + del_id[1]).hide();
+            }
+            if (control_name == "taskpr") {
+                $('#selpr_' + del_id[1]).show();
+                $('#taskpr_' + del_id[1]).hide();    // show control
+            }
+            if (control_name == "taskstart2") {
+                $('#selstart_' + del_id[1]).show();               // start date
+                //   $('#starttask_' + del_id[1]).addClass('.datepicker99');
+                $('#taskstart_' + del_id[1]).hide();
+            }
+            if (control_name == "taskfinish") {
+                $('#selfinish_' + del_id[1]).show();               // start date
+            }
+
+
+            if (control_name == "taskstat") {
+                $('#selstat_' + del_id[1]).show();                // show control
+                $('#taskstat_' + del_id[1]).hide();
+            }
+            if (control_name == "taskest2") {
+                $('#selest_' + del_id[1]).show();                // show control
+                $('#taskest_' + del_id[1]).hide();
+
+            }
+            if (control_name == "taskdev") {
+                $('#seldev_' + del_id[1]).show();                // show control
+                $('#taskdev_' + del_id[1]).hide();
+
+            }
+            if (control_name == "notetask") {
+                $('#selnote_' + del_id[1]).show();                // show control
+                $('#notetask_' + del_id[1]).hide();
+            }
+            if (control_name == "taskstime2") {
+                $('#selstime_' + del_id[1]).show();                // show control
+                $('#taskstime_' + del_id[1]).hide();
+
+            }
+
+        });
+
+
+    </script>
+    <script>
+        // ---------------------- hide control and elements ------------------------
+        $(document).ready(function () {
+          //  bindEdit();
+        });
+        $(document).ajaxComplete(function (event, xhr, settings) {
+          //  bindEdit();
+        });
+
+        function bindEdit() {
+
+
+            $(".cust_name").hide();  // hide all inputs for customer name edit section
+            $(".savecustomers").hide();  // the save button
+            $(".proj_name").hide();
+            $(".saveproj").hide();
+
+            $(".staff1_name").hide();
+            $(".staff2_name").hide();
+            $(".staff3_name").hide();
+            $(".savestaff1").hide();
+            $(".savestaff2").hide();
+            $(".savestaff3").hide();
+
+            $(".sel_resc").hide();
+            $(".sel_staff").hide();
+            $(".sel_pr").hide();
+            $(".sel_stat").hide();
+
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+          //  $(".sel_cust").hide();   // hide customer dropdown
+        }
+
+
+           $('body').on('change', '#selectcust_0', function (e) {
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            console.log(id_string);
+            var control_name = del_id[0];
+
+
+                    var newval = $("#selectcust_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectcust_" + del_id[1] + " option:selected").val();
+
+                    $('#custtask_' + del_id[1]).text(newval);
+                    $('#custtask_' + del_id[1]).show();
+
+                       $.ajax({
+                        type: "GET",
+                       url: "@Url.Action("GetTimesheetScope")",
+                        data: "id=" + custid,
+                        dataType: "text",
+                        success: function (data) {
+
+
+                            $('tr#row_0').prop('id', 'row_' + data);
+                            $('a#toogle_0').prop('id', 'toogle_' + data);
+                            $('a#remove_0').prop('id', 'remove_' + data);
+                            $('i#drop_0').prop('id', 'drop_' + data);
+                            $('span#custtask_0').prop('id', 'custtask_' + data);
+                            $('span#selcust_0').prop('id', 'selcust_' + data);
+                            $('#selectcust_0').prop('id', 'selectcust_' + data);
+                            $('#custid_0').prop('id', 'custid_' + data);
+                            // pr
+                            $('#taskpr_0').prop('id', 'taskpr_' + data);
+                            $('#selpr_0').prop('id', 'selpr_' + data);
+                            $('#selectpr_0').prop('id', 'selectpr_' + data);
+                            $('#projid_0').prop('id', 'projid_' + data);
+                            //project
+
+                            $('#taskproj_0').prop('id', 'taskproj_' + data);
+                            $('#selproj_0').prop('id', 'selproj_' + data);
+                            $('#selectproj_0').prop('id', 'selectproj_' + data);
+                            //task
+
+                            $('#descriptiontask1_0').prop('id', 'descriptiontask1_' + data);
+                            $('#seldesc_0').prop('id', 'seldesc_' + data);
+                            $('#descriptiontask_0').prop('id', 'descriptiontask_' + data);
+                            $('#taskid_0').prop('id', 'taskid_' + data);
+
+                            //type
+                            $('#taskdev_0').prop('id', 'taskdev_' + data);
+                            $('#seldev_0').prop('id', 'seldev_' + data);
+                            $('#selectdev_0').prop('id', 'selectdev_' + data);
+
+                            // resource
+                            $('#taskresc_0').prop('id', 'taskresc_' + data);
+                            $('#selresc_0').prop('id', 'selresc_' + data);
+                            $('#selectresc_0').prop('id', 'selectresc_' + data);
+
+                            //stat
+                            $('#taskstat_0').prop('id', 'taskstat_' + data);
+                            $('#selstat_0').prop('id', 'selstat_' + data);
+                            $('#selectstat_0').prop('id', 'selectstat_' + data);
+
+                            //start
+                            $('#taskstart_0').prop('id', 'taskstart_' + data);
+                            $('#selstart_0').prop('id', 'selstart_' + data);
+                            $('#starttask_0').prop('id', 'starttask_' + data);
+
+                            //est
+                            $('#taskest_0').prop('id', 'taskest_' + data);
+                            $('#selest_0').prop('id', 'selest_' + data);
+                            $('#esttask_0').prop('id', 'esttask_' + data);
+
+                            //note
+
+                            $('#notetask_0').prop('id', 'notetask_' + data);
+                            $('#selnote_0').prop('id', 'selnote_' + data);
+                            $('#notetask2_0').prop('id', 'notetask2_' + data);
+
+                            $('#d_0').prop('id', 'd_' + data);
+                            $('#secondrow_0').prop('id', 'secondrow_' + data);
+
+                            $('#taskstime_0').prop('id', 'taskstime_' + data);
+                            $('#taskftime_0').prop('id', 'taskftime_' + data);
+                            $('#selstime_0').prop('id', 'selstime_' + data);
+                            $('#eststime_0').prop('id', 'eststime_' + data);
+
+                            $('#tdnote_0').prop('id', 'tdnote_' + data);
+                            $('#tdtask_0').prop('id', 'tdtask_' + data);
+                            $('#tdproj_0').prop('id', 'tdproj_' + data);
+                            $('#tdcust_0').prop('id', 'tdcust_' + data);
+
+                            $('#tdstart_0').prop('id', 'tdstart_' + data);
+                            $('#tdest_0').prop('id', 'tdest_' + data);
+                            $('#tdstime_0').prop('id', 'tdstime_' + data);
+
+                            lastid = data;
+
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+
+        });
+
+
+        $('.timepicker99').on("change", function () {
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            console.log(id_string);
+            var control_name = del_id[0];
+
+            var custid = $(this).val();
+
+            $("#taskstime_" + del_id[1]).html(custid);
+            $('#selstime_' + del_id[1]).hide();
+            $("#taskstime_" + del_id[1]).show();
+
+            var ft = $("#taskest_" + del_id[1]).text();
+
+            var info = 'id=' + del_id[1] + '&pid=' + custid + '&ft=' + ft;
+            console.log(info)
+
+             var url = "@Url.Action("UpdateStime")";
+
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: info,
+                success: function (data) {
+                    //      location.reload(true);
+                    $("#taskftime_" + del_id[1]).html(data);
+                }
+            });
+
+        });
+
+
+        $('#select_d').on("change input", function () {
+
+            var custid = $(this).val();
+            window.location.href = "@Url.Action("TimeSheet")?ed=" + custid;
+
+        });
+
+
+          $('.datepicker99').on("change", function () {
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            console.log(id_string);
+            var control_name = del_id[0];
+
+            var custid = $(this).val();
+
+
+          //  alert(custid);
+
+
+
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+            console.log(info);
+         //   $(this).removeClass('datepicker99');
+
+                $.ajax({
+                type: "GET",
+                url:  "@Url.Action("CheckDate")",
+                data: "refdate=" + custid,
+                    success: function (data) {
+
+                        if (data === "true") {
+
+
+                            $("#taskstart_" + del_id[1]).html(custid);
+                            $('#selstart' + del_id[1]).hide();
+                            $("#taskstart_" + del_id[1]).show();
+
+                             var url = "@Url.Action("UpdateTimesheetEdate")";
+
+
+                                    $.ajax({
+                                        type: "GET",
+                                        url: url,
+                                        data: info,
+                                        success: function () {
+                                            //      location.reload(true);
+                                        }
+                                    });
+
+                        //       var custid = element.val();
+                        //     window.location.href = "@Url.Action("TimeSheet")?ed=" + custid;
+
+
+                        } else {
+
+                            if (confirm("You are moving this record to another week. Are you sure? Yes / No")) {
+
+                            $("#taskstart_" + del_id[1]).html(custid);
+                            $('#selstart' + del_id[1]).hide();
+                            $("#taskstart_" + del_id[1]).show();
+
+                             var url = "@Url.Action("UpdateTimesheetEdate")";
+
+
+                                    $.ajax({
+                                        type: "GET",
+                                        url: url,
+                                        data: info,
+                                        success: function () {
+                                            //      location.reload(true);
+                                        }
+                                });
+
+                                // remove the records -->
+                                $("#row_" +  del_id[1]).fadeOut("slow", function () {
+                                    // After animation completed:
+                                    $("#row_" + del_id[1]).remove();
+                                    $("#secondrow_" + del_id[1]).remove();
+                                });
+
+                             var custid = element.val();
+                             window.location.href = "@Url.Action("TimeSheet")?ed=" + custid;
+
+
+                            } else {
+                                $("#taskstart_" + del_id[1]).show();
+
+                            }
+
+
+
+
+
+
+                        }
+                }
+            });
+
+
+
+
+
+        });
+
+       $("body").on('blur', '.task_input', function (e) {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+
+             var control_name = del_id[0];
+           console.log(id_string);
+
+
+            if (control_name == "esttask") {
+                var val2 = $("#esttask_" + del_id[1]).val();
+                var dec = 0.25;
+
+
+                if ((val2 / dec) % 1 == 0) {
+                     $("#taskest_" + del_id[1]).html((parseFloat(val2).toFixed(2)));  //parseFloat($(this).val(custid)).toFixed(2)
+                    var info = 'id=' + del_id[1] + '&pid=' + val2;
+                    var url = "@Url.Action("UpdateTaskAct")";
+                     $('#selest_' + del_id[1]).hide();
+                     $("#taskest_" + del_id[1]).show();
+
+                    // check if
+
+                    if ($('#taskstime_' + del_id[1]).text() !== "Set time") {
+                        var custid = $("#taskstime_" + del_id[1]).text();
+                        var ft = $("#taskest_" + del_id[1]).text();
+                        var info2 = 'id=' + del_id[1] + '&pid=' + custid + '&ft=' + ft;
+                        console.log(info)
+                         $.ajax({
+                                     type: "GET",
+                                     url:  "@Url.Action("UpdateStime")",
+                                        data: info2,
+                                     success: function (data) {
+                    //      location.reload(true);
+                                        $("#taskftime_" + del_id[1]).html(data);
+                                                 }
+                                });
+                    }
+
+
+                } else {
+                    alert("The input value must be divisible by 0.25");
+                }
+
+            }
+
+             if (control_name == "notetask2") {
+
+                 var custid = $("#notetask2_" + del_id[1]).val();
+                    custid = custid.replace(/<br\s*\/?>/mg, "\n");
+                     $("#notetask_" + del_id[1]).html(custid);
+                     $('#selnote_' + del_id[1]).hide();
+                 $("#notetask_" + del_id[1]).show();
+
+                 var info = 'id=' + del_id[1] + '&name=' + custid;
+                     console.log(info);
+                    var url = "@Url.Action("UpdateTimeNote")";
+
+                }
+
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: info,
+                    success: function () {
+                        //      location.reload(true);
+                    }
+                });
+
+
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+
+
+            });
+         $(document).on('focus', ".datepicker5", function () {
+            $(this).datepicker();
+        });
+        $(document).on('focus', ".timepicker89", function () {
+            $(this).timepicker();
+        });
+
+
+        $('body').on("change", '.timepicker89', function () {
+
+              var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            console.log(id_string);
+            var control_name = del_id[0];
+
+            var custid = $(this).val();
+
+            $("#taskstime_" + del_id[1]).html(custid);
+            $('#selstime_' + del_id[1]).hide();
+            $("#taskstime_" + del_id[1]).show();
+
+            var ft = $("#taskest_" + del_id[1]).text();
+
+            var info = 'id=' + del_id[1] + '&pid=' + custid + '&ft=' + ft;
+            console.log(info)
+
+             var url = "@Url.Action("UpdateStime")";
+
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: info,
+                success: function (data) {
+                    //      location.reload(true);
+                    $("#taskftime_" + del_id[1]).html(data);
+                }
+            });
+
+        });
+
+
+
+
+
+        $('body').on("change",'.datepicker5', function () {
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            console.log(id_string);
+            var control_name = del_id[0];
+
+            var custid = $(this).val();
+
+          //  alert(custid);
+
+                     $("#taskstart_" + del_id[1]).html(custid);
+                     $('#selstart' + del_id[1]).hide();
+                      $("#taskstart_" + del_id[1]).show();
+
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                     console.log(info);
+
+
+
+
+             var url = "@Url.Action("UpdateTimesheetEdate")";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: info,
+                success: function () {
+                }
+            });
+
+        });
+
+
+        function bugsolve() {
+
+         //   alert('fire');
+
+            $('[id^=selcust_]').each(function () {
+                $(this).hide();
+            });
+
+            $('[id^=selpr_]').each(function () {
+                $(this).hide();
+            });
+
+            $('[id^=seldesc_]').each(function () {
+                $(this).hide();
+            });
+
+            $('[id^=seldev_]').each(function () {
+                $(this).hide();
+            });
+
+            $('[id^=selresc_]').each(function () {
+                $(this).hide();
+            });
+
+            $('[id^=selstat_]').each(function () {
+                $(this).hide();
+            });
+
+
+            $('[id^=selproj_]').each(function () {
+                $(this).hide();
+            });
+
+            $('[id^=selest_]').each(function () {
+                $(this).hide();
+            });
+
+            $('[id^=custtask_]').each(function () {
+                $(this).show();
+            });
+            $('[id^=taskpr_]').each(function () {
+                $(this).show();
+            });
+
+            $('[id^=taskproj_]').each(function () {
+                $(this).show();
+            });
+
+            $('[id^=descriptiontask1_]').each(function () {
+                $(this).show();
+            });
+
+            $('[id^=descriptiontask1_]').each(function () {
+                $(this).show();
+            });
+
+            $('[id^=taskdev_]').each(function () {
+                $(this).show();
+            });
+
+            $('[id^=taskresc_]').each(function () {
+                $(this).show();
+            });
+
+            $('[id^=taskstat_]').each(function () {
+                $(this).show();
+            });
+
+            $('[id^=taskest_]').each(function () {
+                $(this).show();
+            });
+
+        }
+
+        function checktdnote() {
+
+
+            $('[id^=tdcust_]').each(function () {
+               // $(this).show();
+                if ($(this).hasClass("tdnote")) {
+                   
+                }else {
+                    $(this).addClass('tdnote');
+                }
+            });
+
+            $('[id^=tdproj_]').each(function () {
+                // $(this).show();
+                if ($(this).hasClass("tdnote")) {
+
+                } else {
+                    $(this).addClass('tdnote');
+                }
+            });
+
+            $('[id^=tdtask_]').each(function () {
+                // $(this).show();
+                if ($(this).hasClass("tdnote")) {
+
+                } else {
+                    $(this).addClass('tdnote');
+                }
+            });
+
+            $('[id^=tdstart_]').each(function () {
+                // $(this).show();
+                if ($(this).hasClass("tdnote")) {
+
+                } else {
+                    $(this).addClass('tdnote');
+                }
+            });
+
+            $('[id^=tdest_]').each(function () {
+                // $(this).show();
+                if ($(this).hasClass("tdnote")) {
+
+                } else {
+                    $(this).addClass('tdnote');
+                }
+            });
+
+            $('[id^=tdstime_]').each(function () {
+                // $(this).show();
+                if ($(this).hasClass("tdnote")) {
+
+                } else {
+                    $(this).addClass('tdnote');
+                }
+            });
+
+        }
+
+
+        $('body').on('change', '.savetask2', function (e) {
+                checktdnote();
+
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                console.log(id_string);
+                var control_name = del_id[0];
+                if (control_name == "selectcust") {
+                    $('#selcust_' + del_id[1]).hide();
+                    var newval = $("#selectcust_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectcust_" + del_id[1] + " option:selected").val();
+                    $("#selectcust_" + del_id[1]).val("");
+                    var info = 'id=' + del_id[1] + '&custid=' + custid;
+                    $('#custtask_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTimeCust")";   // timesheet
+                    
+                    $('#custtask_' + del_id[1]).show();
+                    $("#selcust_" + del_id[1]).remove();
+                    $(this).remove();
+
+                    var taskproj = $('#taskproj_' + del_id[1]).text();
+
+                //    alert('fire');
+                    $('#taskproj_' + del_id[1]).text('Select Project');
+
+                    $("#custid_" + del_id[1]).val(custid); // cust id for project and task verification
+
+                  
+                  
+                }
+
+                if (control_name == "selectproj") {
+
+
+                    var newval = $("#selectproj_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectproj_" + del_id[1] + " option:selected").val();
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                    $('#taskproj_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTimeProj")";
+                    $('#selproj_' + del_id[1]).hide();
+                    $('#taskproj_' + del_id[1]).show();
+                    $('#selproj_' + del_id[1]).val("");
+
+                    $('#projid_' + del_id[1]).val(custid);
+
+                    $('#descriptiontask1_' + del_id[1]).text("Select task");
+
+                    $('td span#selproj_' + del_id[1]).remove();
+
+            }
+
+            if (control_name == "selecttask") {
+
+                var newval = $("#selecttask_" + del_id[1] + " option:selected").text();
+                var custid = $("#selecttask_" + del_id[1] + " option:selected").val();
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                     $('#descriptiontask1_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTimeTask")";
+                    $('#seldesc_' + del_id[1]).hide();
+                $('#descriptiontask1_' + del_id[1]).show();
+                    $('#seldesc_' + del_id[1]).val("");
+
+                $('#taskid_' + del_id[1]).val(newval);
+                $('#seldesc_' + del_id[1]).remove();
+
+
+
+            }
+
+
+                 if (control_name == "selectresc") {
+                    var newval = $("#selectresc_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectresc_" + del_id[1] + " option:selected").val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //     alert(info);
+                    console.log(info);
+                     $('#taskresc_' + del_id[1]).text(newval);
+                     $('#selresc_' + del_id[1]).hide();
+                     $('#taskresc_' + del_id[1]).show();
+                     $('#selectlresc_' + del_id[1]).val("");
+                    var url = "@Url.Action("UpdateTaskResc")";
+
+                }
+                // staff
+                 if (control_name == "selectstaff") {
+                    var newval = $("#selectstaff_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectstaff_" + del_id[1] + " option:selected").val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //     alert(info);
+                    console.log(info);
+                    $('#taskstaff_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdateTaskStaff")";
+                    $('#selstaff_' + del_id[1]).hide();
+                    $('#selectstaff_' + del_id[1]).val("");
+                }
+                //pr
+                  if (control_name == "selectpr") {
+                    var newval = $("#selectpr_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectpr_" + del_id[1] + " option:selected").val();
+                     var info = 'id=' + del_id[1] + '&pid=' + custid;
+                //     alert(info);
+                      console.log(info);
+                      $('#taskpr_' + del_id[1]).show();
+                      $('#taskpr_' + del_id[1]).text(newval);
+                      $('#taskpr_' + del_id[1]).text(newval);
+                    var url = "@Url.Action("UpdatePr")";
+                    $('#selpr_' + del_id[1]).hide();
+                    $('#selectpr_' + del_id[1]).val("");
+                }
+
+                //status
+                if (control_name == "selectstat") {
+                    var newval = $("#selectstat_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectstat_" + del_id[1] + " option:selected").val();
+
+                    var info = 'id=' + del_id[1] + '&pid=' + custid;
+                    $('#taskstat_' + del_id[1]).text(newval);
+                    $('#taskstat_' + del_id[1]).show();
+                    $('#selstat_' + del_id[1]).hide();
+                      var url = "@Url.Action("UpdateTaskStat")";
+                }
+                // dev
+                  if (control_name == "selectdev") {
+                    var newval = $("#selectdev_" + del_id[1] + " option:selected").text();
+                    var custid = $("#selectdev_" + del_id[1] + " option:selected").val();
+                      $('#taskdev_' + del_id[1]).text(newval);
+                      $('#taskdev_' + del_id[1]).show();
+                      $('#seldev_' + del_id[1]).hide();
+                      var info = 'id=' + del_id[1] + '&name=' + custid;
+                      var url = "@Url.Action("UpdateTaskDev")";
+
+                }
+
+
+
+
+                console.log("url:" + url);
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: info,
+                    success: function () {
+                        //      location.reload(true);
+                    }
+                });
+
+
+               
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+
+
+            });
+    </script>
+
+</body>
+</html >

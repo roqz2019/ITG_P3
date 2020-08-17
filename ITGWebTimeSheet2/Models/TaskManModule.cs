@@ -8,8 +8,8 @@ namespace ITGWebTimeSheet2.Models
 {
     public class TaskManModule
 
-    {
-       public string ddate { get; set; }
+    { public string project_status { get; set; }
+        public string ddate { get; set; }
         public  int id { get; set; }
 
         public string cust { get; set; }
@@ -17,7 +17,6 @@ namespace ITGWebTimeSheet2.Models
         public string proj { get; set; }
 
         public string category { get; set; }
-
         public string staff { get; set; }
 
         public string description { get; set; }
@@ -43,6 +42,17 @@ namespace ITGWebTimeSheet2.Models
 
         public string notes { get; set; }  //timesheet notes
 
-        public string project_status { get; set; }
+        public string stime { get; set; }
+
+        public string ftime { get; set; }
+
+        public string taskstatus { get; set; }
+
+        public string act_new { get; set; }
+
+        public int tnum { get; set; }
+
+
+
     }
 }

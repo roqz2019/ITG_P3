@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ITGWebTimeSheet2.Models.Staff>
+@{
+    ViewBag.Title = "Staff";
+    Layout = "~/Views/_LayoutInside.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-users "></i> Staffs</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Staffs</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        @using (Html.BeginForm("AddStaff", "Admin", new { ReturnUrl = ViewBag.ReturnUrl },
+             FormMethod.Post, new { @class = "row" }))
+                        {
+                            @Html.Partial("_Staff",Model)
+                         
+                            <div class="form-group col-md-3">
+                                <!-- <label>Fullname</label>
+            <input class="form-control" type="text" placeholder="" />-->
+                                <label>Fullname</label>
+                                @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fullname" } })
+                                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Alias/ Nickname</label>
+                                @Html.EditorFor(model => model.alias, new { htmlAttributes = new { @class = "form-control", @placeholder = "Alias" } })
+                                @Html.ValidationMessageFor(model => model.alias, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Email</label>
+                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>&nbsp; &nbsp;</label>
+                                <button class="btn btn-primary form-control" type="submit" name="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add</button>
+                            </div>
+
+
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">Staff List</h3>
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Fullname</th>
+                                    <th>Nickname</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.File_file )
+                                {
+                                    string[] filesplit = item.Split('^');
+                                    <tr>
+                                        <td>@filesplit[1]</td>
+                                        <td>@filesplit[2]</td>
+                                        <td>@filesplit[3]</td>
+                                        <td></td>
+
+
+
+                                    </tr>
+
+                                }
+
+
+
+                                </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>  <!-- old main-->

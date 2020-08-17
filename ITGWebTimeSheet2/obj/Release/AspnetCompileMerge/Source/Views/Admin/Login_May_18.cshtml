@@ -1,0 +1,337 @@
+﻿@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.TaskManModule>
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/_LayoutTime.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-dashboard"></i> Timesheet</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Timesheet</a></li>
+        </ul>
+    </div>
+
+
+
+    <!--  New Design  -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+
+                <div class="tile-body">
+
+                    <div class="table-responsive2">
+                        <div class="row3">
+                           
+
+
+                        </div>
+                    </div>
+
+                        <div class="table-responsive2">
+                            <div class="row3">
+                                <div style=" width: 100%; min-height: 100%; padding: 0; margin: 0; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; align-items: center; justify-content: center;">
+                                    <div class="w-10">
+                                        <table class="table table-hover table-bordered">
+                                            <thead style="background-color: #d9aa1d;color:white;">
+                                                <tr>
+
+                                                    <th style="border: 1px solid #dee2e6;">
+                                                        <div style="float:left;">
+                                                            Resource
+                                                        </div>
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Staff Name
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="w-10" style="width: 10% !important;">
+                                        <table class="table table-hover table-bordered">
+                                            <thead style="background-color: #d9aa1d;color:white;">
+                                                <tr>
+
+                                                    <th style="border: 1px solid #dee2e6;text-align:center">
+                                                        <div style="float:left;">
+                                                           @ViewData["SystemDate"]
+                                                        </div>
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input id="select_d" type="text" class="datepicker79" value="@ViewData["SystemDate"]" maxlength="10" />
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                  
+                                    <div class="w-30" style="width: 30% !important;">
+                                        <table class="table table-hover table-bordered">
+                                            <thead style="background-color: #d9aa1d;color:white;">
+                                                <tr>
+                                                    <th style="border: 1px solid #dee2e6; width:10px;">
+                                                        Prev
+                                                    </th>
+                                                    <th style="border: 1px solid #dee2e6; width:100px;">
+                                                        Current Week
+                                                    </th>
+                                                    <th style="border: 1px solid #dee2e6; width:10px;">
+                                                        Next
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a href="@Url.Action("TimeSheet")?ed=@ViewData["prev1"]" style="margin-top:25px;"><i class="fas fa-arrow-circle-left"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <span> @ViewData["begin1"]&nbsp;&nbsp; -&nbsp;&nbsp; @ViewData["end1"]</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="@Url.Action("TimeSheet")?ed=@ViewData["next1"]" style="margin-top:25px;"><i class="fas fa-arrow-circle-right"></i></a>
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                              
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <table class="table table-hover table-bordered" id="taskmantable">
+                            <thead style="background-color: #d9aa1d;color:white;">
+                                <tr>
+
+                                    <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+                                        <a href="#" class="add_fields3" style="margin-top:25px;"><i class="fas fa-plus-circle"></i></a>
+                                    </th>
+                                    <th style="border: 1px solid #dee2e6; width:100px;">
+                                        <div style="float:left;">
+                                            Customer
+                                        </div>
+                                    </th>
+
+                                    <th style="width:100px;">
+                                        <div style="float:left;">
+                                            Project
+                                        </div>
+
+                                    </th>
+                                    <th>Task</th>
+                                    <th>Comments</th>
+                                    <th>Date</th>
+                                    <th>Hours</th>
+                                    <th>Start Time</th>
+                                    <th>Finish Time</th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody id="wrapper4">
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="record" id="row_@Html.DisplayFor(modelItem => item.id)">
+                                        <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                            <a href="#" id="toogle_@Html.DisplayFor(modelItem => item.id)" class="dplay" style="margin-top:25px;"><i id="drop_@Html.DisplayFor(modelItem => item.id)" class="fas fa-play"></i></a>
+
+
+                                            <a href="#" id="d_@Html.DisplayFor(modelItem => item.id)" style="display:none" class="down_arrow"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>
+                                            <input type="hidden" id="taskid_@Html.DisplayFor(modelItem => item.id)" value="@Html.DisplayFor(modelItem => item.taskid)" />
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" id="tdcust_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+                                            <span id="custtask_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+                                                @if (ViewData["CustomerList"] != null)
+                                                {
+                                                    foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                                    {
+                                                        if (item.cust == item1.id)
+                                                        {
+                                                            @:@item1.code
+                                                        }
+                                                    }
+                                                }
+                                            </span>
+                                            <input type="hidden" id="custid_@Html.DisplayFor(modelItem => item.id)" value="@item.cust" />
+
+                                        </td>
+                                        <td id="tdproj_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+                                            <span id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+
+                                                @if (ViewData["ProjectList"] != null)
+                                                {
+                                                    foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
+                                                    {
+                                                        if (item.proj == item1.id)
+                                                        {
+                                                            @:@item1.code
+                                                        }
+                                                        if (Convert.ToString(item.proj) == "0")
+                                                        {
+                                                            @:Please select
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+
+
+                                            </span>
+                                            <input type="hidden" id="projid_@Html.DisplayFor(modelItem => item.id)" value="@item.proj" />
+                                        </td>
+                                        <td id="tdtask_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+
+                                            <span id="descriptiontask1_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+                                                @if (ViewData["TaskList"] != null)
+                                                {
+                                                    foreach (var item9 in ViewData["TaskList"] as IList<TaskManModule>)
+                                                    {
+                                                        if (item.taskid == item9.id)
+                                                        {
+                                                            @:@item9.description
+                                                        }
+                                                    }
+                                                }
+
+                                            </span>
+                                            <input type="hidden" id="taskid_@Html.DisplayFor(modelItem => item.id)" value="@item.taskid" />
+                                        </td>
+                                        <td id="tdnote_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+
+                                            <span id="notetask_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.notes)</span>
+                                            <span id="selnote_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+                                                <textarea id="notetask2_@Html.DisplayFor(modelItem => item.id)" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="Add comments" name="description" maxlength="50">@Html.DisplayFor(modelItem => item.notes)</textarea>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="taskstart_@Html.DisplayFor(modelItem => item.id)" class="task_input2"> @Convert.ToDateTime(item.ddate).ToString("MM/dd/yyyy")</span>
+                                            <span id="selstart_@Html.DisplayFor(modelItem => item.id)" class="sel_stat" style="display: none;">
+                                                <input id="starttask_@Html.DisplayFor(modelItem => item.id)" type="text" class="datepicker99 task_input" value="@Convert.ToDateTime(item.ddate).ToString("MM/dd/yyyy")" />
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="taskest_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.acthours)</span>
+                                            <span id="selest_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+
+                                                <input id="esttask_@Html.DisplayFor(modelItem => item.id)" class="form-control task_input" type="text" value="@Html.DisplayFor(modelItem => item.acthours)" />
+                                            </span>
+                                        </td>
+                                        <td>
+
+                                            <span id="taskstime_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.stime)</span>
+                                            <span id="selstime_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+
+                                                <input id="eststime_@Html.DisplayFor(modelItem => item.id)" class="timepicker99" type="text" value="@Html.DisplayFor(modelItem => item.stime)" />
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="taskftime_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.ftime)</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color:#dee2e6" id="secondrow_@Html.DisplayFor(modelItem => item.id)" class="notShow hideall">
+                                        <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                            <a href="#" id="remove_@Html.DisplayFor(modelItem => item.id)" class="remove_field2" style="margin-top:25px;display:none;position:relative;top: 62px;"><i class="fas fa-minus-circle"></i></a>
+                                        </td>
+                                        <td colspan="8">
+                                            <div class="row3">
+                                                <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                                    <div style="float:left;" class="w-100">
+                                                        <div style="float:left">
+                                                            Latest Status:<br />
+                                                            This is a dummy text statement
+                                                        </div>
+                                                        <div style="float:right">
+                                                            04/21/2020
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                        <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="w-1">
+
+                                                </div>
+                                                <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                                    <div style="float:left;" class="w-100">
+                                                        <div style="float:left">
+                                                            Subtasks:<br />
+
+                                                        </div>
+                                                        <div style="float:right">
+                                                            04/21/2020
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                        <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="w-29">
+
+                                                </div>
+                                                <div class="w-1">
+
+                                                </div>
+
+                                                <div class="w-10">
+                                                    <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button>
+                                                    <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button>
+                                                    <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button>
+
+                                                </div>
+
+                                            </div> <!-- end of row 3-->
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table> <!-- end of table responsive  bootstrap table-->
+                        <div style="text-align:right">
+
+
+                        </div>
+                    </div> <!-- end of table responsive  bootstrap table-->
+                </div>
+            </div>
+        </div>
+
+</div>  <!-- old main-->
+
+

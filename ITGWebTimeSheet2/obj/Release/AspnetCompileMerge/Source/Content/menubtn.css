@@ -1,0 +1,24 @@
+.nav-link:not(:disabled):not(.disabled).active, .nav-link:not(:disabled):not(.disabled):active, .show > .nav-link.dropdown-toggle {
+  color: #fff;
+  background-color: #3d8193!important;
+}
+
+.nav-link {
+  color: #fff;
+  background-color: #4895aa;
+  border-color: #4895aa;
+}
+
+.nav-link:hover {
+  color: #fff;
+  background-color: #3d8193;
+  border-color: #3d8193;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid #ffffff;
+}
+

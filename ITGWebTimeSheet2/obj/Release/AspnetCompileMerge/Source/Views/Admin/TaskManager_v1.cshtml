@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "TaskManager";
+    Layout = "~/Views/_LayoutInside.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-tasks"></i> Task Manager</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Task Manager</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        @using (Html.BeginForm("AddTask", "Admin", new { ReturnUrl = ViewBag.ReturnUrl },
+              FormMethod.Post, new { @class = "row" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            <div class="form-group col-md-3 ">
+                                <label for="exampleSelect1">Select Customer</label>
+                                <select class="form-control" id="exampleSelect1" name="a">
+
+                                    <option value="">Please Select</option>
+                                    <option value="customer1">Customer 1</option>
+                                    <option value="customer1">Customer 2</option>
+
+
+                                </select>
+                            </div>
+
+
+
+                            <div class="form-group col-md-3 ">
+                                <label for="exampleSelect2">Select Category</label>
+                                <select class="form-control" id="exampleSelect2" name="a">
+
+                                    <option value="">Please Select</option>
+                                    <option value="customer1">Project</option>
+                                    <option value="customer1">Sick</option>
+                                    <option value="customer1">Holiday</option>
+
+
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="exampleSelect2">&nbsp;</label>
+                                <select class="form-control" id="exampleSelect2" name="a">
+
+                                    <option value="">Open</option>
+                                    <option value="customer1">Closed</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Select Date</label>
+                                <input class="form-control" id="datepicker" type="text" />
+                            </div>
+
+
+
+                        }
+
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <div class="wrapper2">
+
+
+
+                            <form class="row">
+
+
+                                <div class="form-group col-md-2 ">
+
+                                    <div class="row">
+
+                                        <div class="form-group col-md-2">
+                                            <label>&nbsp;</label>
+                                            <a href="#" id="remove" class="remove_field2" style="margin-top:25px;"><i class="fas fa-times-circle fa-2x"></i></a>
+                                        </div>
+
+                                        <div class="form-group col-md-10">
+                                            <label for="cust">Select Customer</label>
+
+                                            <select class="form-control" id="cust" name="cust">
+
+                                                <option value="">Please Select</option>
+
+                                            </select>
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group col-md-2 ">
+                                    <label for="proj">Select Category</label>
+                                    <select class="form-control" id="proj" name="proj">
+
+                                        <option value="">Please Select</option>
+
+
+
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-1 ">
+                                    <label for="staff">Select Staff</label>
+                                    <select class="form-control" id="staff" name="staff">
+
+                                        <option value="">Please select</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>&nbsp;</label>
+                                    <textarea id="description" class="autoExpand form-control" rows="1" data-min-rows="1" placeholder="description" name="description"></textarea>
+                                </div>
+
+
+
+
+                                <div class="form-group col-md-2 ">
+                                    <label for="stat">&nbsp;</label>
+                                    <select class="form-control" id="stat" name="stat">
+
+                                        <option value="">Select Status</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Ready to close">Ready to close</option>
+                                        <option value="Issues">Issues</option>
+
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-3 ">
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label>est</label>
+                                            <input class="form-control" type="text" placeholder="est hours" required name="esthours">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>act hours</label>
+                                            <input class="form-control" type="text" placeholder="act hours" required name="acthours">
+
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-primary form-control" type="submit" name="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i></button>
+
+                                        </div>
+
+
+                                    </div>
+                                    </div>
+
+                                   
+                                 
+
+                            </form>
+
+                        </div>
+                        <a href="#" class="add_fields2" style="margin-top:25px;"><i class="fas fa-plus-circle fa-2x"></i></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>  <!-- old main-->
+
+
+

@@ -1,0 +1,32 @@
+﻿@model ITGWebTimeSheet2.Models.Users
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<div class="login-clean">
+    @using (Html.BeginForm("Login", "Default"))
+    {
+        <h2 class="sr-only">Login Form</h2>
+        <div class="illustration">
+            <img class="img-fluid" src="@Url.Content("~/Content/images/Interwest%20Logo.png")">
+            <h3 style="color: #1fa2ec;">People Project Planner</h3>
+        </div>
+        <div class="form-group">
+            <span class="text-danger">@Html.ViewBag.Message</span>
+            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: #1fa2ec;">Log In</button></div>
+
+        <!--
+              <a class="forgot" href="#" style="font-size: 14px;">Forgot your email or password?</a>
+              <hr><a class="forgot" href="#" style="font-size: 14px;">Create an account?</a>
+            <div class="form-group" style="margin-bottom: 0px;"><button class="btn btn-primary btn-block" type="submit" style="background-color: #4895aa;margin-top: 5px;">Sign Up</button></div>
+        -->
+    }
+</div>

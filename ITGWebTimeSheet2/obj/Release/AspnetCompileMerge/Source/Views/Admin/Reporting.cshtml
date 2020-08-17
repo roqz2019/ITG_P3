@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Reporting";
+    Layout = "~/Views/_LayoutInside.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-th-list "></i> Reporting</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Reporting</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <form class="row">
+
+
+                            <div class="form-group col-md-3 ">
+                                <label for="exampleSelect1">Select Customer</label>
+                                <select class="form-control" id="exampleSelect1" name="a">
+
+                                    <option value="">Please Select</option>
+                                    <option value="customer1">Customer 1</option>
+                                    <option value="customer1">Customer 2</option>
+
+
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2 ">
+                                <label for="exampleSelect2">Select Category</label>
+                                <select class="form-control" id="exampleSelect2" name="a">
+
+                                    <option value="">Please Select</option>
+                                    <option value="customer1">Project</option>
+                                    <option value="customer1">Sick</option>
+                                    <option value="customer1">Holiday</option>
+
+
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>Select Date</label>
+                                <input class="form-control" id="datepicker" type="text" />
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>&nbsp;</label>
+                                <input class="form-control" type="text" placeholder="" required name="a">
+                            </div>
+
+                            <div class="form-group col-md-">
+                                <label>Total Hours</label>
+                                <input class="form-control" type="text" placeholder="Roll up hours" />
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">Task List</h3>
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Project</th>
+                                    <th>Resource</th>
+                                    <th>Task</th>
+                                    <th>Description</th>
+                                    <th>Work Description</th>
+                                    <th>Date</th>
+                                    <th>Hours</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                     
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+
+
+                                </tr>
+
+                          
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>  <!-- old main-->

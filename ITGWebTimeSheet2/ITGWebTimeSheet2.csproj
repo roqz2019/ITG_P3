@@ -54,6 +54,8 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -126,7 +128,9 @@
     <Content Include="Content\Images\ITG_PageBanner3_sm.jpg" />
     <Content Include="Content\Images\ITG_PageFooter2.jpg" />
     <Content Include="Content\Images\ITG_ShortBanner.jpg" />
+    <Content Include="Content\Images\rsz_interwest_logo.png" />
     <Content Include="Content\jinput.css" />
+    <Content Include="Content\jquery.timepicker.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\menubtn.css" />
@@ -522,7 +526,6 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\bootstrap-datetimepicker.min" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -571,6 +574,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.session.js" />
+    <Content Include="Scripts\jquery.timepicker.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -667,9 +672,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Admin\Login - Copy.cshtml" />
     <Content Include="Views\Admin\Login - bt4.cshtml" />
-    <Content Include="Views\_LayoutInside.cshtml" />
+    <Content Include="Views\_LayoutInside_roqz_f.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
@@ -694,10 +698,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CustomController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\RoqzController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryModule.cs" />
     <Compile Include="Models\ShowCustomersWithProject.cs" />
+    <Compile Include="Models\SubTask.cs" />
+    <Compile Include="Models\TaskHistory.cs" />
+    <Compile Include="Models\TaskImages.cs" />
     <Compile Include="Models\TaskManModule.cs" />
     <Compile Include="Models\CustomerModule.cs" />
     <Compile Include="Models\ProjectModule.cs" />
@@ -786,20 +796,55 @@
     <Content Include="Views\Admin\TaskManager_April_17.cshtml" />
     <Content Include="Views\Admin\TaskManager_April_18.cshtml" />
     <Content Include="Views\Admin\TaskManager_April_21_f_design.cshtml" />
-    <Content Include="Views\Admin\Planner.cshtml" />
     <Content Include="Views\_LayoutInside_April_22.cshtml" />
     <Content Include="Views\_LayoutInside_All_scripts here.cshtml" />
-    <Content Include="Views\Admin\Planner_v1.cshtml" />
     <Content Include="Views\_LayoutInside_planner_v1.cshtml" />
-    <Content Include="Views\_LayoutTime.cshtml" />
     <Content Include="Views\Admin\Login_April.cshtml" />
     <Content Include="Views\Admin\TaskContent.cshtml" />
     <Content Include="Views\_LayoutInside_April_29.cshtml" />
     <Content Include="Views\_LayoutPages.cshtml" />
-    <Content Include="Views\_LayoutTime_May_4.cshtml" />
-    <Content Include="Views\_LayoutTime_May_5.cshtml" />
     <Content Include="Views\Admin\LoginMay6.cshtml" />
-    <Content Include="Views\_LayoutTime_May6.cshtml" />
+    <Content Include="Views\Admin\TimeSheet.cshtml" />
+    <Content Include="Views\Admin\Login_May_18.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Default\Login.cshtml" />
+    <Content Include="Views\_LayoutStaff.cshtml" />
+    <Content Include="Views\Default\TimeSheet.cshtml" />
+    <Content Include="Views\_LayoutTime.cshtml" />
+    <Content Include="Views\Planner.cshtml" />
+    <Content Include="Views\_LayoutInside.cshtml" />
+    <Content Include="Views\_LayoutUsers.cshtml" />
+    <Content Include="Views\Admin\LoginPartial.cshtml" />
+    <Content Include="Views\Admin\UpdateTaskAct.cshtml" />
+    <Content Include="Views\Admin\DeleteTaskList.cshtml" />
+    <Content Include="Views\Default\DeleteTaskList.cshtml" />
+    <Content Include="Views\Default\Login_6_17.cshtml" />
+    <Content Include="Views\Default\TimeSheet_6_17.cshtml" />
+    <Content Include="Views\Admin\Login_6_17.cshtml" />
+    <Content Include="Views\Admin\TimeSheet_6_17.cshtml" />
+    <Content Include="Views\_LayoutTime_6_17.cshtml" />
+    <Content Include="Views\_LayoutPlanner.cshtml" />
+    <Content Include="Views\Admin\Planner.cshtml" />
+    <Content Include="Views\Default\TaskPartial.cshtml" />
+    <Content Include="Views\_LayoutUsers_6_19_2020.cshtml" />
+    <Content Include="Views\Admin\Planner_7_28_2020.cshtml" />
+    <Content Include="Views\_LayoutPages - Copy.cshtml" />
+    <Content Include="Views\_LayoutPages - Copy %282%29.cshtml" />
+    <Content Include="Views\_LayoutPlanner_7_28_2020.cshtml" />
+    <Content Include="Views\Admin\DisplaySubTask.cshtml" />
+    <Content Include="Views\Admin\Planner_7_30_2020.cshtml" />
+    <Content Include="Views\Admin\DisplayAllSubTask.cshtml" />
+    <Content Include="Views\Default\DisplayAllSubTask.cshtml" />
+    <Content Include="Views\Default\DisplaySubTask.cshtml" />
+    <Content Include="Views\Default\Login_7_31_2020.cshtml" />
+    <Content Include="Views\Default\TimeSheet_7_31_2020.cshtml" />
+    <Content Include="Views\Admin\Planner_8_3_2020.cshtml" />
+    <Content Include="Views\_LayoutPlanner_8_3_2020.cshtml" />
+    <Content Include="Views\_LayoutUsers_8_4_2020.cshtml" />
+    <Content Include="Views\Admin\Planner_8-17.cshtml" />
+    <Content Include="Views\_LayoutPlanner - Copy.cshtml" />
+    <Content Include="Views\Admin\Terminal.cshtml" />
+    <Content Include="Views\Admin\DisplayReq.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -809,7 +854,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Custom\" />
+    <Folder Include="Views\Roqz\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,112 @@
+﻿@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.TaskManModule>
+
+<table class="table table-hover table-bordered" id="taskmantable2">
+    <thead style="background-color: #ffd633; color: black;">
+        <tr>
+
+            <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+            </th>
+            <th style="border: 1px solid #ffd633; width:100px;">
+                <div style="float:left;">
+                    Customer
+                </div>
+            </th>
+            <th style="width:100px;">Assigned Work (by Priority)</th>
+
+            <th style="width:100px;">
+                <div style="float:left;">
+                    Project
+                </div>
+
+            </th>
+            <th style="width:200px;">
+
+                Category
+
+
+            </th>
+            <th style="width:800px;">Task</th>
+            <th style="width:300px;">Timesheet Entry</th>
+
+
+
+        </tr>
+
+    </thead>
+    <tbody id="wrapper4">
+
+        @foreach (var item in Model)
+        {
+        <tr class="record" id="row_@Html.DisplayFor(modelItem => item.id)">
+
+            <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+            </td>
+
+            <td style="border: 1px solid #dee2e6;" id="tdcust_@Html.DisplayFor(modelItem => item.id)" class="tdk">
+                <span id="custtask_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+                    @if (ViewData["CustomerList2"] != null)
+                    {
+                        foreach (var item11 in ViewData["CustomerList2"] as IList<CustomersModule>)
+                        {
+                            if (item.cust == item11.id)
+                            {
+                                @:@item11.code
+                            }
+
+                        }
+                    }
+                </span>
+                <input type="hidden" id="custid_@Html.DisplayFor(modelItem => item.id)" value="@item.cust" />
+
+            </td>
+
+            <td id="tdpr_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+
+                <span id="desc1_@Html.DisplayFor(modelItem => item.id)">@item.pr</span>
+                <input type="hidden" id="prid_@Html.DisplayFor(modelItem => item.id)" value="@item.pr" />
+            </td>
+            <td id="tdproj_@Html.DisplayFor(modelItem => item.id)" class="tdk">
+                <span id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+
+                    @if (ViewData["ProjectList"] != null)
+                    {
+                        foreach (var item21 in ViewData["ProjectList"] as IList<ProjectModule>)
+                        {
+                            if (item.proj == item21.id)
+                            {
+                                @:@item21.code
+                            }
+
+                        }
+                    }
+
+
+                </span>
+                <input type="hidden" id="projid_@Html.DisplayFor(modelItem => item.id)" value="@item.proj" />
+            </td>
+            <td id="tdcat_@Html.DisplayFor(modelItem => item.id)" class="tdk">
+
+                <span id="cat_@Html.DisplayFor(modelItem => item.id)"></span>
+
+            </td>
+            <td id="tdtask_@Html.DisplayFor(modelItem => item.id)" class="tdk">
+
+                <span id="descriptiontask1_@Html.DisplayFor(modelItem => item.id)">@item.description</span>
+                <input type="hidden" id="taskid_@Html.DisplayFor(modelItem => item.id)" value="@item.id" />
+
+            </td>
+
+
+
+            <td id="tdcreate_@Html.DisplayFor(modelItem => item.id)" class="tdk">
+                <button id="link_@Html.DisplayFor(modelItem => item.id)" type="button" class=" add_fields5 btn btn-primary w-100" style="margin-bottom:5px;">Create</button>
+            </td>
+
+        </tr>
+               
+        }
+
+
+    </tbody>
+</table> <!-- end of table responsive  bootstrap table-->

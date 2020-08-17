@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-This file is used by the publish/package process of your Web project. You can customize the behavior of this process
-by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+https://go.microsoft.com/fwlink/?LinkID=208121. 
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\inetpub\wwwroot\hrportal</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
@@ -15,11 +13,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Antlr3.Runtime.pdb">
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>08/17/2020 20:24:08</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>08/17/2020 20:24:08</publishTime>
+    </File>
     <File Include="bin/ITGWebTimeSheet2.dll">
-      <publishTime>05/06/2020 19:35:06</publishTime>
+      <publishTime>08/17/2020 20:23:55</publishTime>
     </File>
     <File Include="bin/ITGWebTimeSheet2.pdb">
-      <publishTime>05/06/2020 19:35:06</publishTime>
+      <publishTime>08/17/2020 20:23:55</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>10/16/2017 14:14:32</publishTime>
@@ -291,14 +295,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/Images/ITG_ShortBanner.jpg">
       <publishTime>03/06/2020 18:00:25</publishTime>
     </File>
+    <File Include="Content/Images/rsz_interwest_logo.png">
+      <publishTime>05/25/2020 08:28:30</publishTime>
+    </File>
     <File Include="Content/jinput.css">
       <publishTime>04/28/2020 16:05:29</publishTime>
+    </File>
+    <File Include="Content/jquery.timepicker.css">
+      <publishTime>05/11/2020 15:26:43</publishTime>
     </File>
     <File Include="Content/login.css">
       <publishTime>03/06/2020 18:00:25</publishTime>
     </File>
     <File Include="Content/main.css">
-      <publishTime>05/04/2020 21:29:13</publishTime>
+      <publishTime>08/17/2020 20:17:19</publishTime>
     </File>
     <File Include="Content/menubtn.css">
       <publishTime>03/06/2020 18:00:25</publishTime>
@@ -456,11 +466,8 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/v4-shims.min.css">
       <publishTime>03/23/2020 20:56:24</publishTime>
     </File>
-    <File Include="Controllers/AdminController.cs">
-      <publishTime>04/29/2020 17:28:56</publishTime>
-    </File>
-    <File Include="Controllers/CustomController.cs">
-      <publishTime>05/04/2020 15:17:31</publishTime>
+    <File Include="Controllers/DefaultController.cs">
+      <publishTime>08/04/2020 18:40:25</publishTime>
     </File>
     <File Include="FilesHere/ITG HR Portal Requirements - Copy.docx">
       <publishTime>03/06/2020 18:00:25</publishTime>
@@ -564,14 +571,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="fonts/glyphicons-halflings-regular.woff2">
       <publishTime>03/06/2020 18:00:29</publishTime>
     </File>
-    <File Include="Global.asax">
-      <publishTime>03/06/2020 16:57:51</publishTime>
-    </File>
-    <File Include="Models/TaskManModule.cs">
-      <publishTime>04/27/2020 17:06:47</publishTime>
-    </File>
     <File Include="newlayout_approve_greg.txt">
       <publishTime>04/09/2020 18:19:42</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>08/17/2020 20:23:59</publishTime>
     </File>
     <File Include="Scripts/bootstrap-datetimepicker.js">
       <publishTime>03/06/2020 23:18:57</publishTime>
@@ -1677,26 +1681,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/fontawesome/v4-shims.min.js">
       <publishTime>03/23/2020 20:56:22</publishTime>
     </File>
-    <File Include="Scripts/index.d.ts">
-      <publishTime>03/06/2020 18:54:37</publishTime>
-    </File>
     <File Include="Scripts/index.js.flow">
       <publishTime>03/06/2020 18:54:37</publishTime>
     </File>
     <File Include="Scripts/jinput.js">
       <publishTime>04/28/2020 16:04:41</publishTime>
-    </File>
-    <File Include="Scripts/jquery-1.10.2.js">
-      <publishTime>03/06/2020 18:10:26</publishTime>
-    </File>
-    <File Include="Scripts/jquery-1.10.2.min.js">
-      <publishTime>03/06/2020 18:10:26</publishTime>
-    </File>
-    <File Include="Scripts/jquery-1.10.2.min.map">
-      <publishTime>03/06/2020 18:10:26</publishTime>
-    </File>
-    <File Include="Scripts/jquery-3.3.1.intellisense.js">
-      <publishTime>03/06/2020 18:00:22</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.js">
       <publishTime>03/06/2020 18:00:22</publishTime>
@@ -1715,9 +1704,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/jquery-3.3.1.slim.min.map">
       <publishTime>03/06/2020 18:00:23</publishTime>
-    </File>
-    <File Include="Scripts/jquery-3.4.1.intellisense.js">
-      <publishTime>03/06/2020 18:55:14</publishTime>
     </File>
     <File Include="Scripts/jquery-3.4.1.js">
       <publishTime>03/06/2020 18:55:13</publishTime>
@@ -1752,8 +1738,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery.min.js">
       <publishTime>03/06/2020 18:00:23</publishTime>
     </File>
-    <File Include="Scripts/jquery.validate-vsdoc.js">
-      <publishTime>03/06/2020 18:00:23</publishTime>
+    <File Include="Scripts/jquery.session.js">
+      <publishTime>05/27/2020 18:13:06</publishTime>
+    </File>
+    <File Include="Scripts/jquery.timepicker.js">
+      <publishTime>05/11/2020 17:09:17</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
       <publishTime>03/20/2020 17:46:47</publishTime>
@@ -2034,6 +2023,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Admin/Customers_mar26.cshtml">
       <publishTime>03/26/2020 16:31:27</publishTime>
     </File>
+    <File Include="Views/Admin/DeleteTaskList.cshtml">
+      <publishTime>06/15/2020 19:33:26</publishTime>
+    </File>
+    <File Include="Views/Admin/DisplayAllSubTask.cshtml">
+      <publishTime>07/31/2020 19:00:31</publishTime>
+    </File>
+    <File Include="Views/Admin/DisplayReq.cshtml">
+      <publishTime>08/17/2020 20:25:49</publishTime>
+    </File>
+    <File Include="Views/Admin/DisplaySubTask.cshtml">
+      <publishTime>07/31/2020 14:35:09</publishTime>
+    </File>
     <File Include="Views/Admin/EditCustomers.cshtml">
       <publishTime>03/25/2020 19:53:31</publishTime>
     </File>
@@ -2049,26 +2050,41 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Admin/Login - bt4.cshtml">
       <publishTime>03/06/2020 20:39:44</publishTime>
     </File>
-    <File Include="Views/Admin/Login - Copy.cshtml">
-      <publishTime>03/06/2020 19:39:48</publishTime>
-    </File>
     <File Include="Views/Admin/Login.cshtml">
-      <publishTime>05/06/2020 19:35:27</publishTime>
+      <publishTime>08/17/2020 18:04:13</publishTime>
     </File>
     <File Include="Views/Admin/LoginMay6.cshtml">
       <publishTime>05/06/2020 02:19:13</publishTime>
     </File>
+    <File Include="Views/Admin/LoginPartial.cshtml">
+      <publishTime>06/18/2020 17:43:36</publishTime>
+    </File>
+    <File Include="Views/Admin/Login_6_17.cshtml">
+      <publishTime>06/17/2020 17:31:20</publishTime>
+    </File>
     <File Include="Views/Admin/Login_April.cshtml">
       <publishTime>04/27/2020 18:38:31</publishTime>
     </File>
-    <File Include="Views/Admin/Planner.cshtml">
-      <publishTime>05/06/2020 17:13:59</publishTime>
+    <File Include="Views/Admin/Login_May_18.cshtml">
+      <publishTime>05/18/2020 15:44:50</publishTime>
     </File>
-    <File Include="Views/Admin/Planner_v1.cshtml">
-      <publishTime>04/24/2020 16:27:18</publishTime>
+    <File Include="Views/Admin/Planner.cshtml">
+      <publishTime>08/17/2020 20:08:33</publishTime>
+    </File>
+    <File Include="Views/Admin/Planner_7_28_2020.cshtml">
+      <publishTime>07/28/2020 19:03:52</publishTime>
+    </File>
+    <File Include="Views/Admin/Planner_7_30_2020.cshtml">
+      <publishTime>07/31/2020 15:37:51</publishTime>
+    </File>
+    <File Include="Views/Admin/Planner_8-17.cshtml">
+      <publishTime>08/17/2020 10:39:12</publishTime>
+    </File>
+    <File Include="Views/Admin/Planner_8_3_2020.cshtml">
+      <publishTime>08/03/2020 18:54:49</publishTime>
     </File>
     <File Include="Views/Admin/Project.cshtml">
-      <publishTime>05/05/2020 18:15:59</publishTime>
+      <publishTime>06/01/2020 19:54:30</publishTime>
     </File>
     <File Include="Views/Admin/Project_mar26.cshtml">
       <publishTime>03/26/2020 18:27:12</publishTime>
@@ -2077,7 +2093,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/09/2020 18:51:49</publishTime>
     </File>
     <File Include="Views/Admin/Staff.cshtml">
-      <publishTime>04/30/2020 15:26:34</publishTime>
+      <publishTime>05/26/2020 13:52:58</publishTime>
     </File>
     <File Include="Views/Admin/Staff2.cshtml">
       <publishTime>03/23/2020 12:13:14</publishTime>
@@ -2096,9 +2112,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Admin/TaskFilterStat.cshtml">
       <publishTime>04/02/2020 19:24:25</publishTime>
-    </File>
-    <File Include="Views/Admin/TaskManager - Copy.cshtml">
-      <publishTime>04/03/2020 17:19:04</publishTime>
     </File>
     <File Include="Views/Admin/TaskManager.cshtml">
       <publishTime>04/21/2020 21:31:48</publishTime>
@@ -2139,14 +2152,53 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Admin/TaskPartial.cshtml">
       <publishTime>04/01/2020 15:42:03</publishTime>
     </File>
-    <File Include="Views/Index.cshtml">
-      <publishTime>03/06/2020 18:40:42</publishTime>
+    <File Include="Views/Admin/Terminal.cshtml">
+      <publishTime>08/17/2020 14:19:19</publishTime>
     </File>
-    <File Include="Views/Login.cshtml">
-      <publishTime>03/06/2020 18:40:46</publishTime>
+    <File Include="Views/Admin/TimeSheet.cshtml">
+      <publishTime>06/17/2020 17:43:04</publishTime>
     </File>
-    <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>03/06/2020 18:10:08</publishTime>
+    <File Include="Views/Admin/TimeSheet_6_17.cshtml">
+      <publishTime>06/17/2020 17:32:24</publishTime>
+    </File>
+    <File Include="Views/Admin/UpdateTaskAct.cshtml">
+      <publishTime>06/11/2020 19:12:25</publishTime>
+    </File>
+    <File Include="Views/Default/DeleteTaskList.cshtml">
+      <publishTime>06/15/2020 20:19:31</publishTime>
+    </File>
+    <File Include="Views/Default/DisplayAllSubTask.cshtml">
+      <publishTime>07/31/2020 19:04:08</publishTime>
+    </File>
+    <File Include="Views/Default/DisplaySubTask.cshtml">
+      <publishTime>07/31/2020 19:04:08</publishTime>
+    </File>
+    <File Include="Views/Default/Index.cshtml">
+      <publishTime>05/18/2020 19:43:39</publishTime>
+    </File>
+    <File Include="Views/Default/Login.cshtml">
+      <publishTime>08/17/2020 18:04:44</publishTime>
+    </File>
+    <File Include="Views/Default/Login_6_17.cshtml">
+      <publishTime>06/17/2020 17:28:42</publishTime>
+    </File>
+    <File Include="Views/Default/Login_7_31_2020.cshtml">
+      <publishTime>07/31/2020 19:06:17</publishTime>
+    </File>
+    <File Include="Views/Default/TaskPartial.cshtml">
+      <publishTime>08/17/2020 15:29:31</publishTime>
+    </File>
+    <File Include="Views/Default/TimeSheet.cshtml">
+      <publishTime>08/17/2020 18:05:01</publishTime>
+    </File>
+    <File Include="Views/Default/TimeSheet_6_17.cshtml">
+      <publishTime>06/17/2020 17:29:21</publishTime>
+    </File>
+    <File Include="Views/Default/TimeSheet_7_31_2020.cshtml">
+      <publishTime>07/31/2020 19:20:06</publishTime>
+    </File>
+    <File Include="Views/Planner.cshtml">
+      <publishTime>06/02/2020 19:48:36</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>03/06/2020 19:09:19</publishTime>
@@ -2155,7 +2207,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/23/2020 20:58:09</publishTime>
     </File>
     <File Include="Views/_LayoutInside.cshtml">
-      <publishTime>05/05/2020 17:49:11</publishTime>
+      <publishTime>06/08/2020 16:29:58</publishTime>
     </File>
     <File Include="Views/_LayoutInside_All_scripts here.cshtml">
       <publishTime>04/22/2020 19:13:42</publishTime>
@@ -2172,32 +2224,59 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/_LayoutInside_planner_v1.cshtml">
       <publishTime>04/23/2020 19:26:04</publishTime>
     </File>
+    <File Include="Views/_LayoutInside_roqz_f.cshtml">
+      <publishTime>05/09/2020 06:25:27</publishTime>
+    </File>
     <File Include="Views/_LayoutInside_v1.cshtml">
       <publishTime>03/23/2020 18:04:47</publishTime>
     </File>
     <File Include="Views/_LayoutInside_v2_withStaff.cshtml">
       <publishTime>03/31/2020 16:12:02</publishTime>
     </File>
+    <File Include="Views/_LayoutPages - Copy %282%29.cshtml">
+      <publishTime>07/28/2020 20:32:50</publishTime>
+    </File>
+    <File Include="Views/_LayoutPages - Copy.cshtml">
+      <publishTime>07/28/2020 20:32:10</publishTime>
+    </File>
     <File Include="Views/_LayoutPages.cshtml">
       <publishTime>04/29/2020 21:10:31</publishTime>
     </File>
+    <File Include="Views/_LayoutPlanner - Copy.cshtml">
+      <publishTime>08/17/2020 13:08:37</publishTime>
+    </File>
+    <File Include="Views/_LayoutPlanner.cshtml">
+      <publishTime>08/17/2020 20:26:56</publishTime>
+    </File>
+    <File Include="Views/_LayoutPlanner_7_28_2020.cshtml">
+      <publishTime>07/28/2020 20:33:18</publishTime>
+    </File>
+    <File Include="Views/_LayoutPlanner_8_3_2020.cshtml">
+      <publishTime>08/03/2020 19:02:27</publishTime>
+    </File>
+    <File Include="Views/_LayoutStaff.cshtml">
+      <publishTime>05/25/2020 08:31:08</publishTime>
+    </File>
     <File Include="Views/_LayoutTime.cshtml">
-      <publishTime>05/06/2020 20:55:33</publishTime>
+      <publishTime>07/08/2020 16:34:58</publishTime>
     </File>
-    <File Include="Views/_LayoutTime_May6.cshtml">
-      <publishTime>05/06/2020 17:05:54</publishTime>
+    <File Include="Views/_LayoutTime_6_17.cshtml">
+      <publishTime>06/17/2020 17:34:19</publishTime>
     </File>
-    <File Include="Views/_LayoutTime_May_4.cshtml">
-      <publishTime>05/04/2020 14:30:23</publishTime>
+    <File Include="Views/_LayoutUsers.cshtml">
+      <publishTime>08/04/2020 21:08:12</publishTime>
     </File>
-    <File Include="Views/_LayoutTime_May_5.cshtml">
-      <publishTime>05/05/2020 16:39:53</publishTime>
+    <File Include="Views/_LayoutUsers_6_19_2020.cshtml">
+      <publishTime>06/19/2020 11:47:06</publishTime>
+    </File>
+    <File Include="Views/_LayoutUsers_8_4_2020.cshtml">
+      <publishTime>08/04/2020 20:21:12</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>03/06/2020 18:26:40</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/06/2020 19:35:07</publishTime>
+      <publishTime>07/08/2020 14:52:48</publishTime>
     </File>
     <File Include="webfonts/fa-brands-400.eot">
       <publishTime>03/23/2020 20:56:22</publishTime>

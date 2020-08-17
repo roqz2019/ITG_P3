@@ -26,8 +26,17 @@ namespace ITGWebTimeSheet2.Models
 
         public string lastname { get; set; }
 
+        public string username { get; set; }
+
+        public string password { get; set; }
+
+        public string accesstype { get; set; }
+
+        public string type { get; set; }
 
         public string id { get; set; }
+
+             public string timezone{ get; set; }
 
         public string[] File_file { get; set; }
     }

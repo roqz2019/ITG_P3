@@ -1,0 +1,617 @@
+﻿@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.TaskManModule>
+@{
+    ViewBag.Title = "Planner";
+    Layout = "~/Views/_LayoutInside.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><a href="@Url.Action("Planner")"><i class="fa fa-tasks"></i> Planner - Add Task</a></h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Planner")">Planner</a></li>
+        </ul>
+    </div>
+
+
+
+    <!--  New Design  -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+
+                <div class="tile-body">
+
+
+
+
+
+                    <div class="table-responsive2">
+                        <table class="table table-hover table-bordered" id="taskmantable">
+                            <thead style="background-color: #002080;color:white;" class="wrapper01">
+                                <tr>
+
+                                    <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+                                    </th>
+                                    <th style="border: 1px solid #dee2e6; border-bottom: 0;" class="tc-main" data-field="customer">
+                                        <div style="float:left;">
+                                            CUST
+                                        </div>
+                                    </th>
+                                    <th style="border-bottom: 0;" class="tc-main" data-field="priority">
+                                        <div style="float:left;">
+                                            PR
+                                        </div>
+                                    </th>
+                                    <th style="border-bottom: 0;" class="tc-main" data-field="project">
+                                        <div style="float:left;">
+                                            PROJ
+                                        </div>
+                                    </th>
+                                    <th style="border-bottom: 0;" class="tc-main" data-field="task">
+                                        <div style="float:left;">
+                                            Task
+                                        </div>
+                                    </th>
+
+
+                                    <th style="border-bottom: 0;" class="tc-main tc-type" data-field="type">
+                                        <div style="float:left;">
+                                            Type
+                                        </div>
+                                    </th>
+
+                                    <th style="border-bottom: 0;" class="tc-main tc-resource" data-field="resource">
+                                        <div style="float:left;">
+                                            RES
+                                        </div>
+                                    </th>
+
+                                    <th style="border-bottom: 0;" class="tc-main" data-field="rating">
+                                        <div style="float:left;">
+                                            Rating
+                                        </div>
+                                        <div style="float:right;color:#148ebd; display: none;">
+                                            <i class="fas fa-sort-down fa-2x fdd" style="margin-top: -10px;"></i>
+                                        </div>
+                                    </th>
+
+                                    <th style="border-bottom: 0;" class="tc-main tc-status" data-field="status">
+                                        <div style="float:left;">
+                                            Status
+                                        </div>
+                                    </th>
+
+                                    <th style="border-bottom: 0;" class="tc-main" data-field="start">
+                                        <div style="float:left;">
+                                            Start
+                                        </div>
+                                    </th>
+
+                                    <th style="border-bottom: 0;" class="tc-main" data-field="finish">
+                                        <div style="float:left;">
+                                            Finish
+                                        </div>
+                                    </th>
+
+                                    <th style="border-bottom: 0;" class="tc-main" data-field="esthours">
+                                        <div style="float:left;">
+                                            Est
+                                        </div>
+                                    </th>
+
+
+
+                                    <th style="border-bottom: 0;" class="tc-main" data-field="acthours">
+                                        <div style="float:left;">
+                                            Act
+                                        </div>
+                                    </th>
+                                </tr>
+
+
+
+
+
+
+
+
+                                <tr style="background-color: #ffd633; padding: 0; margin: 0; border-top: 0;">
+
+                                    <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+                                        <a href="#" class="add_fields3" style="margin-top:25px;"><i class="fas fa-plus-circle"></i></a>
+                                    </th>
+
+
+                                    <th style="border: none;" class="tc-main" data-field="customer">
+                                        <div class="tc-data tc-customer" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                            <span id="">
+                                                <select class="form-control td-ddl td-ddl-filter" data-field="customerid">
+                                                    @if (ViewData["CustomerList"] != null)
+                                                    {
+                                                        foreach (var customer in ViewData["CustomerList"] as IList<CustomersModule>)
+                                                        {
+                                                            <option value="@customer.id">@customer.code</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </th>
+
+
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="priority">
+                                        <div class="tc-data tc-priority" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                            <span id="alistair_222">
+                                                <select class="form-control td-ddl td-ddl-filter" data-field="pr" id="selectpr_2020">
+                                                    <option value="">Select</option> 
+                                                    <option value="None">None</option> 
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </th>
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="project">
+                                        <div class="tc-data tc-project" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                            <span id="alistair_222">
+                                                <select class="form-control td-ddl td-ddl-filter" data-field="projectid">
+                                                    @if (ViewData["ProjectList"] != null)
+                                                    {
+                                                        foreach (var project in ViewData["ProjectList"] as IList<ProjectModule>)
+                                                        {
+                                                            <option value="@project.id">@project.code</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </th>
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                        </div>
+                                    </th>
+
+
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="type">
+                                        <div class="tc-data tc-type" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                            <span id="alistair_222">
+                                                <select class="form-control td-ddl td-ddl-filter" data-field="dev">
+                                                    <option value="0">Select</option>
+                                                    <option value="Dev">Dev</option>
+                                                    <option value="Rev">Rev</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </th>
+
+
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="resource">
+                                        <div class="tc-data tc-resource" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                            <span id="alistair_222">
+                                                <select class="form-control td-ddl td-ddl-filter" data-field="resource">
+                                                    <option value="0">Select</option>
+                                                    @if (ViewData["StaffList"] != null)
+                                                    {
+                                                        foreach (var staff in ViewData["StaffList"] as IList<Staff>)
+                                                        {
+                                                            <option value="@staff.id">@staff.alias</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </th>
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                        </div>
+                                    </th>
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main" data-field="status">
+                                         <div class="tc-data tc-status" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                            <span id="alistair_222">
+                                                <select class="form-control td-ddl td-ddl-filter" data-field="stat">
+                                                    <option value="Please select">Please select</option>
+                                                    <option value="All">All</option>
+                                                    <option value="Opened">Opened</option>
+                                                    <option value="In Progress">In Progress</option>
+                                                    <option value="Ready to close">Ready to close</option>
+                                                    <option value="Issues">Issues</option>
+                                                    <option value="Monitor">Monitor</option>
+                                                    <option value="In Queue">In Queue</option>
+                                                    <option value="Closed">Closed</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </th>
+
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
+                                       <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                        </div>
+                                    </th>
+
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%;">
+                                        </div>
+                                    </th>
+
+
+
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                        </div>
+                                    </th>
+
+
+
+                                    <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-main">
+                                        <div class="tc-data" style="clear: both; float:left; width: 100%; visibility: hidden;">
+                                        </div>
+                                    </th>
+                                </tr>
+
+
+                            </thead>
+
+                            <!--
+                            <tbody id="tbody-main wrapper4">
+
+                            </tbody>
+                            -->
+
+
+
+
+                                <!-- filter start -->
+        <tbody id="wrapper4">
+
+            @foreach (var item in Model)
+            {
+
+                <tr class="record" id="row_@Html.DisplayFor(modelItem => item.id)" >
+
+                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                        <a href="#" id="toogle_@Html.DisplayFor(modelItem => item.id)" class="dplay" style="margin-top:25px;"><i id="drop_@Html.DisplayFor(modelItem => item.id)" class="fas fa-play"></i></a>
+                        <a href="#" id="d_@Html.DisplayFor(modelItem => item.id)" style="display:none" class="down_arrow"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>
+                    </td>
+
+
+
+                    <td class="td-main" style="border: 1px solid #dee2e6;" id="@Html.DisplayFor(modelItem => item.id)">
+                        <div id="@Html.DisplayFor(modelItem => item.id)" class="td-label"  style="width: 90%; border: 0; margin: 0; padding; 0;">
+
+                            @if (ViewData["CustomerList"] != null)
+                            {
+                                foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                {
+                                    if (item.cust == item1.id)
+                                    {
+                                        @:@item1.code
+                                    }
+                                }
+                            }
+                        </div>
+
+                        <div id="selcust_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="ddl" data-field="customer" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <select class="form-control td-ddl" id="@Html.DisplayFor(modelItem => item.id)">
+                                @if (ViewData["CustomerList"] != null)
+                                {
+                                    foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                    {
+                                        <option value="@item1.id">@item1.code</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </td>
+
+
+
+                    <td class="td-main">
+                        <div id="taskpr_@Html.DisplayFor(modelItem => item.id)" class="td-label"  style="width: 90%; border: 0; margin: 0; padding; 0;">@Html.DisplayFor(modelItem => item.pr) </div>
+                        <div id="selpr_@Html.DisplayFor(modelItem => item.id)" class="sel_pr td-control" data-type="ddl" data-field="priority" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <select class="form-control td-ddl" data-taskid="@Html.DisplayFor(modelItem => item.id)" id="selectpr_@Html.DisplayFor(modelItem => item.id)">
+                                <option value="0">Select</option>
+                                <option value="0">None</option> 
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="td-main">
+                        <span id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="td-label">
+
+                            @if (ViewData["ProjectList"] != null)
+                            {
+                                foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
+                                {
+                                    if (item.proj == item1.id)
+                                    {
+                                        @:@item1.code
+                                    }
+                                    if (Convert.ToString(item.proj) == "0")
+                                    {
+                                        @:Please select
+                                         break;
+                                    }
+                                }
+                            }
+                        </span>
+                        <span id="selproj_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="ddl" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <select class="form-control td-ddl td-ddl-project selectproj" id="selectproj_@Html.DisplayFor(modelItem => item.id)">
+                                <option value="0">Select Project</option>
+                                @if (ViewData["ProjectList"] != null)
+                                {
+                                    foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
+                                    {
+                                        <option value="@item1.id">@item1.code</option>
+                                    }
+                                }
+                            </select>
+                        </span>
+
+
+                    </td>
+                    <td class="td-main">
+                        <pre id="descriptiontask1_@Html.DisplayFor(modelItem => item.id)" class="td-label">@Html.DisplayFor(modelItem => item.description)</pre>
+
+                        <span id="seldesc_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="txt" data-field="task" data-taskid="@Html.DisplayFor(modelItem => item.id)"  style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <textarea id="descriptiontask_@Html.DisplayFor(modelItem => item.id)" class="form-control task_input td-txt" rows="1" data-min-rows="1" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.description)</textarea>
+                         </span>
+
+                    </td>
+                    <td class="td-main">
+                        <span id="taskdev_@Html.DisplayFor(modelItem => item.id)" class="td-label">@Html.DisplayFor(modelItem => item.dev)</span>
+                        <span id="seldev_@Html.DisplayFor(modelItem => item.id)" class="sel_pr td-control" data-type="ddl" data-field="type" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 90%; border: 0; margin: 0; padding; 0; display: none;">
+                            <select class="form-control td-ddl" id="selectdev_@Html.DisplayFor(modelItem => item.id)">
+                                <option value="0">Select</option>
+                                <option value="Dev">Dev</option>
+                                <option value="Rev">Rev</option>
+                            </select>
+                        </span>
+
+                    </td>
+                    <td class="td-main">
+                        <span id="taskresc_@Html.DisplayFor(modelItem => item.id)" class="td-label">
+
+                            @if (ViewData["StaffList"] != null)
+                            {
+                                foreach (var item6 in ViewData["StaffList"] as IList<Staff>)
+                                {
+                                    if (item.resource == item6.id)
+                                    {
+                                        @:@item6.alias
+                                        break;
+                                    }
+                                    if (Convert.ToString(item.resource) == "0")
+                                    {
+                                        @:Select
+                                         break;
+                                    }
+
+                                }
+
+                            }
+
+                        </span>
+                        <span id="selresc_@Html.DisplayFor(modelItem => item.id)" class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                            <select data-type="ddl" data-field="dev" class="form-control td-ddl" id="selectresc_@Html.DisplayFor(modelItem => item.id)">
+                                <option value="0">Select</option>
+                                @if (ViewData["StaffList"] != null)
+                                {
+                                    foreach (var item2 in ViewData["StaffList"] as IList<Staff>)
+                                    {
+                                        <option value="@item2.id">@item2.alias</option>
+                                    }
+                                }
+                            </select>
+                        </span>
+
+                    </td>
+
+                    <td><i class="fas fa-circle" color="#5fac11"></i></td>
+
+                    <td class="td-main">
+                        <span id="taskstat_@Html.DisplayFor(modelItem => item.id)" class="td-label">
+                            @Html.DisplayFor(modelItem => item.status)
+                        </span>
+                        <span id="selstat_@Html.DisplayFor(modelItem => item.id)" class="sel_stat td-control" data-type="ddl" data-field="status" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                            <select class="form-control td-ddl" id="selectstat_@Html.DisplayFor(modelItem => item.id)">
+                                <option value="Please select">Please select</option>
+                                <option value="Opened">Opened</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Ready to close">Ready to close</option>
+                                <option value="Issues">Issues</option>
+                                <option value="Monitor">Monitor</option>
+                                <option value="In Queue">In Queue</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </span>
+                    </td>
+
+                    <td class="td-main">
+                        <span id="taskstart_@Html.DisplayFor(modelItem => item.id)" class="td-label">@Html.DisplayFor(modelItem => item.ddate) </span>
+                        <span id="selstart_@Html.DisplayFor(modelItem => item.id)" class="sel_stat td-control" data-type="txt" data-field="date" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                            <input id="starttask_@Html.DisplayFor(modelItem => item.id)" type="text" class="datepicker99 td-txt" />
+                        </span>
+
+
+                    </td>
+                    <td class="td-main"></td>
+
+
+                    <td class="td-main">
+                        <span id="taskest_@Html.DisplayFor(modelItem => item.id)" class="td-label">@Html.DisplayFor(modelItem => item.esthours)</span>
+                        <span id="selest_@Html.DisplayFor(modelItem => item.id)" class="sel_cust td-control" data-type="txt" data-field="esthours" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                            <input id="esttask_@Html.DisplayFor(modelItem => item.id)" class="form-control task_input td-txt" type="text" value="@Html.DisplayFor(modelItem => item.esthours)" />
+                         </span>
+                    </td>
+
+                    <td>
+                        <span id="taskstat_@Html.DisplayFor(modelItem => item.id)" class="">@Html.DisplayFor(modelItem => item.acthours) </span>
+                    </td>
+                </tr>
+
+
+
+
+
+
+                <tr id="secondrow_@Html.DisplayFor(modelItem => item.id)" class="notShow hideall">
+                    <td colspan="1" style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                        <a href="#" id="remove_@Html.DisplayFor(modelItem => item.id)" class="remove_field2" style="margin-top:25px;display:none;position:relative;top: 135px;"><i class="fas fa-minus-circle"></i></a>
+                    </td>
+
+                    <td colspan="12" style="background-color: #fff; width: 100%; padding: 0; border: 0; margin: 0; cell-padding: 0; cell-spacing: 0;">
+                        <div style="display: block; position: relative; clear: both; width: 100%; padding: 0; border: 0; margin: 0;">
+                            <table style="width: 100%; padding: 0; border: 0; margin: 0; cell-padding: 0; cell-spacing: 0;">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="row3">
+                                            <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29 td-main">
+                                                <div style="float:left;" class="w-100">
+                                                    <div class="td-main"  style="float:left; display: block; width: 100%;">
+                                                        Project Status:<br />
+                                                        <pre class="td-label td-lbl-projectstatus">@Html.DisplayFor(modelItem => item.project_status)</pre>
+                                                        <span class="td-control" data-type="txt" data-field="project_status" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                                                            <textarea style="display: block; width: 100%; height: 80%;" class="form-control td-txt td-txt-projectstatus" data-projectid="@Html.DisplayFor(modelItem => item.proj)" rows="4" data-min-rows="4" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.project_status)</textarea>
+                                                        </span>
+                                                    </div>
+
+
+
+
+
+
+                                                    <div style="float:right; display: none;">
+                                                        Date:
+                                                    </div>
+                                                </div>
+
+                                                <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                    <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                </div>
+
+                                            </div>
+                                            <div class="w-1">
+
+                                            </div>
+
+
+
+
+
+                                            <div style="background-color:white;position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29 td-main">
+                                                <div style="float:left;" class="w-100">
+                                                    <div class="td-main"  style="float:left; display: block; width: 100%;">
+                                                        Subtasks:<br />
+
+                                                        <pre id="notetask_@Html.DisplayFor(modelItem => item.id)" class="td-label">@Html.DisplayFor(modelItem => item.note)</pre>
+
+                                                        <span id="selnote_@Html.DisplayFor(modelItem => item.id)" class="td-control" data-type="txt" data-field="notes" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                                                            <textarea id="notetask2_@Html.DisplayFor(modelItem => item.id)" style=" display: block; width: 100%; height: 80%;" class="form-control td-txt" rows="4" data-min-rows="4" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.note)</textarea>
+                                                        </span>
+                                                    </div>
+                                                    <div style="float:right">
+
+                                                    </div>
+                                                </div>
+
+                                                <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                    <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                            <div class="w-1">
+
+                                            </div>
+                                            <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29 td-main">
+                                                <div style="float:left;" class="w-100">
+                                                    <div style="float:left">
+                                                        Discussion:<br />
+
+                                                    </div>
+                                                    <div style="float:right">
+                                                        04/20/2020
+                                                    </div>
+
+
+                                                </div>
+                                                <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                    <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="w-1">
+
+                                            </div>
+
+                                            <div class="w-10">
+                                                <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button>
+                                                <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button>
+                                                <button type="button" class="btn btn-primary w-100 btn_images" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="margin-bottom:5px;">Images</button>
+                                                <button type="button" class="btn btn-primary w-100">Audit</button>
+
+
+                                            </div>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </td>
+
+
+                </tr>
+            }
+
+
+
+        </tbody>
+
+
+
+
+                        </table>
+                        <div style="text-align:right">
+                            <button type="button" class="btn btn-primary" style="background-color:#d9aa1d;border-color: #d9aa1d;">CSV</button>
+                            <button type="button" class="btn btn-primary">Next</button>
+                            @for (int i = 0; i < ViewBag.PageCount; i++)
+                            {
+                                <a href="@Url.Action("Planner", new { filter = Request.QueryString["filter"], value = Request.QueryString["value"], page = (i + 1) })" type="button" class="btn btn-outline-info">@(i+1)</a>
+                            }
+                        </div>
+                    </div> <!-- end of table responsive  bootstrap table-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>  <!-- old main-->

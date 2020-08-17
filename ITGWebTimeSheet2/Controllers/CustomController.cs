@@ -23,6 +23,10 @@ namespace ITGWebTimeSheet2.Controllers
             IList<CategoryModule> categorylist = new List<CategoryModule>();
             IList<TaskManModule> tasklist = new List<TaskManModule>();
 
+            IList<TaskManModule> timesheet = new List<TaskManModule>();
+
+            IList<TaskManModule> taskplanner = new List<TaskManModule>();
+
 
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
 
@@ -31,7 +35,7 @@ namespace ITGWebTimeSheet2.Controllers
 
                 con.Open();
 
-                string query = "Select * from [timesheet].[dbo].[customers]";
+                string query = "Select * from [dbo].[customers]";
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataReader dataReader = cmd.ExecuteReader();
 
@@ -46,7 +50,7 @@ namespace ITGWebTimeSheet2.Controllers
                 }
                 //   sitems.File_file = termsList.ToArray();
 
-                query = "Select * from [timesheet].[dbo].[staff]";
+                query = "Select * from [dbo].[staff]";
                 SqlCommand cmd2 = new SqlCommand(query, con);
                 SqlDataReader dataReader2 = cmd2.ExecuteReader();
 
@@ -62,7 +66,7 @@ namespace ITGWebTimeSheet2.Controllers
                 }
 
 
-                query = "Select * from [timesheet].[dbo].[project]";
+                query = "Select * from [dbo].[project]";
                 SqlCommand cmd3 = new SqlCommand(query, con);
                 SqlDataReader dataReader3 = cmd3.ExecuteReader();
 
@@ -80,7 +84,7 @@ namespace ITGWebTimeSheet2.Controllers
 
 
 
-                query = "Select id, description from [timesheet].[dbo].[taskman]";
+                query = "Select id, description from [dbo].[taskman]";
                 SqlCommand cmd5 = new SqlCommand(query, con);
                 SqlDataReader dataReader5 = cmd5.ExecuteReader();
 
@@ -93,15 +97,14 @@ namespace ITGWebTimeSheet2.Controllers
                 }
 
 
-
-                query = "Select id, projectid, status, code, name, description, datecreated from [timesheet].[dbo].[categories]";
+                query = "Select id, projectid, status, code, name, description, datecreated from [dbo].[categories]";
                 SqlCommand cmd6 = new SqlCommand(query, con);
                 SqlDataReader dataReader6 = cmd6.ExecuteReader();
 
                 while (dataReader6.Read())
                 {
                     CategoryModule cat = new CategoryModule();
-                    
+
                     cat.id = Convert.ToInt16(dataReader6["id"].ToString());
                     cat.projectid = Convert.ToInt16(dataReader6["projectid"].ToString());
                     cat.code = Convert.ToString(dataReader6["code"]);
@@ -111,7 +114,6 @@ namespace ITGWebTimeSheet2.Controllers
                     cat.datecreated = Convert.ToDateTime(dataReader6["datecreated"]);
                     categorylist.Add(cat);
                 }
-
 
                 //--------------------------------------------------------------------------------
                 query = " SELECT T.id as id, C.code as cust,P.code as proj, T.description as descr, T.dev as dev, T.note as note, (Select fullname from[timesheet].[dbo].[staff] where id = T.resource) as resc, T.pr as pr,T.start as start,T.finish as finish, T.stat as stat, T.esthours as est,T.ddate as ddate from[timesheet].[dbo].[taskman] as T,[timesheet].[dbo].[customers] as C,[timesheet].[dbo].[project] as P,[timesheet].[dbo].[staff] as S WHERE C.id=T.customerid AND P.id=T.projectid AND T.resource=S.id ORDER BY T.id DESC";
@@ -145,21 +147,44 @@ namespace ITGWebTimeSheet2.Controllers
 
                 }
 
-              
+
+                string queryday = "Select * from [dbo].[tasklist]";
+                SqlCommand cmdd = new SqlCommand(queryday, con);
+                SqlDataReader dataReaderd = cmdd.ExecuteReader();
+
+
+                while (dataReaderd.Read())
+                {
+
+                    TaskManModule sitems = new TaskManModule();
+                    string edate = Convert.ToString(dataReaderd["edate"]);
+                    sitems.ddate = String.Format("{0:MM/dd/yyyy}", edate);
+                    timesheet.Add(sitems);
+                }
+
+
+
+
 
                 con.Close();
             }
 
                 // Now store it in your model
                 ViewData["CustomerList"] = customerlist;
-                ViewData["StaffList"] = stafflist;
+            ViewData["CustomerList2"] = customerlist;
+            ViewData["StaffList"] = stafflist;
                 ViewData["ProjectList"] = projectlist;
                 ViewData["Taskman"] = taskmode;
-                ViewData["CategoryList"] = categorylist;
+            ViewData["CategoryList"] = categorylist;
+
+
+
 
             ViewData["TaskList"] = tasklist;
 
             ViewData["SystemDate"] = DateTime.Now.ToString("MM/dd/yyyy");
+
+            ViewData["dataDates"] = timesheet;
 
 
             // date range -------------- here 
@@ -171,10 +196,15 @@ namespace ITGWebTimeSheet2.Controllers
             { startDateOfWeek = startDateOfWeek.AddDays(-1d); }
           
             DateTime endDateOfWeek = startDateOfWeek.AddDays(6d);
+            //return checkDate >= startDateOfWeek && checkDate <= endDateOfWeek;
 
             ViewData["begin"]= startDateOfWeek.ToString("MM/dd/yyyy");
             ViewData["end"] = endDateOfWeek.ToString("MM/dd/yyyy");
 
+
+
+
+         
 
 
 

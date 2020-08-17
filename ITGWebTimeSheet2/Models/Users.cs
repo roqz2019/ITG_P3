@@ -23,6 +23,8 @@ namespace ITGWebTimeSheet2.Models
 
         public string id { get; set; }
 
+        public string alias{ get; set; }
+
         public string[] File_file { get; set; }
     }
 }

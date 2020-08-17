@@ -1,0 +1,9 @@
+﻿@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.SubTask>
+
+
+@foreach (var item in Model)
+{
+    <li class="list-group-item">@item.info</li>
+
+}

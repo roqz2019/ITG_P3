@@ -15684,7 +15684,7 @@ be a descendant of the grid when it is being dragged.
     background-color: #00635a;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 300px) {
     .app.sidenav-toggled .app-content {
         margin-left: 0;
     }
@@ -15698,7 +15698,8 @@ be a descendant of the grid when it is being dragged.
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width:300px) {
+    /*  767px */
     .app {
         overflow-x: hidden;
     }
@@ -17746,16 +17747,13 @@ body {
 }
 
 .form-control {
-    font-size: 0.750rem;
-
+    /*font-size: 0.750rem;*/
+    font-family: Arial;
+    font-size:11px;
 }
 
 .btn {
     font-size: 0.750rem;
-}
-
-.table th, .table td {
-    padding: 0.30rem;
 }
 
 
@@ -17771,9 +17769,62 @@ body {
     color: #148ebd;
 }
 
-.fa-minus-circle
-{
-    color:red;
+.fa-minus-circle {
+    color: #ff7800;
+}
+
+.datepicker79, .datepicker99, .datepicker5 {
+    border: 0px;
+    padding: 0px;
+    width: 100px;
 }
 
 
+
+.high a {
+  background-color : Green !important;
+ background-image :none !important;
+ color: White !important;
+ 
+}
+
+
+div.gfg {
+    margin: 5px;
+    padding: 5px;
+    width: 100%;
+    height: 100px;
+    overflow: auto;
+  
+}
+
+
+.Highlighted a {
+    background-color: Green !important;
+    background-image: none !important;
+    color: White !important;
+    font-weight: bold !important;
+    font-size: 12pt;
+}
+
+.form-control {
+    border: 2px solid #fff;
+}
+
+.list-group-item {
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    padding: 0.10rem 1.25rem;
+}
+
+.btn2 {
+    padding: 0.1rem 0.3rem;
+}
+
+.table th, .table td {
+    padding: 0.10rem;
+}
+
+
+.form-control {
+    padding: 0.175rem 0.17rem;
+}
