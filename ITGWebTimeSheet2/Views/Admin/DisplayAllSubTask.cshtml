@@ -1,0 +1,43 @@
+﻿
+@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.SubTask>
+
+<table class="table table-hover table-bordered" id="taskmantable2">
+    <thead style="background-color: #ffd633; color: black;">
+        <tr>
+
+            
+            <th style="border: 1px solid #ffd633; width:200px;">
+                <div style="float:left;">
+                    Subtask
+                </div>
+            </th>
+            <th style="width:100px;">Action</th>
+
+          
+        </tr>
+
+    </thead>
+    <tbody id="wrapper4">
+
+        @foreach (var item in Model)
+        {
+            <tr class="record" id="row_@Html.DisplayFor(modelItem => item.id)">
+
+                <td>
+                <span>@item.info</span>
+                </td>
+
+              
+                <td id="tdpr_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+                </td>
+               
+               
+
+            </tr>
+
+        }
+
+
+    </tbody>
+</table> <!-- end of table responsive  bootstrap table-->

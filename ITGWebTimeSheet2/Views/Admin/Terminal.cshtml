@@ -1,0 +1,37 @@
+﻿@using ITGWebTimeSheet2.Models
+
+<h2>Terminal</h2>
+
+
+@using (Html.BeginForm("UpdateTaskNum", "Admin", FormMethod.Post))
+{
+
+    <select class="form-control td-ddl td-ddl-filter" data-field="customerid" name="a">
+        <option value="">Select</option>
+        @if (ViewData["CustomerList"] != null)
+        {
+            foreach (var customer in ViewData["CustomerList"] as IList<CustomersModule>)
+            {
+
+                <option value="@customer.id">@customer.code</option>
+
+            }
+        }
+    </select>
+
+    <br />
+    <select class="form-control td-ddl td-ddl-filter" data-field="projectid" style="width:100%" name="b">
+        <option value="">Please Select</option>
+        @if (ViewData["ProjectList"] != null)
+        {
+            foreach (var project in ViewData["ProjectList"] as IList<ProjectModule>)
+            {
+
+                <option value="@project.id">@project.code</option>
+
+            }
+        }
+    </select>
+    <button type="submit">Run Script</button>
+
+}

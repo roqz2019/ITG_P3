@@ -1,0 +1,353 @@
+﻿@using ITGWebTimeSheet2.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterWest Human Resources Portal</title>
+    <link rel="icon" href="@Url.Content("~/Content/Images/ITG_Brand.gif")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/main.css")">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="@Url.Content("~/Content/fontawesome.min.css.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Bootstrap-4---Tabs-with-Arrows.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/iframe.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/table.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/login.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menubtn.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-datetimepicker.min.css")">
+
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+    <script src="https://kit.fontawesome.com/1b585ee530.js" crossorigin="anonymous"></script>
+
+    <sytle>
+        .datepicker5
+        {
+        width: fit-content;
+        }
+    </sytle>
+
+</head>
+<body class="app sidebar-mini sidenav-toggled">
+    <!-- Navbar-->
+    <header class="app-header">
+        <a class="app-header__logo" href="#"></a>
+        <!-- Sidebar toggle button
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> -->
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+
+            <!--Notification Menu-->
+            <!-- End Notification Menu-->
+            <!-- User Menu-->
+            <li class="dropdown">
+                <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+                <ul class="dropdown-menu settings-menu dropdown-menu-right">
+
+                    <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <!-- Sidebar menu
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div> -->
+
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+            <div>
+                <p class="app-sidebar__user-name">Admin</p>
+                <p class="app-sidebar__user-designation">Administrator</p>
+            </div>
+        </div>
+        <ul class="app-menu">
+
+            <li><a class="app-menu__item" href="~/Admin/Login"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Timesheet</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Planner"><i class="app-menu__icon fa fa-tasks"></i><span class="app-menu__label">Planner</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Reporting"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reporting</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Project"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Program/Projects</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Customers"><i class="app-menu__icon fas fa-address-book"></i><span class="app-menu__label">Customers</span></a></li>
+
+            <li><a class="app-menu__item" href="~/Admin/Staff"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Staffs</span></a></li>
+
+
+        </ul>
+    </aside>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/clean-blog.js")"></script>
+    <script src="@Url.Content("~/Scripts/SearchTable.js")"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/main.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts//jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dataTables.bootstrap.min.js")"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/popper.min.js")"></script>
+
+
+
+
+
+    <script>
+        $('.datepicker3').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        $('.datepicker4').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        /* 
+         *  $('.datepicker5').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'mm/dd/yyyy',
+            formatSubmit: 'mm/dd/yyyy',
+        });
+        */
+      
+
+        //------------------ auto expanding
+
+        $(document)
+            .one('focus.autoExpand', 'textarea.autoExpand', function () {
+                var savedValue = this.value;
+                this.value = '';
+                this.baseScrollHeight = this.scrollHeight;
+                this.value = savedValue;
+            })
+            .on('input.autoExpand', 'textarea.autoExpand', function () {
+                var minRows = this.getAttribute('data-min-rows') | 0, rows;
+                this.rows = minRows;
+                rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 16);
+                this.rows = minRows + rows;
+            });
+    </script>
+
+
+
+
+    <script type="text/javascript">
+        //Add Input Fields
+        $(document).ready(function () {
+
+            // hide all second rows
+
+            $('.hidein').hide();
+        
+          
+        });
+    </script>
+
+
+    <!-- this section -->
+    <script>
+        // all functions for editing infos and
+        $(function () {
+
+
+
+
+            // save functions here
+            // customer save
+            $(".savecustomers").click(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).hide();  // now show input for the span
+                $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&name=' + $("#edit_name_" + del_id[1]).val();
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateCustomers")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#name_" + del_id[1]).show();                     // hide the span
+                $("#savename_" + del_id[1]).hide();  // now show save for the span
+               });
+
+
+            //---- project editing
+             $(".proj_dbclick").dblclick(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).show();  // now show input for the span
+                $("#name_" + del_id[1]).hide();                     // hide the span
+                $("#savename_" + del_id[1]).show();  // now show save for the span
+
+            });
+
+
+            // save functions here
+            // customer save
+            $(".saveproj").click(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_name_" + del_id[1]).hide();  // now show input for the span
+                $("#name_" + del_id[1]).text($("#edit_name_" + del_id[1]).val());   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&name=' + $("#edit_name_" + del_id[1]).val();
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateProject")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#name_" + del_id[1]).show();                     // hide the span
+                $("#savename_" + del_id[1]).hide();  // now show save for the span
+            });
+
+            //------------------------ all staff info editing -----------------------
+
+            $(".staff1_dbclick").click(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                var info = 'id=' + del_id[1];
+
+                var cname = del_id[0];
+
+                if (cname == "cust1") {    // customer name del_id[1]
+
+                    $('#cust1_' + del_id[1]).hide();
+                    $('#cust2_' + del_id[1]).show();
+
+                }
+
+                if (cname == "custcode1") {    // customer name del_id[1]
+
+                    $('#custcode1_' + del_id[1]).hide();
+                    $('#custcode2_' + del_id[1]).show();
+
+                }
+
+            });
+
+            $(".hidein").on('focusout', function (e) {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+             
+                var cname = del_id[0];
+
+                if (cname == "cust2") {    // customer name del_id[1]
+
+                    var newval = $('#edit_name_' + del_id[1]).val();
+                    $('#cust1_' + del_id[1]).text(newval);
+                    $('#cust1_' + del_id[1]).show();
+                    $('#cust2_' + del_id[1]).hide();
+                    var url = "@Url.Action("UpdateCustomers")";
+                    var info = 'id=' + del_id[1] + '&name='+ newval;
+
+                }
+                 if (cname == "custcode2") {    // customer code name del_id[1]
+
+                    var newval = $('#edit_code_' + del_id[1]).val();
+                    $('#custcode1_' + del_id[1]).text(newval);
+                    $('#custcode1_' + del_id[1]).show();
+                    $('#custcode2_' + del_id[1]).hide();
+                    var url = "@Url.Action("UpdateCustCode")";
+                    var info = 'id=' + del_id[1] + '&name='+ newval;
+
+                }
+
+                // ajax request here -->
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: info,
+                    success: function () {
+                        //      location.reload(true);
+                    }
+                });
+
+
+
+
+
+            });
+
+
+
+
+            // save functions here
+            // customer save
+            $(".savestaff1").click(function () {
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+              //  var info = 'id=' + del_id[1];
+
+                $("#edit_fullname_" + del_id[1]).hide();  // now show input for the span
+                var fullname = $("#edit_name_" + del_id[1]).val();
+                var alias = $("#edit_alias_" + del_id[1]).val();
+                var email = $("#edit_email_" + del_id[1]).val();
+                $("#staff1_" + del_id[1]).text(fullname);   // copy the input text to span
+                var info = 'id=' + del_id[1] + '&fullname=' + fullname + '&alias=' + alias + '&email=' + email ;
+                console.log(info);
+                 $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateStaff")",
+                        data: info,
+                        success: function () {
+                            //      location.reload(true);
+                        }
+                    });
+
+                $("#staff1_" + del_id[1]).show();                     // hide the span
+                $("#savefullname_" + del_id[1]).hide();  // now show save for the span
+            });
+
+
+            //------------------------------------------------------------------------------
+            //------------------------ Task Manager ------------------- All
+
+            // customer dropdown and save
+
+
+
+
+
+
+        });
+    </script>
+
+
+
+</body>
+</html >

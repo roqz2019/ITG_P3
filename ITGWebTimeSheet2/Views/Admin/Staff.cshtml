@@ -1,0 +1,145 @@
+﻿@model IEnumerable<ITGWebTimeSheet2.Models.Staff>
+
+@{
+    ViewBag.Title = "Staff";
+    Layout = "~/Views/_LayoutTime.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-users "></i> Staffs</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Staffs</a></li>
+        </ul>
+    </div>
+
+
+  
+
+
+    <!-- new temp-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                    <div class="tile-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" id="stafftable">
+                            <thead style="background-color: #d9aa1d;color:white;">
+                                <tr>
+
+                                    <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+                                        <a href="#" class="add_fields4" style="margin-top:25px;"><i class="fas fa-plus-circle"></i></a>
+                                    </th>
+                                    <th style="border: 1px solid #dee2e6; width:200px;">
+                                        <div style="float:left;">
+                                            First
+                                        </div>
+                                    </th>
+
+                                    <th style="width:200px;">
+                                        <div style="float:left;">
+                                            Last
+                                        </div>
+
+                                    </th>
+                                    <th style="width:80px;">Shortcode</th>
+                                    <th style="width:120px">Type</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Access</th>
+                                    <th>TZ</th>
+                                    <th style="width:40px;">x</th>
+
+
+                                </tr>
+
+                            </thead>
+                            <tbody id="wrapper4">
+
+                                @foreach (var item in Model)
+                                {
+                                <tr class="record" id="row_@Html.DisplayFor(modelItem => item.id)">
+                                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                        <a href="#" id="toogle_@Html.DisplayFor(modelItem => item.id)" class="dplay" style="margin-top:25px;"><i id="drop_@Html.DisplayFor(modelItem => item.id)" class="fas fa-play"></i></a>
+                                        <a href="#" id="d_@Html.DisplayFor(modelItem => item.id)" style="display:none" class="down_arrow"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>
+
+                                    </td>
+                                    <td style="border: 1px solid #dee2e6;" id="tdfirst_@Html.DisplayFor(modelItem => item.id)" class="tdstaff">
+                                        <span id="sfirst_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.fullname)</span>
+                                        <span id="sfirst2_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+                                            <input id="ifirst_@Html.DisplayFor(modelItem => item.id)" class="form-control sIn" type="text" value="@Html.DisplayFor(modelItem => item.fullname)" />
+                                        </span>
+
+                                    </td>
+                                    <td id="tdlast_@Html.DisplayFor(modelItem => item.id)" class="tdstaff">
+                                        <span id="slast_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.lastname)</span>
+                                        <span id="slast2_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+                                            <input id="ilast_@Html.DisplayFor(modelItem => item.id)" class="form-control sIn" type="text" value="@Html.DisplayFor(modelItem => item.lastname)" />
+                                        </span>
+                                    </td>
+                                    <td id="tdalias_@Html.DisplayFor(modelItem => item.id)" class="tdstaff">
+                                        <span id="salias_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.alias)</span>
+                                        <span id="salias2_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+                                            <input id="ialias_@Html.DisplayFor(modelItem => item.id)" class="form-control sIn" type="text" value="@Html.DisplayFor(modelItem => item.alias)" maxlength="3" />
+                                        </span>
+                                    </td>
+                                    <td id="tdtype_@Html.DisplayFor(modelItem => item.id)" class="tdstaff">
+                                        <span id="stype_@Html.DisplayFor(modelItem => item.id)" class="task_input2" >@Html.DisplayFor(modelItem => item.type)</span>
+
+                                    </td>
+                                    <td id="tdusername_@Html.DisplayFor(modelItem => item.id)" class="tdstaff">
+                                        <span id="susername_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.username)</span>
+                                        <span id="susername2_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+                                            <input id="iusername_@Html.DisplayFor(modelItem => item.id)" class="form-control sIn" type="text" value="@Html.DisplayFor(modelItem => item.username)" />
+                                        </span>
+                                    </td>
+                                    <td id="tdpassword_@Html.DisplayFor(modelItem => item.id)" class="tdstaff">
+                                        <span id="spassword_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.password)</span>
+                                        <span id="spassword2_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+                                            <input id="ipassword_@Html.DisplayFor(modelItem => item.id)" class="form-control sIn" type="text" value="@Html.DisplayFor(modelItem => item.password)" />
+                                        </span>
+                                    </td>
+                                    <td id="tdtypep_@Html.DisplayFor(modelItem => item.id)" class="tdstaff">
+                                        <span id="stypep_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.accesstype)</span>
+
+                                    </td>
+                                    <td id="tdtimezone_@Html.DisplayFor(modelItem => item.id)" class="tdstaff">
+
+                                        <span id="spassword_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+                                            @Html.DisplayFor(modelItem => item.timezone)
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="#" id="sremove_@Html.DisplayFor(modelItem => item.id)" class="sremove_field2"><i class="fas fa-minus-circle"></i></a>
+                                    </td>
+                                </tr>
+                                    <tr style="background-color:#dee2e6" id="secondrow_@Html.DisplayFor(modelItem => item.id)" class="notShow hideall">
+                                        <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                           
+                                        </td>
+                                        <td colspan="7">
+                                            <div class="row3">
+                                            
+
+                                            </div> <!-- end of row 3-->
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table> <!-- end of table responsive  bootstrap table-->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

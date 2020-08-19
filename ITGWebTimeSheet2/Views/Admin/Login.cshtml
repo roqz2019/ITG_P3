@@ -1,0 +1,391 @@
+﻿@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.TaskManModule>
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/_LayoutTime.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-dashboard"></i> Timesheet</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Timesheet</a></li>
+        </ul>
+    </div>
+
+
+
+    <!--  New Design  -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+
+                <div class="tile-body">
+
+                    <div class="table-responsive2">
+                        <div class="row3">
+                           
+
+
+                        </div>
+                    </div>
+
+                        <div class="table-responsive2">
+                            <div class="row3">
+                                <div style=" width: 100%; min-height: 100%; padding: 0; margin: 0; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; align-items: center; justify-content: center;">
+                                    <div style="width:200px">
+                                        <table class="table table-hover table-bordered">
+                                            <thead style="background-color: #002080;color:white;">
+                                                <tr>
+
+                                                    <th style="border: 1px solid #dee2e6;">
+                                                        <div style="float:left;">
+                                                            Resource
+                                                        </div>
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select id="selectstaff">
+                                                            <option value="0">All</option>
+                                                            @if (ViewData["StaffList"] != null)
+                                                            {
+                                                                foreach (var staff in ViewData["StaffList"] as IList<Staff>)
+                                                                {
+                                                                    <option value="@staff.id">@staff.fullname</option>
+
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div style="width: 112px;">
+                                        <table class="table table-hover table-bordered">
+                                            <thead style="background-color: #002080;color:white;">
+                                                <tr>
+
+                                                    <th style="border: 1px solid #dee2e6;text-align:center">
+                                                        <div style="float:left;">
+                                                            @ViewData["SystemDate"]
+                                                        </div>
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input id="select_d" type="text" class="datepicker79" value="@ViewData["SystemDate"]" maxlength="10" />
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div style="width:270px">
+                                        <table class="table table-hover table-bordered">
+                                            <thead style="background-color: #002080;color:white;">
+                                                <tr>
+                                                    <th style="border: 1px solid #dee2e6; width:10px;">
+                                                        Prev
+                                                    </th>
+                                                    <th style="border: 1px solid #dee2e6; width:250px;">
+                                                        Current Week
+                                                    </th>
+                                                    <th style="border: 1px solid #dee2e6; width:10px;">
+                                                        Next
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a href="@Url.Action("TimeSheet")?ed=@ViewData["prev1"]" style="margin-top:25px;"><i class="fas fa-arrow-circle-left"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <span id="startweekday"> @ViewData["begin1"] </span>&nbsp;&nbsp; -&nbsp;&nbsp; <span>@ViewData["end1"]</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="@Url.Action("TimeSheet")?ed=@ViewData["next1"]" style="margin-top:25px;"><i class="fas fa-arrow-circle-right"></i></a>
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="width:80px">
+                                        <table class="table table-hover table-bordered">
+                                            <thead style="background-color: #002080;color:white;">
+                                                <tr>
+
+                                                    <th style="border: 1px solid #dee2e6;">
+                                                        <div style="float:left;">
+                                                            Total Hours
+                                                        </div>
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span id="totalhours"></span>
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div id="table_container">
+                            <table class="table table-hover table-bordered" id="taskmantable">
+                                <thead style="background-color: #002080;color:white;">
+                                    <tr>
+
+                                        <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+                                            <a href="#" class="add_fields3" style="margin-top:25px;"><i class="fas fa-plus-circle"></i></a>
+                                        </th>
+                                        <th style="border: 1px solid #dee2e6; width:100px;">
+                                            <div style="float:left;">
+                                                Customer
+                                            </div>
+                                        </th>
+
+                                        <th style="width:100px;">
+                                            <div style="float:left;">
+                                                Project
+                                            </div>
+
+                                        </th>
+                                        <th style="width:500px;">Task</th>
+                                        <th>Comments</th>
+                                        <th style="width:80px;">Date</th>
+                                        <th style="width:80px;">Hours</th>
+                                       
+
+                                    </tr>
+
+                                </thead>
+                                <tbody id="wrapper4">
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="record" id="row_@Html.DisplayFor(modelItem => item.id)">
+                                            <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                                <a href="#" id="toogle_@Html.DisplayFor(modelItem => item.id)" class="dplay" style="margin-top:25px;"><i id="drop_@Html.DisplayFor(modelItem => item.id)" class="fas fa-play"></i></a>
+
+
+                                                <a href="#" id="d_@Html.DisplayFor(modelItem => item.id)" style="display:none" class="down_arrow"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>
+                                                <input type="hidden" id="taskid_@Html.DisplayFor(modelItem => item.id)" value="@Html.DisplayFor(modelItem => item.taskid)" />
+                                            </td>
+                                            <td style="border: 1px solid #dee2e6;" id="tdcust_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+                                                <span id="custtask_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+                                                    @if (ViewData["CustomerList"] != null)
+                                                    {
+                                                        foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                                        {
+                                                            if (item.cust == item1.id)
+                                                            {
+                                                                @:@item1.code
+                                                            }
+                                                        }
+                                                    }
+                                                </span>
+                                                <input type="hidden" id="custid_@Html.DisplayFor(modelItem => item.id)" value="@item.cust" />
+
+                                            </td>
+                                            <td id="tdproj_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+                                                <span id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+
+                                                    @if (ViewData["ProjectList"] != null)
+                                                    {
+                                                        foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
+                                                        {
+                                                            if (item.proj == item1.id)
+                                                            {
+                                                                @:@item1.code
+                                                            }
+                                                            if (Convert.ToString(item.proj) == "0")
+                                                            {
+                                                                @:Please select
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+
+
+                                                </span>
+                                                <input type="hidden" id="projid_@Html.DisplayFor(modelItem => item.id)" value="@item.proj" />
+                                            </td>
+                                            <td id="tdtask_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+
+                                                <span id="descriptiontask1_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+                                                    @if (ViewData["TaskList"] != null)
+                                                    {
+                                                        foreach (var item9 in ViewData["TaskList"] as IList<TaskManModule>)
+                                                        {
+                                                            if (item.taskid == item9.id)
+                                                            {
+                                                                @:@item9.description
+                                                            }
+                                                        }
+                                                    }
+
+                                                </span>
+                                                <input type="hidden" id="taskid_@Html.DisplayFor(modelItem => item.id)" value="@item.taskid" />
+                                            </td>
+                                            <td id="tdnote_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+
+                                                <span id="notetask_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.notes)</span>
+                                                <span id="selnote_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+                                                    <textarea id="notetask2_@Html.DisplayFor(modelItem => item.id)" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="Add comments" name="description" >@Html.DisplayFor(modelItem => item.notes)</textarea>
+                                                </span>
+                                            </td>
+                                            <td id="tdstart_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+                                                <span id="taskstart_@Html.DisplayFor(modelItem => item.id)" class="task_input2"> @Convert.ToDateTime(item.ddate).ToString("MM/dd/yyyy")</span>
+                                                <span id="selstart_@Html.DisplayFor(modelItem => item.id)" class="sel_stat" style="display: none;">
+                                                    <input id="starttask_@Html.DisplayFor(modelItem => item.id)" type="text" class="datepicker99 task_input" value="@Convert.ToDateTime(item.ddate).ToString("MM/dd/yyyy")" />
+                                                </span>
+                                            </td>
+                                            <td id="tdest_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+                                                <span id="taskest_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.acthours)</span>
+                                                <span id="selest_@Html.DisplayFor(modelItem => item.id)" class="sel_cust" style="display: none;">
+
+                                                    <input id="esttask_@Html.DisplayFor(modelItem => item.id)" class="form-control task_input" type="text" value="@Html.DisplayFor(modelItem => item.acthours)" />
+                                                </span>
+                                            </td>
+                                          
+                                        </tr>
+                                        <tr style="background-color:#dee2e6" id="secondrow_@Html.DisplayFor(modelItem => item.id)" class="notShow hideall">
+                                            <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                                <a href="#" id="remove_@Html.DisplayFor(modelItem => item.id)" class="remove_field2" style="margin-top:25px;display:none;position:relative;top: 62px;"><i class="fas fa-minus-circle"></i></a>
+                                            </td>
+                                            <td colspan="6">
+                                                <div class="row3">
+                                                    <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                                        <div style="float:left;" class="w-100">
+                                                            <div style="float:left">
+                                                                Requirements<br />
+                                                                This is a dummy text statement
+                                                            </div>
+                                                            <div style="float:right">
+                                                                04/21/2020
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                            <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-1">
+
+                                                    </div>
+                                                    <div style="background-color:white;position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                                        <div style="float:left;" class="w-100">
+                                                            <div class="td-main" style="float:left; display: block; width: 100%;">
+                                                                Subtasks:<br />
+                                                                <div class="gfg">
+                                                                    <pre id="notetask3_@Html.DisplayFor(modelItem => item.id)" class="td-label">@Html.DisplayFor(modelItem => item.note)</pre>
+                                                                </div>
+                                                                <span id="selnote_@Html.DisplayFor(modelItem => item.id)" class="td-control" data-type="txt" data-field="notes" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                                                                    <textarea id="notetask2_@Html.DisplayFor(modelItem => item.id)" style=" display: block; width: 100%; height: 80%;" class="form-control td-txt" rows="4" data-min-rows="4" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.note)</textarea>
+                                                                </span>
+                                                            </div>
+                                                            <div style="float:right">
+
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                            <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div style="background-color:white;position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                                        <div style="float:left;" class="w-100">
+                                                            <div class="td-main" style="float:left; display: block; width: 100%;">
+                                                                Subtasks V2:<br />
+                                                                            <ul class="list-group checked-list-box">
+                                                                                <li class="list-group-item">Cras justo odio</li>
+                                                                                <li class="list-group-item" data-checked="true">Dapibus ac facilisis in</li>
+                                                                                <li class="list-group-item">Morbi leo risus</li>
+                                                                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                                                                <li class="list-group-item">Vestibulum at eros</li>
+                                                                                <li class="list-group-item">Cras justo odio</li>
+                                                                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                                                                <li class="list-group-item">Morbi leo risus</li>
+                                                                                <li class="list-group-item">Porta ac consectetur ac</li>
+                                                                                <li class="list-group-item">Vestibulum at eros</li>
+                                                                            </ul>
+                                                            </div>
+                                                            <div style="float:right">
+
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                            <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-1">
+
+                                                    </div>
+
+                                                    <div class="w-10">
+                                                        <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button>
+                                                        <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button>
+                                                        <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button>
+
+                                                    </div>
+
+                                                </div> <!-- end of row 3-->
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table> <!-- end of table responsive  bootstrap table-->
+                        </div>
+                
+                <div style="text-align:right">
+
+
+                        </div>
+                    </div> <!-- end of table responsive  bootstrap table-->
+                </div>
+            </div>
+        </div>
+
+</div>  <!-- old main-->
+
+

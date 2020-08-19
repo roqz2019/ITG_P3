@@ -1,0 +1,21 @@
+﻿@model UploadWebApp.Models.ApplicantsModel
+
+
+<div class="modal-header">
+    <h3>@Model.FirstName @Model.LastName</h3>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+<div class="modal-body">
+    <p>Last Name: @Model.LastName</p>
+    <p>First Name: @Model.FirstName</p>
+    <p>Middle Name: @Model.MiddleName</p>
+    <p>Extension Name: @Model.EName</p>
+    <p>Address: @Model.Address</p>
+    <p>Phone Number: @Model.PhoneNumber</p>
+    <!--   <p>Telephone Number: @Model.TelNumber</p> -->
+    <p>Email Address: @Model.EmailAddress</p>
+    <p>Date Applied: @Model.DateApplied</p>
+    <p>Additional Note: @Model.note</p>
+    <p>Resume: <a href="@Url.Action("DownloadFile", "Admin", new { filePath = Model.FilePath})">Download</a> </p>
+    <object width="400" height="400" data="@Model.FilePath"></object>
+</div>

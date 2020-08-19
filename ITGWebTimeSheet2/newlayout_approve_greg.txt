@@ -1,0 +1,307 @@
+﻿   <!--  New Design  -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+
+                <div class="tile-body">
+
+
+                    <div class="table-responsive2">
+                        <div class="row3">
+                            <div class="w-3">
+                                <div class="row" style="text-align:center;">
+                                    <a href="#" class="add_fields3" style="margin-top:5px;margin-left: 10px;"><i class="fas fa-plus-circle"></i></a>
+                                </div>
+                            </div>
+                            <div class="w-97">
+                                <div class="row">
+                                    <div class="w-15" style="width: 15% !important;">
+                                        <select class="form-control" id="custid_filter" name="custid" data-column="2">
+                                            <option value="">Filter by Customer</option>
+                                            @if (ViewData["CustomerList"] != null)
+                                            {
+                                                foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                                {
+                                                    <option value="@item1.id">@item1.name</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                    <div class="w-15" style="width: 15% !important;">
+                                        <select class="form-control" id="projid_filter" name="projid" data-column="3">
+                                            <option value="">Filter by Project</option>
+                                            @if (ViewData["ProjectList"] != null)
+                                            {
+                                                foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
+                                                {
+                                                    <option value="@item1.id">@item1.name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="w-15" style="width: 15% !important;">
+                                        <select class="form-control" id="f_stat" name="stat">
+                                            <option value="">Filter by Status</option>
+                                            <option value="Opened">Opened</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Ready to close">Ready to close</option>
+                                            <option value="Issues">Issues</option>
+                                            <option value="Monitor">Monitor</option>
+                                            <option value="In Queue">In Queue</option>
+                                            <option value="Closed">Closed</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="w-15" style="width: 15% !important;">
+                                        <select class="form-control" id="f_resc" name="resc">
+                                            <option value="">Filter by Resource</option>
+                                            @if (ViewData["StaffList"] != null)
+                                            {
+                                                foreach (var item2 in ViewData["StaffList"] as IList<Staff>)
+                                                {
+                                                    <option value="@item2.id">@item2.fullname</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="w-10" style="width: 10% !important;">
+                                        <select class="form-control" id="f_PR" name="pr">
+                                            <option value="">Filter by PR</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                        </select>
+                                    </div>
+                                    <div class="w-30" style="width: 30% !important;">
+                                        <input class="form-control" placeholder="Search" />
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    <p></p>
+                    <div class="table-responsive2 wrapper01">
+
+                    </div>
+
+                    <div class="table-responsive2">
+                        <div class="row3">
+                            <div class="w-3">
+                                <div class="row" style="text-align:center;">
+                                    <a href="#" id="remove" class="remove_field2" style="margin-top:10px;margin-left: 10px;"><i class="fas fa-minus-circle"></i></a>
+                                </div>
+                            </div>
+                            <div class="w-97">
+                                <div class="row">
+                                    <div class="w-20" style="width: 20% !important;">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Customer
+                                            </div>
+                                            <div class="card-body">
+                                                <select class="form-control" id="cust" name="cust">
+                                                    <option value="">Please Select</option>
+                                                    @if (ViewData["CustomerList"] != null)
+                                                    {
+                                                        foreach (var item in ViewData["CustomerList"] as IList<CustomersModule>)
+                                                        {
+                                                         <option value="@item.id">@item.name</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-21" style="width: 21% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                Project
+                                            </div>
+                                            <div class="card-body">
+                                                <select class="form-control" id="proj" name="proj">
+                                                    <option value="">Please Select</option>
+                                                    @if (ViewData["ProjectList"] != null)
+                                                    {
+                                                        foreach (var item in ViewData["ProjectList"] as IList<ProjectModule>)
+                                                        {
+                                                          <option value="@item.id">@item.name</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="w-35" style="width: 35% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                Task
+                                            </div>
+                                            <div class="card-body">
+                                                <input class="form-control" type="text" placeholder="Name of Task" required name="description" id="description">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="w-15" style="width: 15% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                Status
+                                            </div>
+                                            <div class="card-body">
+                                                <select class="form-control" id="stat" name="stat">
+                                                    <option value="">Select Status</option>
+                                                    <option value="Opened">Opened</option>
+                                                    <option value="In Progress">In Progress</option>
+                                                    <option value="Ready to close">Ready to close</option>
+                                                    <option value="Issues">Issues</option>
+                                                    <option value="Monitor">Monitor</option>
+                                                    <option value="In Queue">In Queue</option>
+                                                    <option value="Closed">Closed</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="w-9" style="width: 9% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                Est. Hours
+                                            </div>
+                                            <div class="card-body">
+                                                <input class="form-control" type="text" placeholder="est hours" required name="esthours" id="est">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end of  first row3 tag-->
+                        <div class="row3">
+                            <div class="w-3">
+                                <div class="row" style="text-align:center;">
+
+                                </div>
+                            </div>
+                            <div class="w-97">
+                                <div class="row">
+                                    <div class="w-8" style="width: 8% !important;">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                PR
+                                            </div>
+                                            <div class="card-body">
+                                                <select class="form-control" id="pr" name="pr">
+                                                    <option value="0">PR</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-12" style="width: 12% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                Opened
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="w-12" style="width: 12% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                Start
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="w-12" style="width: 12% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                Finished
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-18" style="width: 18% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                Resource
+                                            </div>
+                                            <div class="card-body">
+                                                <select class="form-control" id="resc" name="resc">
+                                                    <option value="">Select Resource</option>
+                                                    @if (ViewData["StaffList"] != null)
+                                                    {
+                                                        foreach (var item2 in ViewData["StaffList"] as IList<Staff>)
+                                                        {
+                                                            <option value="@item2.id">@item2.fullname</option>
+                                                        }
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-18" style="width: 18% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                File Attachments
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-18" style="width: 18% !important;">
+                                        <div class="card ">
+                                            <div class="card-header">
+                                               Screen Capture
+                                            </div>
+                                            <div class="card-body">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div> <!-- end of table responsive-->
+
+
+                        <div class="table-responsive2">
+
+                        </div> <!-- end of table responsive-->
+                    </div>
+            </div>
+        </div>
+    </div>
+
