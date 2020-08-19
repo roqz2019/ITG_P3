@@ -1,0 +1,132 @@
+﻿
+@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.ProjectModule>
+@{
+    ViewBag.Title = "Project";
+    Layout = "~/Views/_LayoutPages.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-pie-chart "></i> Projects</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Projects</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        @using (Html.BeginForm("AddProject", "Admin", new { ReturnUrl = ViewBag.ReturnUrl },
+             FormMethod.Post, new { @class = "row" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            <div class="form-group col-md-3">
+                                <!-- <label>Fullname</label>
+            <input class="form-control" type="text" placeholder="" />-->
+                                <label>Project Name</label>
+                                <input class="form-control" type="text" placeholder="Project Name" name="name" maxlength="30" />
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <!-- <label>Fullname</label>
+            <input class="form-control" type="text" placeholder="" />-->
+                                <label>Project Name</label>
+                                <input class="form-control" type="text" placeholder="Code" name="code" maxlength="3" />
+                            </div>
+
+                            <div class="form-group col-md-3">
+                           
+                                <label>Customer</label>
+                                <select class="form-control savetask2" name="custid">
+                                    @if (ViewData["CustomerList"] != null)
+                                    {
+                                        foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                        {
+                                            <option value="@item1.id">@item1.code</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+
+
+                            <div class="form-group col-md-3">
+                                <label>&nbsp; &nbsp;</label>
+                                <button class="btn btn-primary form-control" type="submit" name="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add</button>
+                            </div>
+
+
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">Project List</h3>
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Project Name</th>
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                   
+                                <tr class="record">
+                                    <td>
+                                        <span id="prjname1_@Html.DisplayFor(modelItem => item.id)" class="staff1_dbclick">@Html.DisplayFor(modelItem => item.name)</span>
+                                        <span id="prjname2_@Html.DisplayFor(modelItem => item.id)"  class="hidein">
+                                            <input id="edit_prjname_@Html.DisplayFor(modelItem => item.id)" class="form-control" type="text" placeholder="Project Name" maxlength="30" value="@Html.DisplayFor(modelItem => item.name)" />
+
+                                        </span>
+                                        </td>
+
+                                    <td>
+                                        <span id="prjcode1_@Html.DisplayFor(modelItem => item.id)" class="staff1_dbclick">@Html.DisplayFor(modelItem => item.code)</span>
+                                        <span id="prjcode1_@Html.DisplayFor(modelItem => item.id)" class="hidein">
+                                            <input id="edit_prjcode_@Html.DisplayFor(modelItem => item.id)" class="form-control hidein" type="text" placeholder="Project Name" maxlength="3" value="@Html.DisplayFor(modelItem => item.code)" />
+
+                                        </span>
+                                      </td>
+
+                                    <td>
+                                        <!--  <a href="@Url.Action("EditProject", "Admin", new { id = item.id })" id="@Html.DisplayFor(modelItem => item.id)" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a> -->
+                                        <a href="#" id="@Html.DisplayFor(modelItem => item.id)" class="delproject"><i class="fas fa-times"></i></a>
+                                    </td>
+                                </tr>
+
+                                    
+                                }
+
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -41,6 +41,13 @@
         <tr class="record" id="row_@Html.DisplayFor(modelItem => item.id)">
 
             <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+                <a href="#" id="toogle2_@Html.DisplayFor(modelItem => item.id)" class="dplay2" style="margin-top:25px;"><i id="drop_@Html.DisplayFor(modelItem => item.id)" class="fas fa-play"></i></a>
+
+
+                <a href="#" id="d2_@Html.DisplayFor(modelItem => item.id)" style="display:none" class="down_arrow2"><i class="fas fa-sort-down fa-2x" style="color:#5fac11;"></i></a>
+
+
+
             </td>
 
             <td style="border: 1px solid #dee2e6;" id="tdcust_@Html.DisplayFor(modelItem => item.id)" class="tdk">
@@ -63,7 +70,17 @@
 
             <td id="tdpr_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
 
-                <span id="desc1_@Html.DisplayFor(modelItem => item.id)">@item.pr</span>
+                <span id="desc1_@Html.DisplayFor(modelItem => item.id)">
+                    @if ((Convert.ToInt16(item.pr) == 0) || (Convert.ToInt16(item.pr) > 20))
+                    {
+                        @:
+                    }
+                    else
+                    {
+                        @:@Html.DisplayFor(modelItem => item.pr)
+                    }
+
+                </span>
                 <input type="hidden" id="prid_@Html.DisplayFor(modelItem => item.id)" value="@item.pr" />
             </td>
             <td id="tdproj_@Html.DisplayFor(modelItem => item.id)" class="tdk">
@@ -97,14 +114,20 @@
 
             </td>
 
-
-
             <td id="tdcreate_@Html.DisplayFor(modelItem => item.id)" class="tdk">
                 <button id="link_@Html.DisplayFor(modelItem => item.id)" type="button" class=" add_fields5 btn btn-primary w-100" style="margin-bottom:5px;">Create</button>
             </td>
 
         </tr>
-               
+        <tr id="secondrow2_@Html.DisplayFor(modelItem => item.id)" class="notShow hideall2" style="display:none">
+            <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
+            </td>
+            <td colspan="6">
+                <strong>Requirements:</strong><br/><br/>
+                <span id="status1_@Html.DisplayFor(modelItem => item.id)">@item.status</span>
+            </td>
+
+        </tr> 
         }
 
 

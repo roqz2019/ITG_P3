@@ -92,6 +92,10 @@ namespace ITGWebTimeSheet2.Controllers
                     {
                         switch (itemStatus)
                         {
+                            case "T":
+                                status = "Closed, Timesheet Incomplete";
+                                break;
+
                             case "O":
                                 status = "Opened";
                                 break;
@@ -217,7 +221,8 @@ namespace ITGWebTimeSheet2.Controllers
                     sitems.dev = Convert.ToString(dataReader["dev"]);
                     sitems.note = Convert.ToString(dataReader["note"]);
                     sitems.category = Convert.ToString(dataReader["categoryid"].ToString());
-                    sitems.project_status = Convert.ToString(dataReader["project_status"]);
+                    //  sitems.project_status = Convert.ToString(dataReader["project_status"]);
+                    sitems.project_status = Convert.ToString(dataReader["status"]);
                     // sitems.tnum = Convert.ToInt16(dataReader["tnum"]);
                     sitems.act_new = dataReader["actnew"].ToString();
                     
@@ -405,19 +410,39 @@ namespace ITGWebTimeSheet2.Controllers
         [HttpPost]
         public ContentResult UpdateTaskStat(string id, string pid)
         {
-
+            string cont = "";
 
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {
+              
                 con.Open();
                 string query = "UPDATE  [dbo].[taskman]  SET  stat='" + pid + "' WHERE id='" + id + "'";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.ExecuteNonQuery();
+                int pr_value=0;
+                if (pid.Equals("Closed"))
+                {
+                    pr_value = 30;
+                    cont = "C:30";
+                }
+                if (pid.Equals("Closed, Timesheet Incomplete"))
+                {
+                    pr_value = 21;
+                    cont = "C:30";
+                }
+
+                string query2 = "UPDATE  [dbo].[taskman]  SET  pr=" + pr_value + " WHERE id='" + id + "'";
+                SqlCommand cmd2 = new SqlCommand(query2, con);
+
+                cmd2.ExecuteNonQuery();
+
+
                 con.Close();
+                
             }
 
-            return Content("{Result : { Message : 'Success' }}", "application/json");
+            return Content(cont);
         }
 
 
@@ -603,7 +628,7 @@ namespace ITGWebTimeSheet2.Controllers
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string query = "UPDATE  [dbo].[project]  SET status=@status WHERE id= (select projectid from taskman where id =@id)";
+                string query = "UPDATE  [dbo].[taskman]  SET status=@status WHERE id= @id";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@status", name);
                 cmd.Parameters.AddWithValue("@id", id);
@@ -2761,19 +2786,19 @@ namespace ITGWebTimeSheet2.Controllers
 
         public ActionResult DisplayReq(string planner_id)
         {
-            List<ProjectModule> subtasklist = new List<ProjectModule>();
+            List<TaskManModule> subtasklist = new List<TaskManModule>();
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string query = "Select status from [dbo].[project] WHERE code='" + planner_id + "'";
+                string query = "Select status from [dbo].[taskman] WHERE id='" + planner_id + "'";
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataReader dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    ProjectModule sitems = new ProjectModule();
-                   sitems.name= dataReader["status"].ToString();
+                    TaskManModule sitems = new TaskManModule();
+                    sitems.status= dataReader["status"].ToString();
                     subtasklist.Add(sitems);
                 }
 

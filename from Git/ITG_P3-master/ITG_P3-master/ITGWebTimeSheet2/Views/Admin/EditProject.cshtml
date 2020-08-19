@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ITGWebTimeSheet2.Models.ProjectModule>
+@{
+    ViewBag.Title = "Project";
+    Layout = "~/Views/_LayoutInside.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-pie-chart "></i> Projects</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Projects</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        @using (Html.BeginForm("UpdateProject", "Admin", new { ReturnUrl = ViewBag.ReturnUrl },
+             FormMethod.Post, new { @class = "row" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            foreach (var item in Model)
+                            {
+                                <input type="hidden" name="id" value="@item.id" />
+                                <div class="form-group col-md-3">
+                                    <!-- <label>Fullname</label>
+                <input class="form-control" type="text" placeholder="" />-->
+                                    <label>Project Name</label>
+                                    <input class="form-control" type="text" placeholder="Project Name" name="name" value="@item.name" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>&nbsp; &nbsp;</label>
+                                    <button class="btn btn-primary form-control" type="submit" name="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update</button>
+                                </div>
+
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+ </div>

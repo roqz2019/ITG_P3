@@ -220,7 +220,7 @@
                                                     <option value="17" @( this.Request["pr"] == "17" ? "selected=\"selected\"" : "")>17</option>
                                                     <option value="18" @( this.Request["pr"] == "18" ? "selected=\"selected\"" : "")>18</option>
                                                     <option value="19" @( this.Request["pr"] == "19" ? "selected=\"selected\"" : "")>19</option>
-                                                    <option value="20" @( this.Request["pr"] == "10" ? "selected=\"selected\"" : "")>20</option>
+                                                    <option value="20" @( this.Request["pr"] == "20" ? "selected=\"selected\"" : "")>20</option>
                                                 </select>
                                             </span>
                                         </div>
@@ -290,7 +290,10 @@
                                                     <option title="I" value="I" @( status.Contains("I") ? "selected=\"selected\"" : "")>Issues</option>
                                                     <option title="M" value="M" @( status.Contains("M") ? "selected=\"selected\"" : "")>Monitor</option>
                                                     <option title="Q" value="Q" @( status.Contains("Q") ? "selected=\"selected\"" : "")>In Queue</option>
+                                                    <option title="T" value="T" @( status.Contains("T") ? "selected=\"selected\"" : "")>Closed, Timesheet Incomplete</option>
                                                     <option title="C" value="C" @( status.Contains("C") ? "selected=\"selected\"" : "")>Closed</option>
+
+
                                                 </select>
                                             </span>
                                         </div>
@@ -436,10 +439,10 @@
                                     </td>
 
                                     <td class="td-main" tabindex="@(counter++)">
-                                        <div class="td-label" style="width: 90%; border: 0; margin: 0; padding: 0;">
-                                            @if (Convert.ToString(item.pr) == "")
+                                        <div class="td-label" style="width: 90%; border: 0; margin: 0; padding: 0;" id="pr_@Html.DisplayFor(modelItem => item.id)">
+                                            @if ((Convert.ToInt16(item.pr) == 0)|| (Convert.ToInt16(item.pr) > 20))
                                             {
-                                                @:None
+                                                @:
                                             }
                                             else
                                             {
@@ -450,7 +453,7 @@
                                         <div class="td-control" data-type="ddl" data-field="priority" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="border: 0; margin: 0; padding: 0; display: none;">
                                             <select class="form-control td-ddl" data-taskid="@Html.DisplayFor(modelItem => item.id)" id="selectpr_@Html.DisplayFor(modelItem => item.id)" style="width: 100%; ">
                                                 <option value="">Select</option>
-                                                <option value="">None</option>
+                                                <option value=" ">None</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -551,6 +554,7 @@
                                                 <option value="Issues">Issues</option>
                                                 <option value="Monitor">Monitor</option>
                                                 <option value="In Queue">In Queue</option>
+                                                <option value="Closed, Timesheet Incomplete">Closed, Timesheet Incomplete</option>
                                                 <option value="Closed">Closed</option>
                                             </select>
                                         </span>
@@ -593,7 +597,7 @@
                                                 <div class="td-main" style="float:left; display: block; width: 100%;">
                                                     Requirements<br />
 
-                                                    <div style="height:101px;overflow-y: auto;">
+                                                    <div style="height:101px;overflow-y: auto;"  class="td-main">
                                                         <pre class="td-label td-lbl-projectstatus">@Html.DisplayFor(modelItem => item.project_status)</pre>
                                                         <span class="td-control" data-type="txt" data-field="project_status" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
                                                             <textarea style="display: block; width: 100%; height: 80%;" class="form-control td-txt td-txt-projectstatus" data-projectid="@Html.DisplayFor(modelItem => item.proj)" rows="4" data-min-rows="4" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.project_status)</textarea>
@@ -608,9 +612,6 @@
 
 
 
-                                                <div style="float:right; display: none;">
-                                                    Date:
-                                                </div>
                                             </div>
                                             <!-- <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
          <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
@@ -618,7 +619,10 @@
                                             <div style="float:left;" class="w-100">
                                                 <div style="position:absolute;bottom: 0px;font-size: 11px;background-color: #002080;color:white;height:20px;width:100%;display:block;margin-left:-5px">
                                                     <span style="float:left;margin-left:5px;"><strong>View All </strong></span>
-                                                    <span style="float:right;margin-right:5px"><a href="#" style="color:white" class="require" id="req_@Html.DisplayFor(modelItem => item.id)"><i class="fas fa-external-link-alt"></i></a></span>
+                                                    <span style="float:right;margin-right:5px">
+                                                       <a href="#" style="color:white" class="require" id="req_@Html.DisplayFor(modelItem => item.id)"><i class="fas fa-external-link-alt"></i></a>
+                                                      
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -647,7 +651,7 @@
                                             <div style="float:left;" class="w-100">
                                                 <div style="position:absolute;bottom: 0px;font-size: 11px;background-color: #002080;color:white;height:20px;width:100%;display:block;margin-left:-5px">
                                                     <span style="float:left;margin-left:5px;"><strong>Status: </strong></span>
-                                                    <span style="float:right;margin-right:5px"><a href="#" style="color:white" class="loadallsubtask" id="allsubtask_@Html.DisplayFor(modelItem => item.id)"><i class="fas fa-external-link-alt"></i></a></span>
+                                                    <span style="float:right;margin-right:5px"><a href="" style="color:white" class="loadallsubtask" id="allsubtask_@Html.DisplayFor(modelItem => item.id)"><i class="fas fa-external-link-alt"></i></a></span>
                                                 </div>
                                             </div>
                                         </div>

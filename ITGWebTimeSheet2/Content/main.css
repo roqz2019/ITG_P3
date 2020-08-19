@@ -190,8 +190,11 @@ pre,
 code,
 kbd,
 samp {
-    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    /*  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; 
     font-size: 1em;
+    */
+    font-family: Arial;
+    font-size: 11px;
 }
 
 pre {
@@ -540,8 +543,9 @@ kbd {
 
 pre {
     display: block;
-    font-size: 87.5%;
+    /*  font-size: 87.5%;  */
     color: #212529;
+    font-size: 11px;
 }
 
     pre code {
@@ -17743,7 +17747,9 @@ be a descendant of the grid when it is being dragged.
 }
 
 body {
-    font-size: 0.750rem;
+    /*font-size: 0.750rem;*/
+    font-family: Arial;
+    font-size: 11px;
 }
 
 .form-control {

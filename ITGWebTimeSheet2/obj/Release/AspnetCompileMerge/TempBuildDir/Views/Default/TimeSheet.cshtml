@@ -295,7 +295,7 @@
                                         </td>
                                         <td colspan="6">
                                             <div class="row3">
-                                                <div style="background-color:white;position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                              <!--  <div style="background-color:white;position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
                                                     <div style="float:left;" class="w-100">
                                                         <div style="float:left">
                                                             Requirements<br />
@@ -309,6 +309,29 @@
                                                     </div>
                                                     <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
                                                         <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                    </div>
+                                                </div> -->
+                                                <div class="w-29" style="position:relative;min-height:150px; height: auto; overflow: hidden; border: 1px solid #dee2e6; padding:5px;" class="td-main">
+                                                    <div style="float:left;" class="w-100">
+                                                        <div class="td-main" style="float:left; display: block; width: 100%;">
+                                                            <strong>Requirements</strong><br />
+
+                                                            <div style="height:101px;overflow-y: auto;" class="td-main">
+                                                                <pre class="td-label td-lbl-projectstatus">@Html.DisplayFor(modelItem => item.status)</pre>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="float:left;" class="w-100">
+                                                        <div style="position:absolute;bottom: 0px;font-size: 11px;background-color: #002080;color:white;height:20px;width:100%;display:block;margin-left:-5px">
+                                                            <span style="float:left;margin-left:5px;"><strong>View All </strong></span>
+                                                            <span style="float:right;margin-right:5px">
+                                                                <a href="#" style="color:white" class="require" id="req_@Html.DisplayFor(modelItem => item.taskid)"><i class="fas fa-external-link-alt"></i></a>
+
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="w-1">

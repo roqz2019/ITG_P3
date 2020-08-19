@@ -1,0 +1,291 @@
+﻿@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.TaskManModule>
+@{
+    ViewBag.Title = "TaskManager";
+    Layout = "~/Views/_LayoutInside.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-tasks"></i> Task Manager</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Task Manager</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="table-responsive form-row">
+
+
+                        <div class="col-md-3">
+
+                            @using (Html.BeginForm("TaskFilterCust", "Admin", new { ReturnUrl = ViewBag.ReturnUrl },
+FormMethod.Post, new { @class = "row" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-group col-md-8">
+
+
+                                    <select class="form-control" id="custid" name="custid">
+                                        <option value="">Filter by Customer</option>
+                                        @if (ViewData["CustomerList"] != null)
+                                        {
+                                            foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                            {
+                                                <option value="@item1.id">@item1.name</option>
+                                            }
+                                        }
+
+                                    </select>
+
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <button class="btn btn-primary form-control" type="submit" name="submit"><i class="fas fa-list-alt "></i></button>
+                                </div>
+                                <div class="form-group col-md-1">
+
+                                </div>
+                            }
+
+                        </div>
+
+                        <div class="col-md-3 ">
+
+                            @using (Html.BeginForm("TaskFilterProj", "Admin", new { ReturnUrl = ViewBag.ReturnUrl },
+FormMethod.Post, new { @class = "row" }))
+                            {
+                                <div class="form-group col-md-8">
+                                    <select class="form-control" id="f_proj" name="projid">
+
+                                        <option value="">Filter by Project</option>
+
+                                        @if (ViewData["ProjectList"] != null)
+                                        {
+                                            foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
+                                            {
+                                                <option value="@item1.id">@item1.name</option>
+                                            }
+                                        }
+
+
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <button class="btn btn-primary form-control" type="submit" name="submit"><i class="fas fa-list-alt "></i></button>
+                                </div>
+                                <div class="form-group col-md-1">
+
+                                </div>
+
+                            }
+                        </div>
+                        <div class="form-group col-md-3">
+                            @using (Html.BeginForm("TaskFilterProj", "Admin", new { ReturnUrl = ViewBag.ReturnUrl },
+FormMethod.Post, new { @class = "row" }))
+                            {
+                                <div class="form-group col-md-8">
+
+                                    <select class="form-control" id="f_stat" name="stat">
+
+                                        <option value="">Filter by Status</option>
+                                        <option value="Open">Open</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Ready to close">Ready to close</option>
+                                        <option value="Issues">Issues</option>
+                                        <option value="Close">Close</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <button class="btn btn-primary form-control" type="submit" name="submit"><i class="fas fa-list-alt "></i></button>
+                                </div>
+                                <div class="form-group col-md-1">
+
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group col-md-3">
+
+                            <input class="form-control" id="datepicker" type="text" placeholder="Filter by Date" />
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <div class="wrapper2">
+                            <div class="row2 mx-auto align-items-center " style="background-color: #148ebd;">
+
+
+                                <div class="form-group col-md-2 div_head  align-items-center">
+                                    <span class="span_head">Customer Name</span>
+                                </div>
+                                <div class="form-group col-md-2  align-items-center ">
+                                    <div class="div_head  align-items-center">
+                                        <span class="span_head">Project Name</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-md-2 align-items-center ">
+                                    <div class="div_head align-items-center">
+                                        <span class="span_head">Task Name</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-2 align-items-center">
+                                    <div class="div_head align-items-center">
+                                        <span class="span_head">Status</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-1 align-items-center div_head" style="width: 12.499999995%; flex: 0 0 12.499%;max-width: 12.499%;">
+                                    <span class="span_head">Est Hours</span>
+                                </div>
+                                <div class="form-group col-md-1  align-items-center div_head" style="width: 12.499999995%; flex: 0 0 12.499%;max-width: 12.499%;">
+                                    <span class="span_head">Date</span>
+                                </div>
+
+
+                            </div>
+                            <div id="dyna_gen">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="row">
+
+
+                                        <div class="form-group col-md-2 ">
+
+                                            <div class="row">
+
+                                                <div class="form-group col-md-2">
+                                                    <label>&nbsp;</label>
+                                                    <a href="#" id="remove_@Html.DisplayFor(modelItem => item.id)" class="remove_field2" style="margin-top:25px;"><i class="fas fa-minus-circle fa-2x"></i></a>
+                                                </div>
+
+                                                <div class="form-group col-md-10">
+                                                    <label>&nbsp; &nbsp;</label>
+
+                                                    <input id="custtask_@Html.DisplayFor(modelItem => item.id)" class="form-control task_input" type="text" value="@Html.DisplayFor(modelItem => item.cust)" readonly />
+
+                                                    <span id="selcust_@Html.DisplayFor(modelItem => item.id)" class="sel_cust">
+                                                        <select class="form-control" id="selectcust_@Html.DisplayFor(modelItem => item.id)">
+                                                            @if (ViewData["CustomerList"] != null)
+                                                            {
+                                                                foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                                                {
+                                                                    <option value="@item1.id">@item1.name</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                        <a href="#" id="taskcust_@Html.DisplayFor(modelItem => item.id)" class="savetask"><i class="fas fa-save"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+                                                        <a href="#" id="taskcust_@Html.DisplayFor(modelItem => item.id)" class="canceltask"><i class="fas fa-times-circle"></i></a>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group col-md-2 ">
+
+                                            <label>&nbsp; &nbsp;</label>
+                                            <input id="projtask_@Html.DisplayFor(modelItem => item.id)" class="form-control task_input" type="text" value="@Html.DisplayFor(modelItem => item.proj)" readonly />
+                                            <span id="selproj_@Html.DisplayFor(modelItem => item.id)" class="sel_cust">
+                                                <select class="form-control" id="selectproj_@Html.DisplayFor(modelItem => item.id)">
+                                                    @if (ViewData["ProjectList"] != null)
+                                                    {
+                                                        foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
+                                                        {
+                                                            <option value="@item1.id">@item1.name</option>
+                                                        }
+                                                    }
+                                                </select>
+                                                <a href="#" id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="savetask"><i class="fas fa-save"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+                                                <a href="#" id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="canceltask"><i class="fas fa-times-circle"></i></a>
+                                            </span>
+                                        </div>
+
+                                        <div class="form-group col-md-2">
+                                            <label>&nbsp;</label>
+                                            <textarea id="descriptiontask_@Html.DisplayFor(modelItem => item.id)" readonly class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.description)</textarea>
+                                            <span id="seldesc_@Html.DisplayFor(modelItem => item.id)" class="sel_cust">
+                                                <a href="#" id="taskdesc_@Html.DisplayFor(modelItem => item.id)" class="savetask"><i class="fas fa-save"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+                                                <a href="#" id="taskdesc_@Html.DisplayFor(modelItem => item.id)" class="canceltask"><i class="fas fa-times-circle"></i></a>
+
+                                            </span>
+
+                                        </div>
+                                        <div class="form-group col-md-2 ">
+
+                                            <label>&nbsp; &nbsp;</label>
+                                            <input id="statustask_@Html.DisplayFor(modelItem => item.id)" readonly class="form-control task_input" type="text" value="@Html.DisplayFor(modelItem => item.status)" />
+                                            <span id="selstat_@Html.DisplayFor(modelItem => item.id)" class="sel_cust">
+                                                <select class="form-control" id="selectstat_@Html.DisplayFor(modelItem => item.id)">
+
+
+                                                    <option value="Open">Open</option>
+                                                    <option value="In Progress">In Progress</option>
+                                                    <option value="Ready to close">Ready to close</option>
+                                                    <option value="Issues">Issues</option>
+                                                    <option value="Close">Close</option>
+                                                </select>
+                                                <a href="#" id="taskstat_@Html.DisplayFor(modelItem => item.id)" class="savetask"><i class="fas fa-save"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+                                                <a href="#" id="taskstat_@Html.DisplayFor(modelItem => item.id)" class="canceltask"><i class="fas fa-times-circle"></i></a>
+                                            </span>
+
+                                        </div>
+                                        <div class="form-group col-md-1 align-items-center">
+                                            <label>&nbsp; &nbsp;</label>
+                                            <input id="esttask_@Html.DisplayFor(modelItem => item.id)" readonly class="form-control task_input" type="text" value="@Html.DisplayFor(modelItem => item.esthours)" />
+                                            <span id="selest_@Html.DisplayFor(modelItem => item.id)" class="sel_cust">
+                                                <a href="#" id="taskest_@Html.DisplayFor(modelItem => item.id)" class="savetask"><i class="fas fa-save"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+                                                <a href="#" id="taskest_@Html.DisplayFor(modelItem => item.id)" class="canceltask"><i class="fas fa-times-circle"></i></a>
+
+                                            </span>
+
+                                        </div>
+                                        <div class="form-group col-md-1  align-items-center" style="width: 4.166666665‬%; flex: 0 0 4.167%;max-width: 4.167%;">
+
+                                        </div>
+                                        <div class="form-group col-md-1  align-items-center" style="width: 12.499999995%; flex: 0 0 12.499%;max-width: 12.499%;">
+                                            <label>&nbsp; &nbsp;</label>
+                                            <input id="@Html.DisplayFor(modelItem => item.id)" class="form-control task_input" type="text" value="@Html.DisplayFor(modelItem => item.ddate)" readonly />
+                                        </div>
+
+
+
+                                    </div>
+                                    <hr class="hr_rule" />
+                                }
+                            </div>
+
+
+                        </div>
+                        <a href="#" class="add_fields2" style="margin-top:25px;"><i class="fas fa-plus-circle fa-2x"></i></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>  <!-- old main-->

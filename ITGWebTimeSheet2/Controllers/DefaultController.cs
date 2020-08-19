@@ -85,7 +85,7 @@ namespace ITGWebTimeSheet2.Controllers
                 //                   " WHERE C.id=T.customerid AND P.id=T.projectid AND TL.taskid=T.id ORDER BY TL.id DESC ";
 
                 //AND TL.taskid=T.id
-                string query = "Select TL.id as id,TL.taskid as taskid,TL.custid as custid,TL.projid as projid, TL.edate as edate, TL.notes as notes, TL.acthours as acthours,TL.stime as stime,TL.ftime as ftime, TK.resource as res_id, TL.status as status From  [dbo].[tasklist] as TL, [dbo].[taskman] as TK WHERE edate BETWEEN '" +
+                string query = "Select TL.id as id,TL.taskid as taskid,TL.custid as custid,TL.projid as projid, TL.edate as edate, TL.notes as notes, TL.acthours as acthours,TL.stime as stime,TL.ftime as ftime, TK.resource as res_id, TL.status as status,TK.status as status1 From  [dbo].[tasklist] as TL, [dbo].[taskman] as TK WHERE edate BETWEEN '" +
                     sweek + "' AND '" + fweek + "' AND TL.taskid=TK.id AND TK.resource=" + Session["res_id"] + " ORDER BY TL.id DESC";
 
                 string tempAnnounce = string.Empty;
@@ -107,7 +107,8 @@ namespace ITGWebTimeSheet2.Controllers
                     //   sitems.note = Convert.ToString(dataReader["note"]);
 
                     sitems.notes = Convert.ToString(dataReader["notes"]);
-                    sitems.taskstatus= Convert.ToString(dataReader["status"]);
+                    sitems.taskstatus = Convert.ToString(dataReader["status"]);
+                    sitems.status = Convert.ToString(dataReader["status1"]);
 
                     string q3 = "Select note From  [dbo].[taskman] WHERE id=" + Convert.ToString(dataReader["taskid"]);
                     //  string not = "";
@@ -495,7 +496,7 @@ namespace ITGWebTimeSheet2.Controllers
             if (Session["alias"] == null)
             {
                 Session.Abandon();
-              return  View("Index");
+                return View("Index");
             }
 
 
@@ -542,17 +543,17 @@ namespace ITGWebTimeSheet2.Controllers
                 string query = "";
                 if (ed.Contains("-") == true)
                 {
-               //     query = "Select * From  [dbo].[tasklist] WHERE edate BETWEEN '" +
-               //     sweek + "' AND '" + fweek + "' ORDER BY id DESC";
+                    //     query = "Select * From  [dbo].[tasklist] WHERE edate BETWEEN '" +
+                    //     sweek + "' AND '" + fweek + "' ORDER BY id DESC";
                 }
                 if (ed.Contains("/") == true)
                 {
                     string seldate = result.ToString("yyyy-MM-dd");
-              //      query = "Select * From  [dbo].[tasklist] WHERE edate BETWEEN '" +
-              //       sweek + "' AND '" + fweek + "' ORDER BY id DESC";
+                    //      query = "Select * From  [dbo].[tasklist] WHERE edate BETWEEN '" +
+                    //       sweek + "' AND '" + fweek + "' ORDER BY id DESC";
                 }
 
-                query = "Select TL.id as id,TL.taskid as taskid,TL.custid as custid,TL.projid as projid, TL.edate as edate, TL.notes as notes, TL.acthours as acthours,TL.stime as stime,TL.ftime as ftime, TK.resource as res_id, TL.status as status From  [dbo].[tasklist] as TL, [dbo].[taskman] as TK WHERE edate BETWEEN '" +
+                query = "Select TK.status as status1, TL.id as id,TL.taskid as taskid,TL.custid as custid,TL.projid as projid, TL.edate as edate, TL.notes as notes, TL.acthours as acthours,TL.stime as stime,TL.ftime as ftime, TK.resource as res_id, TL.status as status From  [dbo].[tasklist] as TL, [dbo].[taskman] as TK WHERE edate BETWEEN '" +
                   sweek + "' AND '" + fweek + "' AND TL.taskid=TK.id AND TK.resource=" + Session["res_id"] + " ORDER BY TL.id DESC";
 
 
@@ -576,11 +577,12 @@ namespace ITGWebTimeSheet2.Controllers
 
                     sitems.notes = Convert.ToString(dataReader["notes"]);
                     sitems.taskstatus = Convert.ToString(dataReader["status"]);
+                    sitems.status = Convert.ToString(dataReader["status1"]);
 
                     string q3 = "Select note From  [dbo].[taskman] WHERE id=" + Convert.ToString(dataReader["taskid"]);
                     //  string not = "";
                     SqlCommand cmd2 = new SqlCommand(q3, con);
-                    SqlDataReader dataReader2 = cmd2.ExecuteReader();
+                    SqlDataReader dataReader2 = cmd2.ExecuteReader(); 
                     while (dataReader2.Read())
                     {
                         sitems.note = Convert.ToString(dataReader2["note"]);
@@ -811,10 +813,10 @@ namespace ITGWebTimeSheet2.Controllers
                 con.Open();
 
                 string query = "";
-            
-                    query = "Select TL.id as id,TL.taskid as taskid,TL.custid as custid,TL.projid as projid, TL.edate as edate, TL.notes as notes, TL.acthours as acthours,TL.stime as stime,TL.ftime as ftime, TK.resource as res_id, TL.status as status From  [dbo].[tasklist] as TL, [dbo].[taskman] as TK WHERE edate BETWEEN '" +
-                        sweek + "' AND '" + fweek + "' AND TL.taskid=TK.id AND TK.resource=" + Session["res_id"] + " ORDER BY TL.id DESC";
-           
+
+                query = "Select TL.id as id,TL.taskid as taskid,TL.custid as custid,TL.projid as projid, TL.edate as edate, TL.notes as notes, TL.acthours as acthours,TL.stime as stime,TL.ftime as ftime, TK.resource as res_id, TL.status as status From  [dbo].[tasklist] as TL, [dbo].[taskman] as TK WHERE edate BETWEEN '" +
+                    sweek + "' AND '" + fweek + "' AND TL.taskid=TK.id AND TK.resource=" + Session["res_id"] + " ORDER BY TL.id DESC";
+
 
                 string tempAnnounce = string.Empty;
 
@@ -939,10 +941,10 @@ namespace ITGWebTimeSheet2.Controllers
                 SqlCommand cmddd = new SqlCommand(querydayd, con);
                 SqlDataReader dataReaderdd = cmddd.ExecuteReader();
                 while (dataReaderdd.Read())
-                {  
-                  
-                   app = app + "^" + Convert.ToString(dataReaderdd["description"]);
-                  
+                {
+
+                    app = app + "^" + Convert.ToString(dataReaderdd["description"]);
+
                 }
                 con.Close();
             }
@@ -956,7 +958,12 @@ namespace ITGWebTimeSheet2.Controllers
             using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString))
             {
                 con.Open();
-                string querydayd = "Select TM.id as id,TM.customerid as customerid,TM.projectid as projectid,TM.pr as pr, TM.description as description from [dbo].[taskman] as TM WHERE resource=" + Session["res_id"] + " AND stat='In Progress'  AND TM.pr<>''  ORDER BY pr ASC";
+                //  string querydayd = "Select TM.id as id,TM.customerid as customerid,TM.projectid as projectid,TM.pr as pr, TM.description as description from [dbo].[taskman] as TM WHERE resource=" + Session["res_id"] + " AND stat='In Progress' OR stat='Closed, Timesheet Incomplete'  OR TM.pr<>0  ORDER BY pr ASC";
+                string querydayd = "Select TM.status as status, TM.id as id,TM.customerid as customerid,TM.projectid as projectid,TM.pr as pr, TM.description as description from [dbo].[taskman] as TM WHERE resource=" + Session["res_id"] +
+                                    " AND TM.pr < 22 AND TM.stat = 'In Progress'  order by TM.pr";
+
+                string q2= "Select TM.status as status, TM.id as id,TM.customerid as customerid,TM.projectid as projectid,TM.pr as pr, TM.description as description from [dbo].[taskman] as TM WHERE resource=" + Session["res_id"] +
+                         " AND TM.pr < 22 AND TM.stat = 'Closed, Timesheet Incomplete'  order by TM.pr";
 
 
                 SqlCommand cmddd = new SqlCommand(querydayd, con);
@@ -967,15 +974,36 @@ namespace ITGWebTimeSheet2.Controllers
                     sitems.id = Convert.ToInt16(dataReaderdd["id"]);
                     sitems.cust = Convert.ToString(dataReaderdd["customerid"]);
                     sitems.proj = Convert.ToString(dataReaderdd["projectid"]);
-                    sitems.description =  Convert.ToString(dataReaderdd["description"]);
-                  //  sitems.category = Convert.ToString(dataReaderdd["cat"]);
+                    sitems.description = Convert.ToString(dataReaderdd["description"]);
+                    //  sitems.category = Convert.ToString(dataReaderdd["cat"]);
                     //  sitems.taskid = Convert.ToInt16(dataReaderdd["taskid"]);
                     sitems.pr = Convert.ToString(dataReaderdd["pr"]);
-                    taskplanner.Add(sitems);                    
+                    sitems.status = Convert.ToString(dataReaderdd["status"]);
+                    taskplanner.Add(sitems);
                 }
+
+                SqlCommand c2 = new SqlCommand(q2, con);
+                SqlDataReader dataReaderdd2 = c2.ExecuteReader();
+                while (dataReaderdd2.Read())
+                {
+                    TaskManModule sitems2 = new TaskManModule();
+                    sitems2.id = Convert.ToInt16(dataReaderdd2["id"]);
+                    sitems2.cust = Convert.ToString(dataReaderdd2["customerid"]);
+                    sitems2.proj = Convert.ToString(dataReaderdd2["projectid"]);
+                    sitems2.description = Convert.ToString(dataReaderdd2["description"]);
+                    //  sitems.category = Convert.ToString(dataReaderdd["cat"]);
+                    //  sitems.taskid = Convert.ToInt16(dataReaderdd["taskid"]);
+                    sitems2.pr = Convert.ToString(dataReaderdd2["pr"]);
+                    sitems2.status = Convert.ToString(dataReaderdd2["status"]);
+                    taskplanner.Add(sitems2);
+                }
+
+
+
+
                 con.Close();
             }
-            
+
             return PartialView("TaskPartial", taskplanner);
         }
 
@@ -983,38 +1011,40 @@ namespace ITGWebTimeSheet2.Controllers
 
         public ContentResult GetTimeSheetScope2(string custid, string projectid, string taskid)
         {
-         
-                string id_id = "";
 
-                string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            string id_id = "";
 
-                using (SqlConnection con = new SqlConnection(conString))
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
 
-                {
-                    con.Open();
-                    DateTime myDateTime = DateTime.Now;
-                    string sqld = myDateTime.ToString("yyyy-MM-dd");
+            using (SqlConnection con = new SqlConnection(conString))
 
-                    string query = "Insert into  [dbo].[tasklist](taskid,edate,acthours,custid,projid)" +
-                       " OUTPUT INSERTED.ID values(@a,@b,@d,@e,@f)";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@a", Convert.ToInt16(taskid));
-                    cmd.Parameters.AddWithValue("@b", sqld);
-                    //  cmd.Parameters.AddWithValue("@c", Convert.ToInt16(staff));
-                    cmd.Parameters.AddWithValue("@d", 0);
-                    cmd.Parameters.AddWithValue("@e", Convert.ToInt16(custid));
-                    cmd.Parameters.AddWithValue("@f", Convert.ToInt16(projectid));
-                    // cmd.ExecuteNonQuery();
-                    int insertedID = Convert.ToInt32(cmd.ExecuteScalar());
-                    con.Close();
-                    id_id = Convert.ToString(insertedID);
-                }
+            {
+                con.Open();
+                DateTime myDateTime = DateTime.Now;
+                string sqld = myDateTime.ToString("yyyy-MM-dd");
 
+                string query = "Insert into  [dbo].[tasklist](taskid,edate,acthours,custid,projid)" +
+                   " OUTPUT INSERTED.ID values(@a,@b,@d,@e,@f)";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@a", Convert.ToInt16(taskid));
+                cmd.Parameters.AddWithValue("@b", sqld);
+                //  cmd.Parameters.AddWithValue("@c", Convert.ToInt16(staff));
+                cmd.Parameters.AddWithValue("@d", 0);
+                cmd.Parameters.AddWithValue("@e", Convert.ToInt16(custid));
+                cmd.Parameters.AddWithValue("@f", Convert.ToInt16(projectid));
+                // cmd.ExecuteNonQuery();
+                int insertedID = Convert.ToInt32(cmd.ExecuteScalar());
+                con.Close();
+                id_id = Convert.ToString(insertedID);
 
-                return Content(id_id);
 
             }
-      
+
+
+            return Content(id_id);
+
+        }
+
 
         public ActionResult Logout()
         {
@@ -1044,7 +1074,7 @@ namespace ITGWebTimeSheet2.Controllers
         }
 
         [HttpGet]
-            public ActionResult DisplaySubTask(string planner_id)
+        public ActionResult DisplaySubTask(string planner_id)
         {
             List<SubTask> subtasklist = new List<SubTask>();
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
@@ -1097,5 +1127,56 @@ namespace ITGWebTimeSheet2.Controllers
         }
 
 
+        public ContentResult GetStatus(string taskid)
+        {
+            string cont = "";
+
+            List<TaskManModule> subtasklist = new List<TaskManModule>();
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                string query = "Select status from [dbo].[taskman] WHERE id=" + taskid;
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    TaskManModule sitems = new TaskManModule();
+                    // sitems.id = (int)dataReader["id"];
+                   cont = dataReader["status"].ToString();
+                 
+                }
+
+                con.Close();
+            }
+
+            return Content(cont);
+        }
+
+        public ActionResult DisplayReq(string planner_id)
+        {
+            List<TaskManModule> subtasklist = new List<TaskManModule>();
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                string query = "Select status from [dbo].[taskman] WHERE id='" + planner_id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    TaskManModule sitems = new TaskManModule();
+                    sitems.status = dataReader["status"].ToString();
+                    subtasklist.Add(sitems);
+                }
+
+                con.Close();
+            }
+
+            return PartialView("DisplayReq", subtasklist);
+        }
     }
 }

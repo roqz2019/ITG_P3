@@ -211,7 +211,7 @@
       <span id="selpr__iteratormask__" class="sel_pr td-control" data-type="ddl" data-field="priority" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectpr__iteratormask__" onchange="prchange(this.id)" style="width: 95%;">
             <option value="">Select</option>
-            <option value="">None</option>
+            <option value=" ">None</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -656,7 +656,18 @@
             }
 
 
+            
             $(this).parent('.td-main').find('.td-label').html(text);
+            console.log(text);
+            if (text == 'None') {
+                $(this).parent('.td-main').find('.td-label').html(" ");
+            }
+            if (text == 'None') {
+                $(this).parent('.td-main').find('.td-label').html(" ");
+            }
+
+          
+            
             $(this).parent('.td-main').find('.td-label').show();
 
             $(this).hide();
@@ -760,10 +771,13 @@
                             data: data,
                             success: function (data) {
                                 console.log(data);
-
+                                console.log(taskId);
                                 var t = data.split(':');
                                 if (t[0] == "tasknum") {
                                     $('.tdnumtext').append(t[1]);
+                                }
+                                if (t[0] == "C") {
+                                    $('#pr_' + taskId).empty();
                                 }
                             }
 
@@ -976,6 +990,7 @@
                     //update all rows with project id
                     $('.td-txt-projectstatus').val(txt);
                     $('.td-lbl-projectstatus').html(txt);
+
                 }
             });
 
@@ -1937,6 +1952,9 @@ function copy(text) {
         $('body').on('click', '.require', function (e) {
 
 
+            var href = $(this).attr('href');
+          //  alert(href);
+
             var element = $(this);
 
             var id_string = element.attr("id");
@@ -1946,10 +1964,14 @@ function copy(text) {
             var info = 'id=' + xid;
 
 
-            var i = $('#projlist_' + xid).text();
+         //   var i = $('#projlist_' + xid).text();
+
+            console.log(xid);
 
 
-           $("#modalCon2").load("DisplayReq?planner_id=" +i);
+        //   $("#modalCon2").load("DisplayReq?planner_id=" +xid);
+            var url = "@Url.Action("DisplayReq", "Admin")?planner_id=" + xid;
+            $("#modalCon2").load(url);
            $('#Modal2').modal('show');
 
             e.preventDefault();

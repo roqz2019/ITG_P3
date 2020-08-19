@@ -230,7 +230,7 @@
      //   dy2 = dy2 + '<td id="tdtaskstatus_0" class="tdnote"> <span id="taskstatus_0" class="task_input2">In Progress</span></td></tr>';
         dy2 = dy2 + '<tr class="notShow hideall" id="secondrow_0" style="display:none"><td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;"><a href="#" id="remove_0" class="remove_field2" style="position:relative;top: 62px;"><i class="fas fa-minus-circle"></i></a></td>';
 
-        dy2 = dy2 + '<td colspan = "6" > <div class="row3"> <div style="position:relative;height:150px;padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Task Summary:<br /> This is a dummy text statement </div> <div style="float:right"> 04/21/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div>';
+        dy2 = dy2 + '<td colspan = "6" > <div class="row3"> <div style="position:relative;height:150px;padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"><strong>Requirements:</strong><br /></div> <div style="float:right"> 04/21/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div>';
 
       //  dy2 = dy2 + '<div style="background-color:white;position:relative;height:150px;padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100">';
 
@@ -1837,7 +1837,7 @@
                         console.log("data2:" + data);
                         $('pre#notetask3_' + del_id[1]).html(data);
 
-                               
+
                     }
                 });
 
@@ -2686,6 +2686,7 @@
             var taskid = $('#taskid_' + del_id[1]).val();
 
             // get id
+            let d="";
 
             $.ajax({
                 type: "GET",
@@ -2696,6 +2697,7 @@
                    // alert(data);  data is success
 
                     var newstr = "_" + data;
+                    d = data;
                     // now replace dy5 _0 to newstr
 
 
@@ -2722,7 +2724,7 @@
    //     dy5 = dy5 + '<div class="td-main" style="float:left; display: block; width: 100%;"> Subtasks:<br /> <pre id="notetask3_0" class="td-label"></pre> <span id="selnote_0" class="td-control" data-type="txt" data-field="notes" style="display: none;"> <textarea id="notetask2_0" style=" display: block; width: 100%; height: 80%;" class="form-control td-txt" rows="4" data-min-rows="4" placeholder="description" name="description"></textarea> </span> </div>';
   //                  dy5 = dy5 + '<div style="float:right"></div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-29"> </div> <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-success w-100 savetask23" style="margin-bottom:5px;" id="save_0">Save</button><button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div > </td > </tr > ';
 
-                    dy5 = dy5 + '<td colspan = "6" > <div class="row3"> <div style="position:relative;height:150px;padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left"> Task Summary:<br /> This is a dummy text statement </div> <div style="float:right"> 04/21/2020 </div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div>';
+                    dy5 = dy5 + '<td colspan = "6" > <div class="row3"> <div style="position:relative;height:150px;padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left">Requirements<br /><span id="require_0"></span></div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div>';
                     dy5 = dy5 + '<div style="background-color:white;position:relative;min-height:150px; height: auto;border: 1px solid #dee2e6; padding: 10px 10px 10px 10px;" class="w-29 td-main"> <div style="float:left;" class="w-100"> <div style="float:left; display: block; width: 100%;"> Subtask v2: &nbsp;<a id="add_subtask_0_p" href="#" class="subtasklist"><i class="fas fa-plus-circle"></i></a>&nbsp;&nbsp; <a id="save_subtask_0_p" href="#" style="display:none" class="savetasklist"><i class="fas fa-save"></i></a> <div style="height:101px;overflow-y: auto;" id="divlist_0"> <ul class="list-group checked-list-box" id="tasklist_0"> </ul>';
                     dy5 = dy5 + '</div> <span id="selnote2_0" style="display: none;"> <textarea id="subtaskinfo_0" style=" display: block; width: 100%; height: 80%;" class="form-control " rows="4" data-min-rows="4" placeholder="description" name="description"></textarea> </span> </div> <div style="float:right"> </div> </div> <div style="float:left;" class="w-100"> <div style="position:absolute;bottom: 5px;font-size: 11px;background-color: #002080;color:white;height:20px;width:304px;display:block"> <span style="float:left;margin-left:5px;"><strong>Status: </strong></span> <span style="float:right;margin-right:5px"><a href="#" style="color:white" class="loadallsubtask" id="allsubtask_p"><i class="fas fa-external-link-alt"></i></a></span> </div> </div> </div>';
                     dy5 = dy5 + '<div class="w-29" > </div > <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-success w-100 savetask23" style="margin-bottom:5px;" id="save_0">Save</button><button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div > </td > </tr > ';
@@ -2732,7 +2734,7 @@
                     var pstr = "_" +taskid;
                     dy5 = dy5.replace(/_p/g, pstr);
 
-                 
+
 
                     // now append
                     $('#taskmantable tbody').prepend(dy5);
@@ -2777,6 +2779,24 @@
 
                 }
             });
+
+            var url2 = "@Url.Action("GetStatus")";
+            console.log("url2:" + url2);
+
+            var dat2 = taskid;
+            console.log("dat2:" + dat2);
+              $.ajax({
+                type: "GET",
+                url: url2,
+                data: "taskid=" + dat2 ,
+                dataType: "text",
+                  success: function (data2) {
+                      console.log("d2:" + data2);
+                      $('#require_' + d).text(data2);
+
+                  }
+              });
+
 
 
 
@@ -2838,7 +2858,7 @@
 
 
     </script>
-   
+
     <!-- new code for subtask v2-->
     <script>
         $(function () {
@@ -3034,6 +3054,154 @@
 
 
     <!-- new code for subtask v2-->
+
+    <script>
+        $('body').on('click', '.dplay2', function (e) {
+            checktdnote();
+
+            $('.hideall2').hide();
+
+            //------
+            $('.sel_cust').hide();
+            $('.sel_cus').hide();
+            $('.sel_stat').hide();
+            $('.task_input2').show();
+            //------
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            console.log(id_string);
+            var del_id = id_string.split("_");
+            var info = 'id=' + del_id[1];
+
+
+            $('[id^=d2_]').each(function () {
+                $(this).hide();
+            });
+
+
+            $('[id^=toogle2_]').each(function () {
+                //  $(this).removeClass('remove_field2').addClass('dplay');
+                $(this).show();
+            });
+
+
+
+            //enable delete field remove
+            $('#toogle2_' + del_id[1]).hide();
+
+            $('#d2_' + del_id[1]).show();
+
+            $('#secondrow2_' + del_id[1]).show();
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+
+        });
+
+        $("body").on('click', '.down_arrow2', function (e) {
+            checktdnote();
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+
+            var control_name = del_id[0];
+            console.log(id_string);
+
+            $('.hideall2').hide();
+
+
+
+            $('#secondrow2_' + del_id[1]).hide();
+
+            $('#toogle2_' + del_id[1]).show();
+
+            $('#d2_' + del_id[1]).hide();
+
+            $('[id^=toogle2_]').each(function () {
+                //  $(this).removeClass('remove_field2').addClass('dplay');
+                $(this).show();
+            });
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+
+
+         $('body').on('click', '.require', function (e) {
+
+
+            var href = $(this).attr('href');
+        //    alert(href);
+
+            var element = $(this);
+
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            var xid = del_id[1];
+
+            var info = 'id=' + xid;
+
+
+         //   var i = $('#projlist_' + xid).text();
+
+            console.log(xid);
+
+
+        //   $("#modalCon2").load("DisplayReq?planner_id=" +xid);
+            var url = "@Url.Action("DisplayReq", "Admin")?planner_id=" + xid;
+            $("#modalCon2").load(url);
+           $('#Modal2').modal('show');
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+
+        });
+
+    </script>
+    <div id="Modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">List of Subtask</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="modalCon"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="Modal2" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Requirements</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="modalCon2"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 </body>
 </html>
