@@ -1,0 +1,438 @@
+﻿@using ITGWebTimeSheet2.Models
+@model IEnumerable<ITGWebTimeSheet2.Models.TaskManModule>
+@{
+    ViewBag.Title = "TaskManager";
+    Layout = "~/Views/_LayoutInside.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-tasks"></i> Planner</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Planner</a></li>
+        </ul>
+    </div>
+
+
+
+
+
+
+    <!--  New Design  -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+
+                <div class="tile-body">
+
+
+            
+
+
+                    <div class="table-responsive2">
+                        <table class="table table-hover table-bordered" id="taskmantable">
+                            <thead style="background-color: #d9aa1d;color:white;">
+                                <tr>
+
+                                    <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                        <a href="#" class="add_fields3" style="margin-top:5px;margin-left: 10px;"><i class="fas fa-plus"></i></a>
+                                    </th>
+                                    <th style="border: 1px solid #dee2e6;">
+                                        <div style="float:left;">
+                                            Customer
+                                        </div>
+                                        <div style="float:right;color:#148ebd; border: solid 1px black;">
+                                            <i class="fas fa-sort-down fa-2x" style="margin-top: -10px;"></i>
+                                        </div>
+                                       
+                                       
+                                    </th>
+                                    <th>
+                                        <div style="float:left;">
+                                            PR
+                                        </div>
+                                        <div style="float:right;color:#148ebd; border: solid 1px black;">
+                                            <i class="fas fa-sort-down fa-2x" style="margin-top: -10px;"></i>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div style="float:left;">
+                                            Project
+                                        </div>
+                                        <div style="float:right;color:#148ebd; border: solid 1px black;">
+                                            <i class="fas fa-sort-down fa-2x" style="margin-top: -10px;"></i>
+                                        </div>
+                                       
+
+                                    </th>
+                                    <th>Task</th>
+                                    <th>
+                                        <div style="float:left;">
+                                            Type
+                                        </div>
+                                        <div style="float:right;color:#148ebd; border: solid 1px black;">
+                                            <i class="fas fa-sort-down fa-2x" style="margin-top: -10px;"></i>
+                                        </div>
+                                     </th>
+                                    <th>
+                                        <div style="float:left;">
+                                            Resource
+                                        </div>
+                                        <div style="float:right;color:#148ebd; border: solid 1px black;">
+                                            <i class="fas fa-sort-down fa-2x" style="margin-top: -10px;"></i>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div style="float:left;">
+                                            Rating
+                                        </div>
+                                        <div style="float:right;color:#148ebd; border: solid 1px black;">
+                                            <i class="fas fa-sort-down fa-2x" style="margin-top: -10px;"></i>
+                                        </div>
+                                    </th>
+
+                                    <th>
+                                        <div style="float:left;">
+                                            Status
+                                        </div>
+                                        <div style="float:right;color:#148ebd; border: solid 1px black;">
+                                            <i class="fas fa-sort-down fa-2x" style="margin-top: -10px;"></i>
+                                        </div>
+                                    </th>
+
+                                    <th>Start</th>
+                                    <th>Finish</th>
+                                    <th>Est</th>
+                                    <th>Act</th>
+
+
+
+
+
+
+                                </tr>
+
+                            </thead>
+                            <tbody id="wrapper4">
+
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr class="record" id="@Html.DisplayFor(modelItem => item.id)">
+
+                                        <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                            <a href="#" id="remove_@Html.DisplayFor(modelItem => item.id)" style="margin-top:25px;"><i class="fas fa-play"></i></a>
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;">
+                                            <span id="custtask_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.cust)</span>
+                                            <span id="selcust_@Html.DisplayFor(modelItem => item.id)" class="sel_cust">
+                                                <select class="form-control savetask2" id="selectcust_@Html.DisplayFor(modelItem => item.id)">
+                                                    @if (ViewData["CustomerList"] != null)
+                                                    {
+                                                        foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
+                                                        {
+                                                            <option value="@item1.id">@item1.name</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="taskpr_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.pr) </span>
+
+                                        </td>
+                                        <td>
+                                            <span id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.proj) </span>
+                                            <span id="selproj_@Html.DisplayFor(modelItem => item.id)" class="sel_cust">
+                                                <select class="form-control savetask2" id="selectproj_@Html.DisplayFor(modelItem => item.id)">
+                                                    @if (ViewData["ProjectList"] != null)
+                                                    {
+                                                        foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
+                                                        {
+                                                            <option value="@item1.id">@item1.name</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </span>
+
+
+                                        </td>
+                                        <td>
+                                            <span id="descriptiontask1_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.description)</span>
+                                            <span id="seldesc_@Html.DisplayFor(modelItem => item.id)" class="sel_cust">
+                                                <textarea id="descriptiontask_@Html.DisplayFor(modelItem => item.id)" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="description" name="description">@Html.DisplayFor(modelItem => item.description)</textarea>
+                                                <a href="#" id="taskdesc_@Html.DisplayFor(modelItem => item.id)" class="savetask3"><i class="fas fa-save"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+                                            </span>
+                                        </td>
+                                        <td>Dev</td>
+                                        <td>
+                                            <span class="task_input2"> John</span>
+
+                                        </td>
+                                        <td><i class="fas fa-circle" color="#5fac11"></i></td>
+                                        <td>
+
+                                            <span id="taskpr_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.status) </span>
+
+                                        </td>
+
+                                        <td>
+                                            <span id="taskpr_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.start) </span>
+
+                                        </td>
+                                        <td>04/23/2020</td>
+                                        <td>
+                                            <span id="taskstat_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.esthours) </span>
+
+                                        </td>
+                                        <td>
+                                            <span id="taskstat_@Html.DisplayFor(modelItem => item.id)" class="task_input2">@Html.DisplayFor(modelItem => item.acthours) </span>
+
+                                        </td>
+
+
+
+
+
+                                    </tr>
+                                }
+                                <tr class="record" id="1" style="background-color:#dee2e6">
+
+                                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                        <a href="#" id=""><i class="fas fa-sort-down fa-2x" style="color:#5fac11"></i></a>
+                                    </td>
+                                    <td style="border: 1px solid #dee2e6;">
+                                        <span id="custtask_1" class="task_input2">Customer 1</span>
+                                        <span id="selcust_1" class="sel_cust" style="display: none;">
+                                            <select class="form-control savetask2" id="selectcust_1">
+                                                <option value="0">Please select customer</option>
+                                                <option value="1">Customer 1</option>
+                                            </select>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span id="taskpr_1" class="task_input2">6 </span>
+
+                                    </td>
+                                    <td>
+                                        <span id="taskproj_1" class="task_input2">Please select a project </span>
+                                        <span id="selproj_1" class="sel_cust" style="display: none;">
+                                            <select class="form-control savetask2" id="selectproj_1">
+                                                <option value="0">Please select a project</option>
+                                                <option value="1">project test 1</option>
+                                                <option value="2">project 2</option>
+                                            </select>
+                                        </span>
+
+
+                                    </td>
+                                    <td>
+                                        <span id="descriptiontask1_1" class="task_input2">this is one description is testing</span>
+                                        <span id="seldesc_1" class="sel_cust" style="display: none;">
+                                            <textarea id="descriptiontask_1" class="autoExpand form-control task_input" rows="1" data-min-rows="1" placeholder="description" name="description">this is one description is testing</textarea>
+                                            <a href="#" id="taskdesc_1" class="savetask3"><i class="fas fa-save" aria-hidden="true"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+                                        </span>
+                                    </td>
+                                    <td>Dev</td>
+                                    <td>
+                                        <span class="task_input2"> John</span>
+
+                                    </td>
+                                    <td><i class="fas fa-circle" color="#5fac11" aria-hidden="true"></i></td>
+                                    <td>
+
+                                        <span id="taskpr_1" class="task_input2"> </span>
+
+                                    </td>
+
+                                    <td>
+                                        <span id="taskpr_1" class="task_input2">04/14/2020 </span>
+
+                                    </td>
+                                    <td>04/23/2020</td>
+                                    <td>
+                                        <span id="taskstat_1" class="task_input2">0.00 </span>
+
+                                    </td>
+                                    <td>
+                                        <span id="taskstat_1" class="task_input2">0.00 </span>
+
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#dee2e6">
+                                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;"></td>
+                                    <td colspan="12">
+                                        <div class="row3">
+                                            <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                                <div style="float:left;" class="w-100">
+                                                    <div style="float:left">
+                                                        Latest Status:<br />
+                                                        This is a dummy text statement
+                                                    </div>
+                                                    <div style="float:right">
+                                                        04/20/2020
+                                                    </div>
+
+
+                                                </div>
+                                                <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                    <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="w-1">
+
+                                            </div>
+                                            <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                                <div style="float:left;" class="w-100">
+                                                    <div style="float:left">
+                                                        Task<br />
+
+                                                    </div>
+                                                    <div style="float:right">
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                    <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="w-1">
+
+                                            </div>
+                                            <div style="position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
+                                                <div style="float:left;" class="w-100">
+                                                    <div style="float:left">
+                                                        Discussion:<br />
+                                                      
+                                                    </div>
+                                                    <div style="float:right">
+                                                        04/20/2020
+                                                    </div>
+
+
+                                                </div>
+                                                <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                                                    <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="w-1">
+
+                                            </div>
+
+                                            <div class="w-10">
+                                                <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button>
+                                                <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button>
+                                                <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button>
+                                                <button type="button" class="btn btn-primary w-100">Audit</button>
+
+
+                                            </div>
+
+                                        </div> <!-- end of row 3-->
+                                    </td>
+
+
+
+                                </tr>
+                                <tr>
+                                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;"></td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table> <!-- end of table responsive  bootstrap table-->
+                        <div style="text-align:right">
+                            <button type="button" class="btn btn-primary" style="background-color:#d9aa1d;border-color: #d9aa1d;">CSV</button>
+                            <button type="button" class="btn btn-primary">Next</button>
+                            <button type="button" class="btn btn-outline-info">1</button>
+                            <button type="button" class="btn btn-primary">2</button>
+
+
+                        </div>
+                    </div> <!-- end of table responsive  bootstrap table-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>  <!-- old main-->

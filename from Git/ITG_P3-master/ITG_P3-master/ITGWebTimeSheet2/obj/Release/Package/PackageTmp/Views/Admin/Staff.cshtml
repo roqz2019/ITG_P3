@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ITGWebTimeSheet2.Models.Staff>
+
+@{
+    ViewBag.Title = "Staff";
+    Layout = "~/Views/_LayoutInside.cshtml";
+}
+
+<div class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-users "></i> Staffs</h1>
+
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="#">Staffs</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        @using (Html.BeginForm("AddStaff", "Admin", new { ReturnUrl = ViewBag.ReturnUrl },
+             FormMethod.Post, new { @class = "row" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            <div class="form-group col-md-3">
+                                <!-- <label>Fullname</label>
+                                <input class="form-control" type="text" placeholder="" />-->
+                                <label>Fullname</label>
+                                <input class="form-control" type="text" placeholder="Fullname" name="fullname"  maxlength="30"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Code</label>
+                                <input class="form-control" type="text" placeholder="CODE" name="alias" maxlength="3" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Email</label>
+                                <input class="form-control" type="email" placeholder="Fullname" name="email" />
+                            </div>
+
+
+
+
+                            <div class="form-group col-md-2">
+                                <label>&nbsp; &nbsp;</label>
+                                <button class="btn btn-primary form-control" type="submit" name="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add</button>
+                            </div>
+
+
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">Staff List</h3>
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Fullname</th>
+                                    <th>Nickname</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    if (Convert.ToInt32(item.id) != 1)
+                                    {
+                                    <tr class="record">
+                                        <td>
+                                            <span id="staff1_@Html.DisplayFor(modelItem => item.id)" class="staff1_dbclick">@Html.DisplayFor(modelItem => item.fullname)</span>
+                                            <input id="edit_fullname_@Html.DisplayFor(modelItem => item.id)" class="form-control staff1_name" type="text" placeholder="Fullname" name="name" value="@Html.DisplayFor(modelItem => item.fullname)" />
+                                            <a href="#" id="savefullname_@Html.DisplayFor(modelItem => item.id)" class="savestaff1"><i class="fas fa-save"></i></a>
+                                        </td>
+                                        <td>
+                                            <span id="staff2_@Html.DisplayFor(modelItem => item.id)" class="staff2_dbclick">@Html.DisplayFor(modelItem => item.alias)</span>
+                                            <input id="edit_alias_@Html.DisplayFor(modelItem => item.id)" class="form-control staff2_name" type="text" placeholder="alias" name="name" value="@Html.DisplayFor(modelItem => item.alias)" />
+                                            <a href="#" id="savealias_@Html.DisplayFor(modelItem => item.id)" class="savestaff2"><i class="fas fa-save"></i></a>
+                                        </td>
+                                        <td>
+                                            <span id="staff3_@Html.DisplayFor(modelItem => item.id)" class="staff3_dbclick">@Html.DisplayFor(modelItem => item.email)</span>
+                                            <input id="edit_email_@Html.DisplayFor(modelItem => item.id)" class="form-control staff3_name" type="text" placeholder="alias" name="name" value="@Html.DisplayTextFor(modelItem => item.email)" />
+                                            <a href="#" id="saveemail_@Html.DisplayFor(modelItem => item.id)" class="savestaff3"><i class="fas fa-save"></i></a>
+                                        </td>
+                                        <td>
+                                            <!--<a href="@Url.Action("EditStaff", "Admin", new { id = item.id })" id="@Html.DisplayFor(modelItem => item.id)" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a> -->
+                                            <a href="#" id="@Html.DisplayFor(modelItem => item.id)" class="delstaff" data-toggle="tooltip" title="Delete"><i class="fas fa-times"></i></a>
+                                        </td>
+
+                                    </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
