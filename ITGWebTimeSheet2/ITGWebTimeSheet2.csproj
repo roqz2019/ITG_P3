@@ -196,6 +196,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="newlayout_approve_greg.txt" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -846,6 +847,9 @@
     <Content Include="Views\Admin\Terminal.cshtml" />
     <Content Include="Views\Admin\DisplayReq.cshtml" />
     <Content Include="Views\Default\DisplayReq.cshtml" />
+    <Content Include="Views\Default\Login_8_21.cshtml" />
+    <Content Include="Views\Default\TimeSheet_8_21.cshtml" />
+    <Content Include="Views\_LayoutPlanner_8_21.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

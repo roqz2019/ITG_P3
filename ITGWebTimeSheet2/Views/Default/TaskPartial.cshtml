@@ -20,14 +20,14 @@
                 </div>
 
             </th>
-            <th style="width:200px;">
+            <th style="width:500px;">
 
                 Category
 
 
             </th>
-            <th style="width:800px;">Task</th>
-            <th style="width:300px;">Timesheet Entry</th>
+            <th style="width:600px;">Task</th>
+            <th style="width:200px;">Timesheet Entry</th>
 
 
 
@@ -51,7 +51,7 @@
             </td>
 
             <td style="border: 1px solid #dee2e6;" id="tdcust_@Html.DisplayFor(modelItem => item.id)" class="tdk">
-                <span id="custtask_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+                <span id="custtask2_@Html.DisplayFor(modelItem => item.id)">
                     @if (ViewData["CustomerList2"] != null)
                     {
                         foreach (var item11 in ViewData["CustomerList2"] as IList<CustomersModule>)
@@ -64,27 +64,39 @@
                         }
                     }
                 </span>
-                <input type="hidden" id="custid_@Html.DisplayFor(modelItem => item.id)" value="@item.cust" />
+                <input type="hidden" id="custid2_@Html.DisplayFor(modelItem => item.id)" value="@item.cust" />
 
             </td>
 
-            <td id="tdpr_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
+            <td id="tdpr_@Html.DisplayFor(modelItem => item.id)" 
+                @if (Convert.ToInt16(item.pr) == 21)
+                        {
+                            @:style="background-color: yellow;"
+                        } >
 
                 <span id="desc1_@Html.DisplayFor(modelItem => item.id)">
-                    @if ((Convert.ToInt16(item.pr) == 0) || (Convert.ToInt16(item.pr) > 20))
+                    @if ((Convert.ToInt16(item.pr) == 0) || (Convert.ToInt16(item.pr) > 21))
                     {
                         @:
                     }
                     else
                     {
-                        @:@Html.DisplayFor(modelItem => item.pr)
+                        if (Convert.ToInt16(item.pr) == 21)
+                        {
+                            @:<strong>RTC</strong>
+                        }
+                        else
+                        {
+                            @:@Html.DisplayFor(modelItem => item.pr)
+                        }
+
                     }
 
                 </span>
                 <input type="hidden" id="prid_@Html.DisplayFor(modelItem => item.id)" value="@item.pr" />
             </td>
             <td id="tdproj_@Html.DisplayFor(modelItem => item.id)" class="tdk">
-                <span id="taskproj_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+                <span id="taskproj2_@Html.DisplayFor(modelItem => item.id)">
 
                     @if (ViewData["ProjectList"] != null)
                     {
@@ -122,10 +134,102 @@
         <tr id="secondrow2_@Html.DisplayFor(modelItem => item.id)" class="notShow hideall2" style="display:none">
             <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
             </td>
-            <td colspan="6">
-                <strong>Requirements:</strong><br/><br/>
-                <span id="status1_@Html.DisplayFor(modelItem => item.id)">@item.status</span>
+
+            <td colspan="3" style="padding: 0; border: 1px solid #dee2e6; margin: 0; padding: 0; border-spacing: 0;">
+
+
+                <div style="position:relative;min-height:150px; height: auto; overflow: hidden; border: 1px solid #dee2e6; padding:5px;" class="td-main">
+                    <div style="float:left;" class="w-100">
+                        <div  style="float:left; display: block; width: 100%;">
+                            <strong>Requirements:</strong><br /><br />
+
+                            <div style="height:101px;overflow-y: auto;" >
+                                <pre style=" white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap;  white-space: -o-pre-wrap; word-wrap: break-word; /* Internet Explorer 5.5+ */" class="td-label td-lbl-projectstatus">@Html.DisplayFor(modelItem => item.status)</pre>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <!-- <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+            </div>  -->
+                    <div style="float:left;" class="w-100">
+                        <div style="position:absolute;bottom: 0px;font-size: 11px;background-color: #002080;color:white;height:20px;width:100%;display:block;margin-left:-5px">
+                            <span style="float:left;margin-left:5px;"><strong>View All </strong></span>
+                            <span style="float:right;margin-right:5px">
+                                <a href="#" style="color:white" class="require" id="req_@Html.DisplayFor(modelItem => item.id)"><i class="fas fa-external-link-alt"></i></a>
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </td>
+            <td style="padding: 0; border: 1px solid #dee2e6;margin: 0; padding: 0; border-spacing: 0;">
+
+                <div style="background-color:white;position:relative;min-height:150px; height: auto;border: 1px solid #dee2e6; padding: 5px" class="td-main">
+                    <div style="float:left;" class="w-100">
+                        <div style="float:left; display: block; width: 100%;">
+                            Subtask v2: &nbsp;<a id="add_subtask_@Html.DisplayFor(modelItem => item.id)" href="#" class="subtasklist"><i class="fas fa-plus-circle"></i></a>&nbsp;&nbsp;
+                            <a id="save_subtask_@Html.DisplayFor(modelItem => item.id)" href="#" style="display:none" class="savetasklist"><i class="fas fa-save"></i></a>
+
+                            <div style="height:101px;overflow-y: auto;" id="divlist_@Html.DisplayFor(modelItem => item.id)">
+                                <ul class="list-group checked-list-box" id="tasklist_@Html.DisplayFor(modelItem => item.id)">
+
+                                    @Html.Action("DisplaySubTask", "Admin", new { planner_id = item.id.ToString() })
+                                </ul>
+                            </div>
+                            <span id="selnote2_@Html.DisplayFor(modelItem => item.id)" style="display: none;">
+                                <textarea id="subtaskinfo_@Html.DisplayFor(modelItem => item.id)" style=" display: block; width: 100%; height: 80%;" class="form-control " rows="4" data-min-rows="4" placeholder="description" name="description"></textarea>
+                            </span>
+                        </div>
+                        <div style="float:right">
+                        </div>
+                    </div>
+                    <div style="float:left;" class="w-100">
+                        <div style="position:absolute;bottom: 0px;font-size: 11px;background-color: #002080;color:white;height:20px;width:100%;display:block;margin-left:-5px">
+                            <span style="float:left;margin-left:5px;"><strong>Status: </strong></span>
+                            <span style="float:right;margin-right:5px"><a href="" style="color:white" class="loadallsubtask" id="allsubtask_@Html.DisplayFor(modelItem => item.id)"><i class="fas fa-external-link-alt"></i></a></span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </td>
+
+            <td style="padding: 0;border: 1px solid #dee2e6;margin: 0; padding: 0; border-spacing: 0;">
+
+
+                <div style="position:relative;height:150px;border: 1px solid #dee2e6;padding: 10px 10px 10px 10px; " class="td-main">
+                    <div style="float:left;" class="w-100">
+                        <div style="float:left">
+                            Discussion:<br />
+                        </div>
+                        <div style="float:right">
+                            04/20/2020
+                        </div>
+
+                    </div>
+                    <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
+                        <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                    </div>
+                </div>
+            </td>
+            <td style=" padding: 0;border: 1px solid #dee2e6; margin: 0; padding: 0; border-spacing: 0;">
+
+
+
+                <div style="border: 1px solid #dee2e6;min-height:150px;text-align:center;">
+                    <button type="button" class="btn btn-primary w-80 btn_history btn2" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="margin-bottom:5px;">Notes</button>
+                    <button type="button" class="btn btn-primary w-80 btn2" style="margin-bottom:5px;">Files</button>
+                    <button type="button" class="btn btn-primary w-80 btn_images btn2" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="margin-bottom:5px;">Images</button>
+             
+                </div>
+
+            </td>
+
 
         </tr> 
         }

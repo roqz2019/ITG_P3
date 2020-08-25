@@ -2677,9 +2677,9 @@
 
             // get all data
 
-            var custtask = $('#custtask_' + del_id[1]).text();
-            var custid = $('#custid_' + del_id[1]).val();
-            var taskproj = $('#taskproj_' + del_id[1]).text();
+            var custtask = $('#custtask2_' + del_id[1]).text();
+            var custid = $('#custid2_' + del_id[1]).val();
+            var taskproj = $('#taskproj2_' + del_id[1]).text();
             var projid = $('#projid_' + del_id[1]).val();
 
             var descriptiontask1 = $('#descriptiontask1_' + del_id[1]).text();
@@ -3161,6 +3161,126 @@
 
         });
 
+
+        //------------- buttons
+
+        $('body').on('click', '.btn_history', function () {
+            let taskid = $(this).data("taskid");
+            $('#mod_history').modal('show');
+            $('.txt-history').val("");
+
+            $(".btn_addtaskhistory").attr("data-taskid", taskid);
+            $(".btn_fetchtaskhistory").attr("data-taskid", taskid);
+            $(".btn_savetaskhistory").attr("data-taskid", taskid);
+
+            $(".his_list").show();
+            $(".his_form").hide();
+            fetchTaskHistory(taskid);
+        });
+
+         function fetchTaskHistory(taskid){
+                    let data = "id=" + taskid;
+                    let url = "@Url.Action("FetchTaskHistory")";
+                    let type = 'POST';
+                    $.ajax({
+                            type: type,
+                            url: url,
+                            data: data,
+                            success: (data) => {
+
+                                let html = '';
+                                $(".his_items").html("");
+                                data.forEach(function(historyItem){
+
+                                    html = '';
+                                    html += '<div style="clear: both; display: block; width: 100%; position: relative; margin-top: 0px; margin-bottom: 25px;">';
+                                    html += '<div class="float-left">' + historyItem.datecreated + '</div>';
+                                    html += '<button class="btn btn-danger btn-small btn_removetaskhistory float-right" data-taskid="' + taskid + '" data-historyid="' + historyItem.id + '" style="margin-right: 3px;">';
+                                    html += 'Remove';
+                                    html += '</button>';
+                                    html += '</div>';
+                                    html += '<br />';
+                                    html += '<div class="td-main-xxx" style="clear: both; display: block; width: 100%; position: relative; border: 1px solid #eee; margin-top: 5px; margin-bottom: 5px;">';
+                                    html += '   <div class="td-label">';
+                                    html += '       <pre style="padding: 5px 5px 5px 5px;">';
+                                    html += '           <xmp style="font-size: 12px; overflow: scroll; white-space:pre-wrap; word-wrap:break-word;">';
+                                    html += historyItem.history;
+                                    html += '           </xmp>';
+                                    html += '       </pre>';
+                                    html += '   </div>';
+
+                                    html += '   <div class="td-control" data-type="txt" data-field="history" data-historyid="' + historyItem.id + '" style="display: none; width: 100%;">';
+                                    html += '       <textarea class="td-txt txt-history txt_history" style="width: 100%; min-height: 400px; font-size: 12px; overflow: scroll; white-space:pre-wrap; word-wrap:break-word;">';
+                                    html += historyItem.history;
+                                    html += '       </textarea>';
+                                    html += '   </div>';
+                                    html += '</div>';
+
+                                    $(".his_items").append(html);
+
+                                });
+                            }
+                    });
+             }
+         $('body').on('click', '.img-thumbnail', function(){
+
+             console.log('aaaaaaaaa');
+            let base64 = $(this).attr("src");
+            console.log(base64)
+            $(".img_receiver").attr("src", base64);
+
+        });
+
+        $('body').on('click', '.btn_images', function(){
+             let taskid = $(this).data('taskid');
+             console.log("TASK ID" + taskid);
+             $(".img_receiver").data("taskid", taskid);
+
+             function loadTaskImages(taskid){
+                    let data = "id=" + taskid;
+                    let url = "@Url.Action("FetchTaskImages")";
+                    let type = 'POST';
+
+                    $.ajax({
+                            type: type,
+                            url: url,
+                            data: data,
+                            success: function (data) {
+                                console.log(data);
+                                console.log(data.length)
+                                console.log(data[0].imagebase64);
+                                console.dir(data[0]);
+
+                                let imgx = '';
+                                $(".img_list").html("");
+                                data.forEach(function(d){
+
+                                    imgx = '';
+                                    imgx += '<div class="img_container" style="display: block; float: left; width: 120px;">';
+                                    imgx += '<div style="float; right; position: absolute; display: inline-block; z-index: 9999;"><button class="btn_imageremove btn btn-danger btn-sm" data-imageid="' + d.id + '">x</button></div>';
+                                    imgx += '<img src="@VirtualPathUtility.ToAbsolute("~/")Images/TaskImages/TaskImage-' + d.id + '.png" alt="" class="img-thumbnail" style="display: block; width: 120px; height: 120px;">';
+
+                                    imgx += '</div>';
+
+                                    $(".img_list").prepend(imgx);
+
+                                });
+                            }
+                    });
+
+             }
+
+             loadTaskImages(taskid);
+             $('#mod_images').modal('show');
+             $(".img_receiver").attr("src", "");
+             $(".img_list").html("");
+
+
+
+        });
+
+
+
     </script>
     <div id="Modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -3199,6 +3319,62 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="modal fade" id="mod_images" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width:90%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Images</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="width: 100%;">
+                    <div class="" data-taskid="0" style="background-image:  no-repeat center center fixed; background-size: cover; display: block; width: 100%; min-height: 400px; overflow: hidden; border: 1px solid #eee; margin-bottom: 20px;">
+                        <img class="img_receiver" style="width: 100%; min-width: 400px; display: block;" />
+                    </div>
+                    <div class="img_list" style="background-image: no-repeat center center fixed; background-size: cover; display: block; width: 100%; height: 180px; border: 0 solid #eee;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="mod_history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width:90%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" style="width: 100%;">
+                    <div class="his_form" data-taskid="0" style="display: none; width: 100%; min-height: 400px; overflow: hidden;">
+                        <textarea class="txt-history" style="width: 100%; display: block; height: 400px; border: 1px solid #eee; margin-bottom: 20px;">
+                        </textarea>
+                        <div style="display: block; clear: both; position: relative; width: 100%;">
+                            <button class="btn btn-primary btn_savetaskhistory float-right" data-taskid="0" style="margin-left: 3px;">Save</button>
+                            <button class="btn btn-danger btn_fetchtaskhistory float-right" data-taskid="0" style="margin-right: 3px;">Cancel</button>
+                        </div>
+                    </div>
+
+                    <div class="his_list" data-taskid="0" style="display: none; width: 100%; min-height: 400px; overflow: scroll;">
+
+                        <div class="his_items" style="display: block; width: 100%; min-height: 400px; overflow: scroll;">
+                        </div>
+
+                      <!--  <div style="display: block; clear: both; position: relative; width: 100%;">
+                            <button class="btn btn-primary btn_addtaskhistory float-right" data-taskid="0">Add</button>
+                        </div>-->
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 

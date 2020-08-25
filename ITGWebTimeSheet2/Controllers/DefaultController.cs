@@ -960,27 +960,13 @@ namespace ITGWebTimeSheet2.Controllers
                 con.Open();
                 //  string querydayd = "Select TM.id as id,TM.customerid as customerid,TM.projectid as projectid,TM.pr as pr, TM.description as description from [dbo].[taskman] as TM WHERE resource=" + Session["res_id"] + " AND stat='In Progress' OR stat='Closed, Timesheet Incomplete'  OR TM.pr<>0  ORDER BY pr ASC";
                 string querydayd = "Select TM.status as status, TM.id as id,TM.customerid as customerid,TM.projectid as projectid,TM.pr as pr, TM.description as description from [dbo].[taskman] as TM WHERE resource=" + Session["res_id"] +
-                                    " AND TM.pr < 22 AND TM.stat = 'In Progress'  order by TM.pr";
+                                    " AND TM.pr < 10 AND TM.stat = 'In Progress'  order by TM.pr";
 
                 string q2= "Select TM.status as status, TM.id as id,TM.customerid as customerid,TM.projectid as projectid,TM.pr as pr, TM.description as description from [dbo].[taskman] as TM WHERE resource=" + Session["res_id"] +
                          " AND TM.pr < 22 AND TM.stat = 'Closed, Timesheet Incomplete'  order by TM.pr";
 
 
-                SqlCommand cmddd = new SqlCommand(querydayd, con);
-                SqlDataReader dataReaderdd = cmddd.ExecuteReader();
-                while (dataReaderdd.Read())
-                {
-                    TaskManModule sitems = new TaskManModule();
-                    sitems.id = Convert.ToInt16(dataReaderdd["id"]);
-                    sitems.cust = Convert.ToString(dataReaderdd["customerid"]);
-                    sitems.proj = Convert.ToString(dataReaderdd["projectid"]);
-                    sitems.description = Convert.ToString(dataReaderdd["description"]);
-                    //  sitems.category = Convert.ToString(dataReaderdd["cat"]);
-                    //  sitems.taskid = Convert.ToInt16(dataReaderdd["taskid"]);
-                    sitems.pr = Convert.ToString(dataReaderdd["pr"]);
-                    sitems.status = Convert.ToString(dataReaderdd["status"]);
-                    taskplanner.Add(sitems);
-                }
+               
 
                 SqlCommand c2 = new SqlCommand(q2, con);
                 SqlDataReader dataReaderdd2 = c2.ExecuteReader();
@@ -998,6 +984,21 @@ namespace ITGWebTimeSheet2.Controllers
                     taskplanner.Add(sitems2);
                 }
 
+                SqlCommand cmddd = new SqlCommand(querydayd, con);
+                SqlDataReader dataReaderdd = cmddd.ExecuteReader();
+                while (dataReaderdd.Read())
+                {
+                    TaskManModule sitems = new TaskManModule();
+                    sitems.id = Convert.ToInt16(dataReaderdd["id"]);
+                    sitems.cust = Convert.ToString(dataReaderdd["customerid"]);
+                    sitems.proj = Convert.ToString(dataReaderdd["projectid"]);
+                    sitems.description = Convert.ToString(dataReaderdd["description"]);
+                    //  sitems.category = Convert.ToString(dataReaderdd["cat"]);
+                    //  sitems.taskid = Convert.ToInt16(dataReaderdd["taskid"]);
+                    sitems.pr = Convert.ToString(dataReaderdd["pr"]);
+                    sitems.status = Convert.ToString(dataReaderdd["status"]);
+                    taskplanner.Add(sitems);
+                }
 
 
 
@@ -1178,5 +1179,104 @@ namespace ITGWebTimeSheet2.Controllers
 
             return PartialView("DisplayReq", subtasklist);
         }
+
+
+        [HttpPost]
+        public JsonResult FetchTaskImages(string id)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                string query = "SELECT * FROM  [dbo].[planner_images] WHERE planner_id = '" + id + "'";
+
+                List<TaskImages> listTaskImages = new List<TaskImages>();
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    TaskImages taskimages = new TaskImages();
+                    taskimages.id = Convert.ToInt16(dataReader["id"]);
+                    taskimages.planner_id = Convert.ToInt16(dataReader["planner_id"]);
+                    taskimages.imagebase64 = ""; // dataReader["imagebase64"].ToString();
+                    taskimages.imageraw = ""; // dataReader["imageraw"].ToString();
+                    taskimages.datecreated = Convert.ToDateTime(dataReader["datecreated"]);
+                    listTaskImages.Add(taskimages);
+                }
+                con.Close();
+                return Json(listTaskImages, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+        [HttpGet]
+        public ContentResult DumpTaskImages()
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                string query = "SELECT * FROM  [dbo].[planner_images] ";
+
+                List<TaskImages> listTaskImages = new List<TaskImages>();
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                string mega = "";
+                int imageId = 0;
+
+                while (dataReader.Read())
+                {
+                    imageId = Convert.ToInt16(dataReader["id"]);
+                    mega = dataReader["imagebase64"].ToString();
+
+                    string imageBase64 = mega.Replace("data:image/png;base64,", "");
+                    string fileName = Server.MapPath("~/Images/TaskImages/" + "TaskImage-" + imageId + ".png");
+                    byte[] bytes = Convert.FromBase64String(imageBase64);
+                    System.IO.File.WriteAllBytes(fileName, bytes);
+                }
+                con.Close();
+            }
+            return Content("Success");
+        }
+
+        [HttpPost]
+        public JsonResult FetchTaskHistory(string id)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                string query = "SELECT * FROM  [dbo].[planner_history] WHERE planner_id = '" + id + "' ORDER BY id DESC";
+
+                List<TaskHistory> listTaskHistory = new List<TaskHistory>();
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    TaskHistory taskHistory = new TaskHistory();
+                    taskHistory.id = Convert.ToInt16(dataReader["id"]);
+                    taskHistory.planner_id = Convert.ToInt16(dataReader["planner_id"]);
+                    taskHistory.history = dataReader["history"].ToString();
+                    taskHistory.datecreated = Convert.ToDateTime(dataReader["datecreated"]).ToString("yyyy-MM-dd");
+                    ;
+                    listTaskHistory.Add(taskHistory);
+                }
+                con.Close();
+                return Json(listTaskHistory, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
     }
+
+
 }

@@ -8,7 +8,7 @@
     <div class="app-content">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-dashboard"></i> Timesheet</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h1><i class="fa fa-dashboard"></i> Timesheet</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Modal"><i class="fas fa-thumbtack"></i>Task from Planner</a>
 
             </div>
             <ul class="app-breadcrumb breadcrumb">
@@ -30,6 +30,9 @@
 
                         <div class="table-responsive2">
                             <div class="row3">
+
+
+
                             </div>
                         </div>
 
@@ -61,7 +64,7 @@
                                         </table>
                                     </div>
 
-                                    <div style="width: 112px;">
+                                    <div style="width:112px">
                                         <table class="table table-hover table-bordered">
                                             <thead style="background-color: #002080;color:white;">
                                                 <tr>
@@ -77,7 +80,22 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <input id="select_d" type="text" class="datepicker79" value="@ViewData["SystemDate"]" maxlength="10" />
+                                                        @{string st = Convert.ToString(Request.QueryString["ed"]);
+                                                            if (st.Contains("-") == true)
+                                                            {
+                                                                var timeFromInput = DateTime.ParseExact(st, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None);
+                                                                string timeOutput = timeFromInput.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                                st = timeOutput;
+                                                            }
+                                                            else
+                                                            {
+
+                                                            }
+
+
+
+                                                            @:<input id="select_d" type="text" class="datepicker79" value="@st" maxlength="10" />
+                                                        }
                                                     </td>
 
                                                 </tr>
@@ -157,7 +175,7 @@
                                 <tr>
 
                                     <th style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white; width:30px">
-                                       <!-- <a href="#" class="add_fields3" style="margin-top:25px;"><i class="fas fa-plus-circle"></i></a> -->
+                                        <a href="#" class="add_fields3" style="margin-top:25px;"><i class="fas fa-plus-circle"></i></a>
                                     </th>
                                     <th style="border: 1px solid #dee2e6; width:100px;">
                                         <div style="float:left;">
@@ -176,7 +194,6 @@
                                     <th style="width:80px;">Date</th>
                                     <th style="width:80px;">Hours</th>
 
-
                                 </tr>
 
                             </thead>
@@ -194,6 +211,7 @@
                                         </td>
                                         <td style="border: 1px solid #dee2e6;" id="tdcust_@Html.DisplayFor(modelItem => item.id)" class="tdnote">
                                             <span id="custtask_@Html.DisplayFor(modelItem => item.id)" class="task_input2">
+
                                                 @if (ViewData["CustomerList"] != null)
                                                 {
                                                     foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
@@ -270,7 +288,6 @@
                                         </td>
 
 
-
                                     </tr>
                                     <tr style="background-color:#dee2e6" id="secondrow_@Html.DisplayFor(modelItem => item.id)" class="notShow hideall">
                                         <td style="background-color: white;border-top-color: white;border-bottom-color: white;border-left-color: white;">
@@ -278,7 +295,7 @@
                                         </td>
                                         <td colspan="6">
                                             <div class="row3">
-                                             <!--   <div style="position:relative;height:150px; padding: 10px 10px 10px 10px; " class="w-29">
+                                              <!--  <div style="background-color:white;position:relative;height:150px;border:solid 1px; padding: 10px 10px 10px 10px; " class="w-29">
                                                     <div style="float:left;" class="w-100">
                                                         <div style="float:left">
                                                             Requirements<br />
@@ -301,12 +318,12 @@
 
                                                             <div style="height:101px;overflow-y: auto;" class="td-main">
                                                                 <pre class="td-label td-lbl-projectstatus">@Html.DisplayFor(modelItem => item.status)</pre>
-                                                               
+
 
                                                             </div>
                                                         </div>
                                                     </div>
-                                                   
+
                                                     <div style="float:left;" class="w-100">
                                                         <div style="position:absolute;bottom: 0px;font-size: 11px;background-color: #002080;color:white;height:20px;width:100%;display:block;margin-left:-5px">
                                                             <span style="float:left;margin-left:5px;"><strong>View All </strong></span>
@@ -317,20 +334,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="w-1">
 
                                                 </div>
-                                                <div style="background-color:white;position:relative;min-height:150px; height: auto;border: 1px solid #dee2e6; padding: 10px 10px 10px 10px;" class="w-29 td-main">
+                                                <div style="background-color:white;position:relative;min-height:150px; height: auto;border:solid 1px; padding: 10px 10px 10px 10px;" class="w-29 td-main">
                                                     <div style="float:left;" class="w-100">
                                                         <div style="float:left; display: block; width: 100%;">
-                                                            Subtask v2: &nbsp;<a id="add_subtask_@Html.DisplayFor(modelItem => item.id)_@Html.DisplayFor(modelItem => item.taskid)" href="#" class="subtasklist"><i class="fas fa-plus-circle"></i></a>&nbsp;&nbsp;
-                                                            <a id="save_subtask_@Html.DisplayFor(modelItem => item.id)_@Html.DisplayFor(modelItem => item.taskid)" href="#" style="display:none" class="savetasklist"><i class="fas fa-save"></i></a>
+                                                            Subtask v2: &nbsp;<a id="add_subtask_@Html.DisplayFor(modelItem => item.id)" href="#" class="subtasklist"><i class="fas fa-plus-circle"></i></a>&nbsp;&nbsp;
+                                                            <a id="save_subtask_@Html.DisplayFor(modelItem => item.taskid)" href="#" style="display:none" class="savetasklist"><i class="fas fa-save"></i></a>
 
                                                             <div style="height:101px;overflow-y: auto;" id="divlist_@Html.DisplayFor(modelItem => item.id)">
-                                                                <ul class="list-group checked-list-box" id="tasklist_@Html.DisplayFor(modelItem => item.id)">
+                                                                <ul class="list-group checked-list-box" id="tasklist_@Html.DisplayFor(modelItem => item.id)_@Html.DisplayFor(modelItem => item.taskid)">
 
-                                                                    @Html.Action("DisplaySubTask", "Default", new { planner_id = item.taskid })
+                                                                    @Html.Action("DisplaySubTask", "Default", new { planner_id = item.taskid.ToString() })
                                                                 </ul>
                                                             </div>
                                                             <span id="selnote2_@Html.DisplayFor(modelItem => item.id)" style="display: none;">
@@ -340,7 +356,9 @@
                                                         <div style="float:right">
                                                         </div>
                                                     </div>
-                                                 
+                                                    <!-- <div style="position:absolute;bottom: 20px;font-size: 9px;right: 10px;">
+            <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
+        </div>  -->
                                                     <div style="float:left;" class="w-100">
                                                         <div style="position:absolute;bottom: 5px;font-size: 11px;background-color: #002080;color:white;height:20px;width:304px;display:block">
                                                             <span style="float:left;margin-left:5px;"><strong>Status: </strong></span>
@@ -371,33 +389,29 @@
 
                             </tbody>
                         </table> <!-- end of table responsive  bootstrap table-->
-                        <div style="text-align:right">
-
-
-                        </div>
-                   
+                      
                     </div> <!-- end of table responsive  bootstrap table-->
                 </div>
             </div>
         </div>
 
-        <!-- task Partial-->
+
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="tile">
 
-                    <div class="tile-body" id="taskpart">
+                    <div class="tile-body">
 
 
+                        <div id="taskpart">
 
-
-                        <div ></div>
+                        </div>
                     </div> <!-- end of table responsive  bootstrap table-->
                 </div>
             </div>
         </div>
 
 
-
     </div>  <!-- old main-->
-
