@@ -243,7 +243,7 @@
 
         //   dy2 = dy2 + '<div style="float:right"></div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-29"> </div> <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">History / Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div > </td > </tr > ';
       //  dy2 = dy2 + '<div style="float:right"></div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div>';
-        dy2 = dy2 + '<div class="w-29" > </div > <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-success w-100 savetask23" style="margin-bottom:5px;" id="save_0">Save</button><button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div > </td > </tr > ';
+        dy2 = dy2 + '<div class="w-29" > </div > <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-success w-100 savetask24" style="margin-bottom:5px;" id="save_0">Save</button><button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div > </td > </tr > ';
 
              //--------------- start to dynamic layout ------
 
@@ -2677,9 +2677,9 @@
 
             // get all data
 
-            var custtask = $('#custtask_' + del_id[1]).text();
-            var custid = $('#custid_' + del_id[1]).val();
-            var taskproj = $('#taskproj_' + del_id[1]).text();
+            var custtask = $('#custtask2_' + del_id[1]).text();
+            var custid = $('#custid2_' + del_id[1]).val();
+            var taskproj = $('#taskproj2_' + del_id[1]).text();
             var projid = $('#projid_' + del_id[1]).val();
 
             var descriptiontask1 = $('#descriptiontask1_' + del_id[1]).text();
@@ -2727,7 +2727,7 @@
                     dy5 = dy5 + '<td colspan = "6" > <div class="row3"> <div style="position:relative;height:150px;padding: 10px 10px 10px 10px; " class="w-29"> <div style="float:left;" class="w-100"> <div style="float:left">Requirements<br /><span id="require_0"></span></div> </div> <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;"> <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a> </div> </div> <div class="w-1"> </div>';
                     dy5 = dy5 + '<div style="background-color:white;position:relative;min-height:150px; height: auto;border: 1px solid #dee2e6; padding: 10px 10px 10px 10px;" class="w-29 td-main"> <div style="float:left;" class="w-100"> <div style="float:left; display: block; width: 100%;"> Subtask v2: &nbsp;<a id="add_subtask_0_p" href="#" class="subtasklist"><i class="fas fa-plus-circle"></i></a>&nbsp;&nbsp; <a id="save_subtask_0_p" href="#" style="display:none" class="savetasklist"><i class="fas fa-save"></i></a> <div style="height:101px;overflow-y: auto;" id="divlist_0"> <ul class="list-group checked-list-box" id="tasklist_0"> </ul>';
                     dy5 = dy5 + '</div> <span id="selnote2_0" style="display: none;"> <textarea id="subtaskinfo_0" style=" display: block; width: 100%; height: 80%;" class="form-control " rows="4" data-min-rows="4" placeholder="description" name="description"></textarea> </span> </div> <div style="float:right"> </div> </div> <div style="float:left;" class="w-100"> <div style="position:absolute;bottom: 5px;font-size: 11px;background-color: #002080;color:white;height:20px;width:304px;display:block"> <span style="float:left;margin-left:5px;"><strong>Status: </strong></span> <span style="float:right;margin-right:5px"><a href="#" style="color:white" class="loadallsubtask" id="allsubtask_p"><i class="fas fa-external-link-alt"></i></a></span> </div> </div> </div>';
-                    dy5 = dy5 + '<div class="w-29" > </div > <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-success w-100 savetask23" style="margin-bottom:5px;" id="save_0">Save</button><button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div > </td > </tr > ';
+                    dy5 = dy5 + '<div class="w-29" > </div > <div class="w-1"> </div> <div class="w-10"> <button type="button" class="btn btn-success w-100 savetask24" style="margin-bottom:5px;" id="save_0">Save</button><button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Notes</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Files</button> <button type="button" class="btn btn-primary w-100" style="margin-bottom:5px;">Images</button> </div> </div > </td > </tr > ';
 
                     dy5 = dy5.replace(/_0/g, newstr);
 
@@ -2830,26 +2830,33 @@
             $("#taskpart").load('@Url.Action("TaskPartial", "Default")');
         });
 
-        $('body').on('click','.savetask23', function (e) {
+        $('body').on('click','.savetask24', function (e) {
 
 
-            var element = $(this);
-            var id_string = element.attr("id");
-            var del_id = id_string.split("_");
-
-            var control_name = del_id[0];
 
           //  alert(del_id[1]);
 
-             var custid = $("#notetask2_" + del_id[1]).val();
-             custid = custid.replace(/<br\s*\/?>/mg, "\n");
-             $("#notetask_" + del_id[1]).html(custid);
-             $('#selnote_' + del_id[1]).hide();
-             $("#notetask_" + del_id[1]).show();
+             //var custid = $("#notetask2_" + del_id[1]).val();
+             //custid = custid.replace(/<br\s*\/?>/mg, "\n");
+             //$("#notetask_" + del_id[1]).html(custid);
+             //$('#selnote_' + del_id[1]).hide();
+             //$("#notetask_" + del_id[1]).show();
 
-             var info = 'id=' + del_id[1] + '&name=' + custid;
-             console.log(info);
-             var url = "@Url.Action("UpdateTimesheetNote")";
+             //var info = 'id=' + del_id[1] + '&name=' + custid;
+             //console.log(info);
+           // var url = "@Url.Action("UpdateTimesheetNote")";  sel_cust
+
+            
+            $('.task_input2').show();
+            $('.sel_cust').hide();
+            $('.sel_stat').hide();
+
+            $('.hideall').hide();
+            $('.dplay').show();
+            $('.down_arrow').hide();
+
+
+
              e.preventDefault();
              e.stopPropagation();
             return false;
@@ -3161,6 +3168,133 @@
 
         });
 
+
+        //------------- buttons
+
+        $('body').on('click', '.btn_history', function () {
+            let taskid = $(this).data("taskid");
+            $('#mod_history').modal('show');
+            $('.txt-history').val("");
+
+            $(".btn_addtaskhistory").attr("data-taskid", taskid);
+            $(".btn_fetchtaskhistory").attr("data-taskid", taskid);
+            $(".btn_savetaskhistory").attr("data-taskid", taskid);
+
+            $(".his_list").show();
+            $(".his_form").hide();
+            fetchTaskHistory(taskid);
+        });
+
+         function fetchTaskHistory(taskid){
+                    let data = "id=" + taskid;
+                    let url = "@Url.Action("FetchTaskHistory")";
+                    let type = 'POST';
+                    $.ajax({
+                            type: type,
+                            url: url,
+                            data: data,
+                            success: (data) => {
+
+                                let html = '';
+                                $(".his_items").html("");
+                                data.forEach(function(historyItem){
+
+                                    html = '';
+                                    html += '<div style="clear: both; display: block; width: 100%; position: relative; margin-top: 0px; margin-bottom: 25px;">';
+                                    html += '<div class="float-left">' + historyItem.datecreated + '</div>';
+                                    html += '<button class="btn btn-danger btn-small btn_removetaskhistory float-right" data-taskid="' + taskid + '" data-historyid="' + historyItem.id + '" style="margin-right: 3px;">';
+                                    html += 'Remove';
+                                    html += '</button>';
+                                    html += '</div>';
+                                    html += '<br />';
+                                    html += '<div class="td-main-xxx" style="clear: both; display: block; width: 100%; position: relative; border: 1px solid #eee; margin-top: 5px; margin-bottom: 5px;">';
+                                    html += '   <div class="td-label">';
+                                    html += '       <pre style="padding: 5px 5px 5px 5px;">';
+                                    html += '           <xmp style="font-size: 12px; overflow: scroll; white-space:pre-wrap; word-wrap:break-word;">';
+                                    html += historyItem.history;
+                                    html += '           </xmp>';
+                                    html += '       </pre>';
+                                    html += '   </div>';
+
+                                    html += '   <div class="td-control" data-type="txt" data-field="history" data-historyid="' + historyItem.id + '" style="display: none; width: 100%;">';
+                                    html += '       <textarea class="td-txt txt-history txt_history" style="width: 100%; min-height: 400px; font-size: 12px; overflow: scroll; white-space:pre-wrap; word-wrap:break-word;">';
+                                    html += historyItem.history;
+                                    html += '       </textarea>';
+                                    html += '   </div>';
+                                    html += '</div>';
+
+                                    $(".his_items").append(html);
+
+                                });
+                            }
+                    });
+             }
+         $('body').on('click', '.img-thumbnail', function(){
+
+             console.log('aaaaaaaaa');
+            let base64 = $(this).attr("src");
+            console.log(base64)
+            $(".img_receiver").attr("src", base64);
+
+        });
+
+        $('body').on('click', '.btn_images', function(){
+             let taskid = $(this).data('taskid');
+             console.log("TASK ID" + taskid);
+             $(".img_receiver").data("taskid", taskid);
+
+             function loadTaskImages(taskid){
+                    let data = "id=" + taskid;
+                    let url = "@Url.Action("FetchTaskImages")";
+                    let type = 'POST';
+
+                    $.ajax({
+                            type: type,
+                            url: url,
+                            data: data,
+                            success: function (data) {
+                                console.log(data);
+                                console.log(data.length)
+                                console.log(data[0].imagebase64);
+                                console.dir(data[0]);
+
+                                let imgx = '';
+                                $(".img_list").html("");
+                                data.forEach(function(d){
+
+                                    imgx = '';
+                                    imgx += '<div class="img_container" style="display: block; float: left; width: 120px;">';
+                                    imgx += '<div style="float; right; position: absolute; display: inline-block; z-index: 9999;"><button class="btn_imageremove btn btn-danger btn-sm" data-imageid="' + d.id + '">x</button></div>';
+                                    imgx += '<img src="@VirtualPathUtility.ToAbsolute("~/")Images/TaskImages/TaskImage-' + d.id + '.png" alt="" class="img-thumbnail" style="display: block; width: 120px; height: 120px;">';
+
+                                    imgx += '</div>';
+
+                                    $(".img_list").prepend(imgx);
+
+                                });
+                            }
+                    });
+
+             }
+
+             loadTaskImages(taskid);
+             $('#mod_images').modal('show');
+             $(".img_receiver").attr("src", "");
+             $(".img_list").html("");
+
+
+
+        });
+
+        //-------------------------------------------------------------------------
+        // header JS code
+
+
+
+
+
+        //------------------------------------------------------------------------
+
     </script>
     <div id="Modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -3199,6 +3333,62 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="modal fade" id="mod_images" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width:90%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Images</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="width: 100%;">
+                    <div class="" data-taskid="0" style="background-image:  no-repeat center center fixed; background-size: cover; display: block; width: 100%; min-height: 400px; overflow: hidden; border: 1px solid #eee; margin-bottom: 20px;">
+                        <img class="img_receiver" style="width: 100%; min-width: 400px; display: block;" />
+                    </div>
+                    <div class="img_list" style="background-image: no-repeat center center fixed; background-size: cover; display: block; width: 100%; height: 180px; border: 0 solid #eee;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="mod_history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width:90%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" style="width: 100%;">
+                    <div class="his_form" data-taskid="0" style="display: none; width: 100%; min-height: 400px; overflow: hidden;">
+                        <textarea class="txt-history" style="width: 100%; display: block; height: 400px; border: 1px solid #eee; margin-bottom: 20px;">
+                        </textarea>
+                        <div style="display: block; clear: both; position: relative; width: 100%;">
+                            <button class="btn btn-primary btn_savetaskhistory float-right" data-taskid="0" style="margin-left: 3px;">Save</button>
+                            <button class="btn btn-danger btn_fetchtaskhistory float-right" data-taskid="0" style="margin-right: 3px;">Cancel</button>
+                        </div>
+                    </div>
+
+                    <div class="his_list" data-taskid="0" style="display: none; width: 100%; min-height: 400px; overflow: scroll;">
+
+                        <div class="his_items" style="display: block; width: 100%; min-height: 400px; overflow: scroll;">
+                        </div>
+
+                      <!--  <div style="display: block; clear: both; position: relative; width: 100%;">
+                            <button class="btn btn-primary btn_addtaskhistory float-right" data-taskid="0">Add</button>
+                        </div>-->
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 

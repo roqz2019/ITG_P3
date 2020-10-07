@@ -1,0 +1,17 @@
+﻿@model IEnumerable<ITGWebTimeSheet2.Models.ProjectModule>
+
+<option value="">Please Select</option>
+
+
+@foreach (var item in Model)
+{
+    if (this.Request["projectid"] == item.id)
+    {
+        <option value="@item.id" selected="selected">@item.code</option>
+    }
+    else
+    {
+<option value="@item.id">>@item.code</option>
+    }
+
+}

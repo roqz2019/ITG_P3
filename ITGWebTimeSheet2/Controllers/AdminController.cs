@@ -78,7 +78,7 @@ namespace ITGWebTimeSheet2.Controllers
 
                 if (!String.IsNullOrEmpty(category))
                 {
-                    listWhere.Add(" categoryid = '" + category + "'");
+                    listWhere.Add(" category = '" + category + "'"); // listWhere.Add(" categoryid = '" + category + "'");
                 }
 
 
@@ -92,6 +92,12 @@ namespace ITGWebTimeSheet2.Controllers
                     {
                         switch (itemStatus)
                         {
+                            case "N":
+                                status = "New";
+                                break;
+                            case "Pl":
+                                status = "Planning";
+                                break;
                             case "T":
                                 status = "Closed, Timesheet Incomplete";
                                 break;
@@ -117,9 +123,9 @@ namespace ITGWebTimeSheet2.Controllers
                             case "CN":
                                 status = "Cancelled";
                                 break;
-                            case "Q":
-                                status = "In Queue";
-                                break;
+                            //case "Q":
+                            //    status = "In Queue";
+                            //    break;
                             default:
                                 status = "All";
                                 break;
@@ -135,7 +141,6 @@ namespace ITGWebTimeSheet2.Controllers
 
                 string where = (listWhere.Count > 0) ? " where " + String.Join(" and ", listWhere) : "";
 
-
                 if (!String.IsNullOrEmpty(sessionFilter) && String.IsNullOrEmpty(where))
                 {
                     where = sessionFilter;
@@ -144,8 +149,6 @@ namespace ITGWebTimeSheet2.Controllers
 
                 Session["filter"] = where;
                 Session["filterPath"] = sessionURL;
-
-
 
                 int pageRows = 15;
                 int pageOffset = 0;
@@ -167,17 +170,13 @@ namespace ITGWebTimeSheet2.Controllers
                 //pageCount = pageCount / pageRows;
                 pageCount = (int)Math.Ceiling((double)pageCount / (double)pageRows);
 
-
-                string query2 = "Select TK.*, (select status from project where id = TK.projectid) as project_status,(select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK " + where + " ORDER BY  TK.datecreated DESC OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY ";
+                string query2 = "Select TK.*,(select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK " + where + " ORDER BY  TK.pr ASC  OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY ";
+            //  string query2 = "Select TK.*, (select status from project where id = TK.projectid) as project_status,(select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK " + where + " ORDER BY  TK.pr ASC  OFFSET  " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY ";
 
 
 
                 if (!String.IsNullOrEmpty(where) && !String.IsNullOrEmpty(page))
                 {
-                    //pageOffset = pageRows * int.Parse(page);
-
-
-
                     string query11 = "Select count(id) as pages from  [dbo].[taskman] " + where;
                     SqlCommand cmd11 = new SqlCommand(query11, con);
                     SqlDataReader dataReader11 = cmd11.ExecuteReader();
@@ -189,16 +188,18 @@ namespace ITGWebTimeSheet2.Controllers
                     //pageCount = pageCount / pageRows;
                     pageCount = (int)Math.Ceiling((double)pageCount / (double)pageRows);
                     //query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] " + where + " ORDER BY  datecreated DESC ";
-                    query2 = "Select TK.*, (select status from project where id = TK.projectid) as project_status, (select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK " + where + " ORDER BY  TK.datecreated DESC ";
+                    query2 = "Select TK.*,(select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK " + where + " ORDER BY  TK.pr ASC ";  //TK.datecreated DESC
+                //  query2 = "Select TK.*, (select status from project where id = TK.projectid) as project_status, (select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK " + where + " ORDER BY  TK.pr ASC ";  //TK.datecreated DESC
+             
                     //Select TK.*, (select status from project where id = TK.projectid) as project_status, (select sum(acthours) from [dbo].[tasklist] as TM  where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK  ORDER BY  TK.datecreated DESC
                     if (pageCount > 0)
                     {
                         //    query2 = "Select *, (select status from project where id = projectid) as project_status from  [dbo].[taskman] " + where + " ORDER BY  datecreated DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY";
-                        query2 = "Select TK.*, (select status from project where id = TK.projectid) as project_status, (select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK  " + where + " ORDER BY  TK.datecreated DESC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY";
+                     //   query2 = "Select TK.*, (select status from project where id = TK.projectid) as project_status, (select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK  " + where + " ORDER BY TK.pr ASC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY";
+                        query2 = "Select TK.*, (select sum(acthours) from [dbo].[tasklist] as TM where TM.taskid=TK.id) as actnew from  [dbo].[taskman] as TK  " + where + " ORDER BY TK.pr ASC OFFSET " + pageOffset + " ROWS FETCH NEXT " + pageRows + " ROWS ONLY";
 
                     }
-                }
-
+                }               
 
                 string tempAnnounce = string.Empty;
 
@@ -220,7 +221,7 @@ namespace ITGWebTimeSheet2.Controllers
                     sitems.finish = Convert.ToString(dataReader["finish"]);
                     sitems.dev = Convert.ToString(dataReader["dev"]);
                     sitems.note = Convert.ToString(dataReader["note"]);
-                    sitems.category = Convert.ToString(dataReader["categoryid"].ToString());
+                    sitems.category = Convert.ToString(dataReader["category"]);
                     //  sitems.project_status = Convert.ToString(dataReader["project_status"]);
                     sitems.project_status = Convert.ToString(dataReader["status"]);
                     // sitems.tnum = Convert.ToInt16(dataReader["tnum"]);
@@ -234,9 +235,6 @@ namespace ITGWebTimeSheet2.Controllers
                     {
                        // sitems.act_new = "0;
                     }
-
-
-
 
                     taskmanlist.Add(sitems);
                 }
@@ -325,19 +323,173 @@ namespace ITGWebTimeSheet2.Controllers
         }
 
 
-        [HttpPost]
-        public ContentResult UpdatePr(string id, string pid)
+        public ContentResult LoadProjects(string id)
         {
+            string cont = "";
+
             string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = "UPDATE  [dbo].[taskman]  SET pr='" + pid + "' WHERE id=" + id;
                 con.Open();
-                cmd.ExecuteNonQuery();
+
+                string q1 = "Select id,code from [dbo].[project]  WHERE custid='" + id + "'";
+                // string q1 = "Select id,pr,resource  from [dbo].[taskman]  WHERE id='" + id + "'";
+
+                SqlCommand cmd1 = new SqlCommand(q1, con);
+                SqlDataReader dataReader = cmd1.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    string prid = dataReader["id"].ToString();
+                    string code = dataReader["code"].ToString();
+
+                    cont = cont + prid + ":" + code + "::";
+                }
+                    con.Close();
+            }
+
+        return Content(cont);
+        }
+
+        public ActionResult LoadProjectsTwo(string id)
+        {
+            List<ProjectModule> plist = new List<ProjectModule>();
+
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                string q1 = "Select id,code from [dbo].[project]  WHERE custid='" + id + "'";
+                // string q1 = "Select id,pr,resource  from [dbo].[taskman]  WHERE id='" + id + "'";
+
+                SqlCommand cmd1 = new SqlCommand(q1, con);
+                SqlDataReader dataReader = cmd1.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    ProjectModule sitems = new ProjectModule();
+                    sitems.id = dataReader["id"].ToString();
+                    sitems.code = dataReader["code"].ToString();
+
+                    plist.Add(sitems);
+                }
                 con.Close();
             }
-            return Content("{Result : { Message : 'Success' }}", "application/json");
+
+
+
+            return PartialView("LoadProjectsTwo", plist);
+        }
+
+
+
+
+
+        [HttpPost]
+        public ContentResult UpdatePr(string id, string pid)
+        {
+            string cont = "";
+            string conString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+              
+                con.Open();
+
+
+                //--- get resource id
+                int custid = 0;
+                int prval = 0;
+                int taskID = 0;
+                int projectID = 0;
+                string q1 = "Select id,pr,resource, projectid  from [dbo].[taskman]  WHERE id='" + id + "'";
+                // string q1 = "Select id,pr,resource  from [dbo].[taskman]  WHERE id='" + id + "'";
+
+                SqlCommand cmd1 = new SqlCommand(q1, con);
+                SqlDataReader dataReader = cmd1.ExecuteReader();
+
+                while (dataReader.Read())
+                {   taskID = (int)dataReader["id"];
+                    custid = (int)dataReader["resource"];
+                    prval = (int)dataReader["pr"];
+                    projectID = (int)dataReader["projectid"];
+                }
+                //--- end get resource id
+
+                int extpr = 0;
+               
+                extpr = prval - Convert.ToInt32(pid);
+           
+             
+
+                // -- get all projects for that resource
+                int rid = 0;
+                int prev_rid = 0;
+                string q4 = "";
+                if (prval == 0)
+                {
+                    q4 = "Select id,pr from [dbo].[taskman]  WHERE projectid=" + projectID +  "AND resource=" + custid + " AND  pr<21 ANd pr>=" + Convert.ToInt16(pid) + " order by pr asc";
+                    // q4 = "Select id,pr from [dbo].[taskman]  WHERE resource=" + custid + " AND  pr<21 ANd pr>=" + Convert.ToInt16(pid) + " order by pr asc";
+                }
+                else
+                {
+                    q4 = "Select id,pr from [dbo].[taskman]  WHERE projectid=" + projectID + "AND resource=" + custid + " AND  pr<21 ANd pr>=" + pid + " order by pr asc";
+
+                }
+                SqlCommand cmd4 = new SqlCommand(q4, con);
+                SqlDataReader dataReader4 = cmd4.ExecuteReader();
+                int process = 0;
+
+
+                string q5 = "Select COUNT(*) from [dbo].[taskman]  WHERE projectid=" + projectID + "AND resource=" + custid + " AND  pr=" + pid ;
+                SqlCommand cmd5 = new SqlCommand(q5, con);
+                int count2 = (int)cmd5.ExecuteScalar(); // if record same priority level exist
+
+                if (count2>0)
+                {
+                    process =  1;
+                }
+
+
+                while (dataReader4.Read())
+                {
+                    rid = (int)dataReader4["pr"];
+                    int taskid = (int)dataReader4["id"];
+
+                    if (prval == 0)
+                    { rid = rid + 1 ;
+                       
+                    }
+                    else { rid = rid - extpr;
+                       
+                    }
+
+                       
+
+                    string query22 = "UPDATE  [dbo].[taskman]  SET  pr=" + rid + " WHERE id=" + taskid;
+                    SqlCommand cmd22 = new SqlCommand(query22, con);
+                    cmd22.ExecuteNonQuery();
+                    prev_rid = rid;
+
+                }
+
+
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = "UPDATE  [dbo].[taskman]  SET pr=" + Convert.ToInt32(pid) + " WHERE id=" + id;
+                cmd.ExecuteNonQuery();
+
+                if (prval == 0)
+                { extpr = - 1; }
+             
+
+
+
+                cont = "E:30:" + extpr.ToString();
+
+
+                con.Close();
+            }
+            return Content(cont);
         }
 
         [HttpPost]
@@ -421,25 +573,83 @@ namespace ITGWebTimeSheet2.Controllers
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.ExecuteNonQuery();
                 int pr_value=0;
-                if (pid.Equals("Closed"))
+                //if (pid.Equals("Closed"))
+                //{
+                //    pr_value = 30;
+                //    cont = "C:30";
+                //}
+                //if (pid.Equals("Closed, Timesheet Incomplete"))
+                //{
+                //    pr_value = 21;
+                //    cont = "D:30";
+                //}
+
+                switch (pid)
                 {
-                    pr_value = 30;
-                    cont = "C:30";
+                    case "Closed":
+                        pr_value = 30;
+                        cont = "C:30";
+                        break;
+                    case "Closed, Timesheet Incomplete":
+                        pr_value = 21;
+                        cont = "D:30";
+                        break;
+                   
+                    default:
+                        pr_value = 0;
+                        cont = "I:30";
+                        break;
                 }
-                if (pid.Equals("Closed, Timesheet Incomplete"))
+
+                //--- get resource id
+                if (pr_value != 0)
                 {
-                    pr_value = 21;
-                    cont = "C:30";
+                    int custid = 0;
+                    int prval = 0;
+                    string q1 = "Select pr,resource  from [dbo].[taskman]  WHERE id='" + id + "'";
+                    SqlCommand cmd1 = new SqlCommand(q1, con);
+                    SqlDataReader dataReader = cmd1.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        custid = (int)dataReader["resource"];
+                        prval = (int)dataReader["pr"];
+                    }
+                    //--- end get resource id
+
+                    // -- get all projects for that resource
+                    int rid = 0;
+                    string q4 = "Select id,pr from [dbo].[taskman]  WHERE resource=" + custid + " AND  pr<21 ANd pr>" + prval;
+                    SqlCommand cmd4 = new SqlCommand(q4, con);
+                    SqlDataReader dataReader4 = cmd4.ExecuteReader();
+                    string cont1 = "";
+                    while (dataReader4.Read())
+                    {
+                        rid = (int)dataReader4["pr"];
+                        int taskid = (int)dataReader4["id"];
+
+                        rid = rid - 1;
+
+                        string query22 = "UPDATE  [dbo].[taskman]  SET  pr=" + rid + " WHERE id=" + taskid;
+                        SqlCommand cmd22 = new SqlCommand(query22, con);
+                        cmd22.ExecuteNonQuery();
+                        cont1 = cont1 + query22;
+
+                    }
+
+                    // -- end --get all projects for that resource
+
                 }
+
 
                 string query2 = "UPDATE  [dbo].[taskman]  SET  pr=" + pr_value + " WHERE id='" + id + "'";
                 SqlCommand cmd2 = new SqlCommand(query2, con);
-
                 cmd2.ExecuteNonQuery();
 
 
                 con.Close();
-                
+
+               // cont = cont
             }
 
             return Content(cont);
@@ -473,7 +683,8 @@ namespace ITGWebTimeSheet2.Controllers
                 // cmd.Parameters.AddWithValue("@g", staff);
                 cmd.Parameters.AddWithValue("@h", ddate);
                 cmd.Parameters.AddWithValue("@i", resc);
-                cmd.Parameters.AddWithValue("@j", Convert.ToInt16(pr));
+                //cmd.Parameters.AddWithValue("@j", Convert.ToInt16(pr));
+                cmd.Parameters.AddWithValue("@j", 0);
                 cmd.Parameters.AddWithValue("@k", dev);
                 cmd.Parameters.AddWithValue("@l", note);
                 taskId = Convert.ToInt32(cmd.ExecuteScalar());
@@ -711,7 +922,7 @@ namespace ITGWebTimeSheet2.Controllers
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string query = "UPDATE  [dbo].[taskman]  SET categoryid='" + category + "' WHERE id='" + id + "'";
+                string query = "UPDATE  [dbo].[taskman]  SET category='" + category + "' WHERE id='" + id + "'";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.ExecuteNonQuery();
                 con.Close();

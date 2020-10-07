@@ -52,6 +52,7 @@ namespace ITGWebTimeSheet2.Models
 
         public int tnum { get; set; }
 
+        
 
 
     }

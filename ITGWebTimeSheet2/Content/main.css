@@ -546,6 +546,13 @@ pre {
     /*  font-size: 87.5%;  */
     color: #212529;
     font-size: 11px;
+ 
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+
 }
 
     pre code {
@@ -17814,7 +17821,7 @@ div.gfg {
 }
 
 .form-control {
-    border: 2px solid #fff;
+    border: 0px solid #ffd633;
 }
 
 .list-group-item {
@@ -17833,4 +17840,14 @@ div.gfg {
 
 .form-control {
     padding: 0.175rem 0.17rem;
+}
+
+.form-control3 {
+    background-color: #ffd633;
+    color: #000;
+}
+
+
+.dropdown-item {
+    padding: 4px 10px;
 }

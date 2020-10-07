@@ -18,14 +18,14 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-datetimepicker.min.css")">
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+
+    <link  href="@Url.Content("~/Content/bootstrap-select.css")" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/1b585ee530.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
     <style type="text/css">
 
-            /*
+        /*
             .datepicker5,.datepicker99
             {
             width: fit-content;
@@ -34,47 +34,47 @@
 
 
 
-            .image-area {
-                position: relative;
-                width: 50%;
-                background: #333;
+        .image-area {
+            position: relative;
+            width: 50%;
+            background: #333;
+        }
+
+            .image-area img {
+                max-width: 100%;
+                height: auto;
             }
 
-                .image-area img {
-                    max-width: 100%;
-                    height: auto;
-                }
+        .remove-image {
+            display: none;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            border-radius: 10em;
+            padding: 2px 6px 3px;
+            text-decoration: none;
+            font: 700 21px/20px sans-serif;
+            background: #555;
+            border: 3px solid #fff;
+            color: #FFF;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            -webkit-transition: background 0.5s;
+            transition: background 0.5s;
+        }
 
-            .remove-image {
-                display: none;
-                position: absolute;
+            .remove-image:hover {
+                background: #E54E4E;
+                padding: 3px 7px 5px;
+                top: -11px;
+                right: -11px;
+            }
+
+            .remove-image:active {
+                background: #E54E4E;
                 top: -10px;
-                right: -10px;
-                border-radius: 10em;
-                padding: 2px 6px 3px;
-                text-decoration: none;
-                font: 700 21px/20px sans-serif;
-                background: #555;
-                border: 3px solid #fff;
-                color: #FFF;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
-                text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-                -webkit-transition: background 0.5s;
-                transition: background 0.5s;
+                right: -11px;
             }
-
-                .remove-image:hover {
-                    background: #E54E4E;
-                    padding: 3px 7px 5px;
-                    top: -11px;
-                    right: -11px;
-                }
-
-                .remove-image:active {
-                    background: #E54E4E;
-                    top: -10px;
-                    right: -11px;
-                }
     </style>
 </head>
 <body class="app sidebar-mini sidenav-toggled">
@@ -108,7 +108,7 @@
         </div>
         <ul class="app-menu">
             <li><a class="app-menu__item" href="~/Admin/Login"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Timesheet</span></a></li>
-            <li><a class="app-menu__item" href="~/Admin/Planner"><i class="app-menu__icon fa fa-tasks"></i><span class="app-menu__label">Planner</span></a></li>
+            <li><a class="app-menu__item" href="~/Admin/Planner?page=1&customerid=&projectid=&category=&pr=&dev=&resource=&undefined=&stat=P"><i class="app-menu__icon fa fa-tasks"></i><span class="app-menu__label">Planner</span></a></li>
             <li><a class="app-menu__item" href="~/Admin/Reporting"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reporting</span></a></li>
             <li><a class="app-menu__item" href="~/Admin/Project"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Program/Projects</span></a></li>
             <li><a class="app-menu__item" href="~/Admin/Customers"><i class="app-menu__icon fas fa-address-book"></i><span class="app-menu__label">Customers</span></a></li>
@@ -119,6 +119,7 @@
     <div>
         @RenderBody()
     </div>
+    <input id="loadURL" type="hidden" />
     <script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
@@ -134,6 +135,10 @@
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
     <script src="@Url.Content("~/Scripts/popper.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/bootstrap-select.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
     <script>
         $('.datepicker3').datepicker({
             uiLibrary: 'bootstrap4',
@@ -198,18 +203,22 @@
       <span class="td-control"  data-type="ddl" data-field="category" data-taskid="__taskid__" data-idx="__iteratormask__" style="display: none;">
          <select class="form-control td-ddl td-ddl-reload td-ddl-category-__taskid__" data-field="category" data-taskid="__taskid__" style="width: 95%;">
             <option value="">Select Category</option>
-            @if (ViewData["CategoryList"] != null) { foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>
-            ) {
-            <option value="@category.id">@category.code</option>
-            } }
+             <option value="Timesheet">Timesheet</option>
+                                                <option value="Planner">Planner</option>
+                                                <option value="Planner | Timesheet">Planner | Timesheet</option>
+                                                <option value="V1.0">V1.0</option>
+                                                <option value="V1.0.1">V1.0.1</option>
+                                                <option value="V1.1">V1.1</option>
+                                                <option value="GITHUB">GITHUB</option>
+                                                <option value="Menubuilder">Menubuilder</option>
          </select>
       </span>
    </td>
 
    <td class="td-main" tabindex="__taskid__1002">
-      <span id="taskpr__iteratormask__" class="task_input2_TO_REMOVE td-label">None</span>
+      <span id="pr__iteratormask__" class="task_input2_TO_REMOVE td-label">None</span>
       <span id="selpr__iteratormask__" class="sel_pr td-control" data-type="ddl" data-field="priority" data-taskid="__taskid__" style="display: none;">
-         <select class="form-control td-ddl" id="selectpr__iteratormask__" onchange="prchange(this.id)" style="width: 95%;">
+         <select class="form-control td-ddl" id="selectpr__iteratormask__" style="width: 95%;">
             <option value="">Select</option>
             <option value=" ">None</option>
             <option value="1">1</option>
@@ -255,7 +264,7 @@
    </td>
 
    <td class="td-main" tabindex="__taskid__1007">
-      <span id="taskresc__iteratormask__" class="task_input2_TO_REMOVE td-label">Select Resouce </span>
+      <span id="reso__iteratormask__" class="task_input2_TO_REMOVE td-label">Select Resouce </span>
       <input type="hidden" id="taskresc_01" />
       <span id="selresc__iteratormask__" class="sel_resc td-control" data-type="ddl" data-field="resource" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectresc__iteratormask__" style="width: 95%;">
@@ -274,17 +283,18 @@
  </td>
 
    <td class="td-main" tabindex="__taskid__1009">
-      <span id="taskstat__iteratormask__" class="task_input2_TO_REMOVE td-label">Please select </span>
+      <span id="taskstat__iteratormask__" class="task_input2_TO_REMOVE td-label">New</span>
       <span id="selstat__iteratormask__" class="sel_stat td-control" data-type="ddl" data-field="status" data-taskid="__taskid__" style="display: none;">
          <select class="form-control td-ddl" id="selectstat__iteratormask__" style="width: 95%;">
             <option value="Please select">Please select</option>
             <option value="Opened">Opened</option>
+            <option value="New">New</option>
             <option value="In Progress">In Progress</option>
             <option value="Ready to close">Ready to close</option>
             <option value="Cancelled">Cancelled</option>
             <option value="Issues">Issues</option>
             <option value="Monitor">Monitor</option>
-            <option value="In Queue">In Queue</option>
+            <option value="Planning">Planning</option>
             <option value="Closed">Closed</option>
          </select>
       </span>
@@ -331,29 +341,36 @@
 
     <td colspan="5" style="width: 100%; padding: 0; border: 1px solid #dee2e6; margin: 0; padding: 0; border-spacing: 0;">
 
+  <div style="position:relative;min-height:150px; height: auto; overflow: hidden; border: 1px solid #dee2e6; padding:5px;" class="td-main">
+                                            <div style="float:left;" class="w-100">
+                                                <div class="td-main" style="float:left; display: block; width: 100%;">
+                                                    <strong>Requirements</strong><br />
 
-                                        <div style="position:relative;min-height:150px; height: auto; overflow: hidden; border: 1px solid #dee2e6; padding: 10px 10px 10px 10px;" class="td-main">
-                                               <div style="float:left;" class="w-100">
-                    <div class="td-main"  style="float:left; display: block; width: 100%;">
-                        Task Summary:<br />
-                        <pre class="td-label td-lbl-projectstatus"></pre>
-                        <span class="td-control" data-type="txt" data-field="project_status" data-taskid="" style="display: none;">
-                            <textarea
-                            style="display: block; width: 100%; height: 80%;"
-                            class="form-control td-txt td-txt-projectstatus" data-projectid="0" rows="4" data-min-rows="4" placeholder="description"
-                            name="description"></textarea>
-                        </span>
-                    </div>
-                    <div style="float:right; display: none;">
-                        Date:
-                    </div>
-                </div>
-                <div style="position:absolute;bottom: 5px;font-size: 9px;right: 10px;">
-                    <a href="#"><i class="fas fa-external-link-alt fa-2x"></i></a>
-                </div>
+                                                    <div style="height:101px;overflow-y: auto;"  class="td-main">
+                                                        <pre style=" white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap;  white-space: -o-pre-wrap; word-wrap: break-word; /* Internet Explorer 5.5+ */" class="td-label td-lbl-projectstatus"></pre>
+                                                        <span class="td-control" data-type="txt" data-field="project_status" data-taskid="__taskid__" style="display: none;">
+                                                            <textarea style="display: block; width: 100%; height: 80%;" class="form-control td-txt td-txt-projectstatus" data-projectid="__taskid__" rows="4" data-min-rows="4" placeholder="description" name="description"></textarea>
+                                                        </span>
 
-            </div>
- </td>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style="float:left;" class="w-100">
+                                                <div style="position:absolute;bottom: 0px;font-size: 11px;background-color: #002080;color:white;height:20px;width:100%;display:block;margin-left:-5px">
+                                                    <span style="float:left;margin-left:5px;"><strong>View All </strong></span>
+                                                    <span style="float:right;margin-right:5px">
+                                                       <a href="#" style="color:white" class="require" id="req__iteratormask__"><i class="fas fa-external-link-alt"></i></a>
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+    </td>
 
   <td colspan="3" style="width: 100%; padding: 0; border: 1px solid #dee2e6;margin: 0; padding: 0; border-spacing: 0;">
 
@@ -400,7 +417,7 @@
   <td colspan="2" style="width: 100%; padding: 0;border: 1px solid #dee2e6; margin: 0; padding: 0; border-spacing: 0;">
                                  <div style="border: 1px solid #dee2e6;text-align:center">
 
-            <button type="button" class="btn btn-success w-80 btn2" data-taskid="__taskid__" style="margin-bottom:5px;">Save</button>
+            <button type="button" class="btn btn-success w-80 btn2 btn_save" data-taskid="__taskid__" style="margin-bottom:5px;">Save</button>
              <button type="button" class="btn btn-primary w-80 btn_history btn2" data-taskid="__taskid__" style="margin-bottom:5px;">Notes</button>
              <button type="button" class="btn btn-primary w-80 btn2" style="margin-bottom:5px;">Files</button>
              <button type="button" class="btn btn-primary w-80 btn_images btn2" data-taskid="__taskid__" style="margin-bottom:5px;">Images</button>
@@ -467,7 +484,7 @@
                      var desc_d = '';
                      var dev_d = '';
                      var resc_d = '';
-                     var stat_d = '';
+                     var stat_d = 'In Progress';
                      var start_d = '';
                      var est_d = '';
                      var note_d = '';
@@ -582,6 +599,10 @@
             value = $(this).val();
 
             $(this).parent().parent('.td-main').find('pre').html(value);
+            console.log("req:" + text);
+            console.log("taskid:" + taskId);
+            console.log("fname:" + fieldName);
+            console.log("value:" + value);
             updateTaskField(taskId, fieldName, value);
         });
 
@@ -641,6 +662,12 @@
             let fieldName = $(this).data('field');
             let taskId = $(this).data('taskid');
 
+
+
+
+
+
+
             switch($(this).data('type'))
             {
                 case 'txt':
@@ -655,19 +682,17 @@
                     break;
             }
 
+            console.log("req:" + text);
 
-            
+
             $(this).parent('.td-main').find('.td-label').html(text);
             console.log(text);
             if (text == 'None') {
                 $(this).parent('.td-main').find('.td-label').html(" ");
             }
-            if (text == 'None') {
-                $(this).parent('.td-main').find('.td-label').html(" ");
-            }
 
-          
-            
+
+
             $(this).parent('.td-main').find('.td-label').show();
 
             $(this).hide();
@@ -678,7 +703,13 @@
 
             let tabindex = parseInt($(this).parent('.td-main').attr('tabindex'));
             tabindex += 1;
-            $("[tabindex='"+ tabindex +"']").focus()
+            $("[tabindex='" + tabindex + "']").focus();
+
+            console.log("req:" + text);
+            console.log("taskid:" + taskId);
+            console.log("fname:" + fieldName);
+            console.log("value:" + value);
+
 
             updateTaskField(taskId, fieldName, value);
 
@@ -699,10 +730,11 @@
                                 url = "@Url.Action("UpdateTaskCust")";
                                 break;
 
-                            case 'priority':
-                                data = "id=" + taskId + "&pid=" + fieldValue;
-                                url = "@Url.Action("UpdatePr")";
-                                break;
+                         //  case 'priority':
+                        //        data = "id=" + taskId + "&pid=" + fieldValue;
+                        //        console.log(data);
+                       //         url = "@Url.Action("UpdatePr")";
+                         //       break;
 
                             case 'project':
                                 data = "id=" + taskId + "&pid=" + fieldValue;
@@ -751,6 +783,7 @@
 
                             case 'project_status':
                                 data = "id=" + taskId + "&name=" + fieldValue;
+                                console.log(data);
                                 url = "@Url.Action("UpdateTaskProjectStatus")";
                                 break;
 
@@ -776,8 +809,55 @@
                                 if (t[0] == "tasknum") {
                                     $('.tdnumtext').append(t[1]);
                                 }
-                                if (t[0] == "C") {
+
+                                if (t[0] == "C") {  // Closed
+
+                                    var prev_pr = $('#pr_' + taskId).text();
                                     $('#pr_' + taskId).empty();
+                                    let resource_cell = $('#reso_' + taskId).text();
+
+                                    $('#taskmantable tr').each(function (i, el) {
+
+                                        if ($(this).hasClass('record') == true) { // --roque--
+                                            var $tds = $(this).find('td');
+                                            var prcell = $tds.eq(5).find('.td-label');
+                                            var rcell = $tds.eq(8).find('.td-label');
+                                            if (rcell.text().trim() == resource_cell.trim()) {
+                                                if (parseInt(prev_pr.trim()) <=  parseInt(prcell.text().trim()))
+                                                {
+                                                    console.log("prev_pr:" + prev_pr.trim());
+                                                    console.log(prcell.text().trim());
+                                                    prcell.text(parseInt(prcell.text().trim()) - 1);
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                                if (t[0] == "D") {
+
+                                    var prev_pr = $('#pr_' + taskId).text();
+                                    $('#pr_' + taskId).empty();
+                                    let resource_cell = $('#reso_' + taskId).text();
+
+                                    $('#taskmantable tr').each(function (i, el) {
+
+                                        if ($(this).hasClass('record') == true) { // --roque--
+                                            var $tds = $(this).find('td');
+                                            var prcell = $tds.eq(5).find('.td-label');
+                                            var rcell = $tds.eq(8).find('.td-label');
+                                            if (rcell.text().trim() == resource_cell.trim()) {
+                                                if (parseInt(prev_pr.trim()) <= parseInt(prcell.text().trim())) {
+                                                    console.log("prev_pr:" + prev_pr.trim());
+                                                    console.log(prcell.text().trim());
+                                                    prcell.text(parseInt(prcell.text().trim()) - 1);
+                                                }
+                                            }
+                                        }
+                                    });
+
+                                    //-------------------------------------------
+                                    $('#pr_' + taskId).empty();
+                                    $('#pr_' + taskId).append("RTC");
                                 }
                             }
 
@@ -860,7 +940,8 @@
 
 
             let url = '@Url.Action("Planner")' + '/?page=1&' + filter2;
-            window.location.href = url;
+            console.log(url);
+           // window.location.href = url;
         });
 
 
@@ -946,17 +1027,20 @@
                 //deactivate return
                 //as requested by Sir Greg
                 //return;
-                $('body').click();
+
+             //   $('body').click();
             }
             if( $(this).hasClass('bootstrap-select') ){
                 //return;
-                $('body').click();
+            //    $('body').click();
             }
 
 
 
 
             let field = $(this).data('field');
+
+          //  alert(field);
 
 
             let filter = [];
@@ -966,7 +1050,28 @@
             let filter2 = filter.join("&");
 
 
-            let url = '@Url.Action("Planner")' + '/?page=1&' + filter2;
+            let url = '@Url.Action("Planner")' + '/?page=1&' + filter2;  // url1
+            console.log(url);
+
+
+            if (field != null) {
+                if ($(this).data('field') == 'stat') {
+                    $('#loadURL').val(url);   // set text
+                }
+                else {
+                    window.location.href = url;
+                }
+            }
+
+
+          //  window.location.href = url;
+        });
+
+        //----------- load url  -------------
+
+        $('body').on('click', '.btn-load', function () {
+
+            var url = $('#loadURL').val();
             window.location.href = url;
         });
 
@@ -1592,6 +1697,18 @@
              removeTaskHistory(taskid, id);
         });
 
+        $('body').on('click', '.btn_save', function () {
+
+            $('.td-main').removeClass('td-active');
+            $('.td-label').show();
+            $('.td-control').hide();
+
+            //close the row
+            $('.hideall').hide();
+            $('.dplay').show();
+            $('.down_arrow').hide();
+
+        });
 
 
         // Created by STRd6
@@ -1777,7 +1894,6 @@ function copy(text) {
 	}
 }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"></script>
     <!-- new code for subtask v2-->
     <script>
         $(function () {
@@ -1987,6 +2103,231 @@ function copy(text) {
             //     $("#modalCon").load("TaskPartial");
             $('#Modal').modal('show');
         });
+
+
+
+        // ------ new instance of priority ------
+
+        $("body").on('click', '.tdnote', function (e) {   // roque_v
+
+            var element = $(this);
+            var id_string = element.attr("id");
+            var del_id = id_string.split("_");
+            $(this).removeClass('tdnote');  // remove class
+
+
+            var selectPR = '<span id="selstatus_' + del_id[1] + '" class="sel_cust">';
+            selectPR += '<select class="form-control savepr"  id="selectpr_' + del_id[1]   + '" style="width: 100%; ">';
+            selectPR +='<option value="" > Select</option >';
+            selectPR += '<option value=" ">None</option>';
+            selectPR += '<option value="1">1</option>';
+            selectPR += '<option value="2">2</option>';
+            selectPR += '<option value="3">3</option>';
+            selectPR += '<option value="4">4</option>';
+            selectPR += '<option value="5">5</option>';
+            selectPR += '<option value="6">6</option>';
+            selectPR += '<option value="7">7</option>';
+            selectPR += '<option value="8">8</option>';
+            selectPR += '<option value="9">9</option>';
+            selectPR += '<option value="10">10</option>';
+            selectPR += '<option value="11">11</option>';
+            selectPR += '<option value="12">12</option>';
+            selectPR += '<option value="13">13</option>';
+            selectPR += '<option value="14">14</option>';
+            selectPR += '<option value="15">15</option>';
+            selectPR += '<option value="16">16</option>';
+            selectPR += '<option value="17">17</option></span>';
+
+            $('#pr_' + del_id[1]).hide();
+            $(selectPR).insertAfter('#pr_' + del_id[1]);
+
+          //  alert(selectPR);
+
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+
+        });
+
+
+         $('body').on('change', '.savepr', function (e) {  //roven
+
+
+                var element = $(this);
+                var id_string = element.attr("id");
+                var del_id = id_string.split("_");
+                console.log(id_string);
+            var control_name = del_id[0];
+             var prev_pr = $('#pr_' + del_id[1]).text().trim();
+
+                  if (control_name == "selectpr") {
+
+               // $('#selstatus_' + del_id[1]).hide();
+
+                      var newval = $("#selectpr_" + del_id[1] + " option:selected").text();
+                      var custid = $("#selectpr_" + del_id[1] + " option:selected").val();
+
+
+                   //   alert(newval);
+                     // $('#pr_' + del_id[1]).show();
+
+              //  var info = 'id=' + del_id[1] + '&pid=' + custid;
+
+                      data = "id=" + del_id[1] + "&pid=" + custid;
+                    console.log(data);
+                      url = "@Url.Action("UpdatePr")";
+
+                      var taskId = del_id[1];
+
+                      $.ajax({
+                          type: 'POST',
+                          url: url,
+                          data: data,
+                          success: function (data) {
+                              console.log(data);
+                              var t = data.split(':');
+
+                              if (t[0] == "E") {  // new Pr and update
+
+
+
+                                  var new_pr = custid;
+                                  //    $('#pr_' + taskId).empty();
+                                  let resource_cell = $('#reso_' + del_id[1]).text();
+
+
+
+
+                                  var compute_pr = parseInt(new_pr) - parseInt(prev_pr);
+                                  console.log("new_pr: " + new_pr);
+                                  console.log("prev: " + prev_pr);
+                                  console.log("compute_pr: " + compute_pr);
+
+                                  $('#taskmantable tr').each(function (i, el) {
+
+                                      if ($(this).hasClass('record') == true) { // --roque--
+                                          // check if the existing id that will not be replace
+
+                                          var element2 = $(this);
+                                          var id_string2 = element2.attr("id");
+                                          var del_id2 = id_string2.split("_");
+
+
+                                          if (del_id2[1] != del_id[1]) {
+                                              var $tds = $(this).find('td');
+                                              var prcell = $tds.eq(5).find('.td-label');
+                                              var rcell = $tds.eq(8).find('.td-label');
+                                              if (rcell.text().trim() == resource_cell.trim()) {
+                                                  //   if (parseInt(prev_pr.trim()) <= parseInt(prcell.text().trim())) {
+                                                  if (parseInt(prev_pr) < parseInt(prcell.text().trim())) {
+                                                      console.log("prev_pr:" + prev_pr.trim());
+                                                      console.log("pr_cell: " + prcell.text().trim());
+                                                      console.log("compute: " + compute_pr);
+                                                      console.log("ccurrent: " + parseInt(prcell.text().trim()));
+                                                      console.log("-----------");
+
+                                                      //  prcell.text(parseInt(prcell.text().trim()) - parseInt(t[2]));
+                                                      prcell.text(parseInt(prcell.text().trim()) - parseInt(t[2]));
+                                                  }
+                                              }
+
+                                          }
+
+
+
+
+                                      }
+                                  });
+                              }
+
+
+                          }
+
+                      });
+
+
+
+
+
+
+
+
+
+
+
+
+                      $('#pr_' + del_id[1]).html(custid)
+                      $("#selectpr_" + del_id[1]).val("");
+
+
+                      $('#pr_' + del_id[1]).show();
+                $("#selstatus_" + del_id[1]).remove();
+                $(this).remove();
+
+
+
+             }
+             $('#tdpr_' + del_id[1]).addClass('tdnote');  // remove class
+             e.preventDefault();
+             e.stopPropagation();
+             return false;
+
+         });
+
+
+        //-----------------------------------------------------
+        // Header JS Code
+
+        @*$(document).ready(function () {
+
+           var newval = $("#cust_header option:selected").text();
+            var custid = $("#cust_header option:selected").val();
+            var data = "id=" + custid;
+
+            if (custid != null) {
+
+               url = "@Url.Action("LoadProjects")";
+
+
+            //    alert('test');
+                console.log("Customer: " + newval);
+               var url=
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    success: function (data) {
+                        console.log(data);
+                        var t = data.split('::');  // mulitple split
+
+                        var pro_pend = '';
+                        pro_pend = '<option value="">Select</option>';
+                        for (var i = 0; i < t.length - 1; i++) {
+                            //
+                            var citems = t[i];
+                            var mt = citems.split(':');
+
+                            pro_pend = '<option value="' + mt[0] + '">' + mt[1]  +'</option>';
+
+
+                        }
+                    }
+                });
+            }
+
+        });*@  
+
+
+
+
+
+
+
+
+                //----------------------------------------------------
+
+
+
 
     </script>
 
