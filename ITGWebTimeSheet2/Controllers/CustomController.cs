@@ -19,6 +19,7 @@ namespace ITGWebTimeSheet2.Controllers
             IList<CustomersModule> customerlist = new List<CustomersModule>();
             IList<Staff> stafflist = new List<Staff>();
             IList<ProjectModule> projectlist = new List<ProjectModule>();
+            IList<ProjectModule> projectlist2 = new List<ProjectModule>();
             IList<TaskManModule> taskmode = new List<TaskManModule>();
             IList<CategoryModule> categorylist = new List<CategoryModule>();
             IList<TaskManModule> tasklist = new List<TaskManModule>();
@@ -34,7 +35,7 @@ namespace ITGWebTimeSheet2.Controllers
             {
 
                 con.Open();
-
+                //-------------------------------
                 string query = "Select * from [dbo].[customers]";
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataReader dataReader = cmd.ExecuteReader();
@@ -49,7 +50,7 @@ namespace ITGWebTimeSheet2.Controllers
                     customerlist.Add(sitems);
                 }
                 //   sitems.File_file = termsList.ToArray();
-
+                //-------------------------------
                 query = "Select * from [dbo].[staff]";
                 SqlCommand cmd2 = new SqlCommand(query, con);
                 SqlDataReader dataReader2 = cmd2.ExecuteReader();
@@ -65,12 +66,10 @@ namespace ITGWebTimeSheet2.Controllers
                     stafflist.Add(sitems);
                 }
 
-
+                //-------------------------------
                 query = "Select * from [dbo].[project]";
                 SqlCommand cmd3 = new SqlCommand(query, con);
                 SqlDataReader dataReader3 = cmd3.ExecuteReader();
-
-
                 while (dataReader3.Read())
                 {
 
@@ -83,6 +82,27 @@ namespace ITGWebTimeSheet2.Controllers
                 }
 
 
+                //------------------------------------------------
+
+
+                //string query2 = "Select * from [dbo].[project] WHERE custid=" + Request.QueryString["customerid"].ToString();
+                //SqlCommand cmd9 = new SqlCommand(query2, con);
+                //SqlDataReader dataReader9 = cmd9.ExecuteReader();
+
+
+                //while (dataReader9.Read())
+                //{
+
+                //    ProjectModule sitems = new ProjectModule();
+                //    sitems.id = Convert.ToString(dataReader9["id"]);
+                //    sitems.name = Convert.ToString(dataReader9["name"]);
+                //    sitems.code = Convert.ToString(dataReader9["code"]);
+                //    sitems.custid = Convert.ToString(dataReader9["custid"]);
+                //    projectlist2.Add(sitems);
+                //}
+
+
+                //-------------------------------
 
                 query = "Select id, description from [dbo].[taskman]";
                 SqlCommand cmd5 = new SqlCommand(query, con);
@@ -174,7 +194,8 @@ namespace ITGWebTimeSheet2.Controllers
             ViewData["CustomerList2"] = customerlist;
             ViewData["StaffList"] = stafflist;
                 ViewData["ProjectList"] = projectlist;
-                ViewData["Taskman"] = taskmode;
+        //   ViewData["ProjectList2"] = projectlist2;
+            ViewData["Taskman"] = taskmode;
             ViewData["CategoryList"] = categorylist;
 
 

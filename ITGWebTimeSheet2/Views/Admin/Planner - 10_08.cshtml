@@ -195,6 +195,20 @@
                                                     }
 
 
+                                                    @*@if (ViewData["CategoryList"] != null)
+                                {
+                                    foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>)
+                                    {
+                                        if (this.Request["category"] == category.id.ToString())
+                                        {
+                                            <option value="@category.id" selected="selected">@category.code</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@category.id">@category.code</option>
+                                        }
+                                    }
+                                }*@
                                                 </select>
                                             </span>
                                         </div>
@@ -361,13 +375,13 @@
                                                         if (item.cust == item1.id)
                                                         {
                                                             @:@item1.code
-                                                            <input type="hidden" id="cust2_@item.id" value="@item1.id" />
+                                                            <input type="hidden" id="cust2_@item1.id" value="@item1.code" />
                                                         }
                                                     }
                                                 }
                                             </div>
-                                            <div class="td-control" data-type="ddl" data-field="customer" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="border: 0; margin: 0; padding: 0; display: none;">
-                                                <select class="form-control td-ddl td-ddl-reload td-ddl-customer" data-field="customer" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width:100%">
+                                            <div id="" class="td-control" data-type="ddl" data-field="customer" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="border: 0; margin: 0; padding: 0; display: none;">
+                                                <select class="form-control td-ddl td-ddl-reload" data-field="customer" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width:100%">
                                                     @if (ViewData["CustomerList"] != null)
                                                     {
                                                         foreach (var item1 in ViewData["CustomerList"] as IList<CustomersModule>)
@@ -381,8 +395,8 @@
 
                                         <td id="tnum_@Html.DisplayFor(modelItem => item.id)" class="td-main">@item.tnum</td>
 
-                                        <td id="tdproj_@item.id" class="tdnote" tabindex="@(counter++)">
-                                            <div class="td-label" id="projlist_@Html.DisplayFor(modelItem => item.id)">
+                                        <td class="td-main" tabindex="@(counter++)">
+                                            <span class="td-label" id="projlist_@Html.DisplayFor(modelItem => item.id)">
                                                 @if (ViewData["ProjectList"] != null)
                                                 {
                                                     foreach (var item1 in ViewData["ProjectList"] as IList<ProjectModule>)
@@ -398,8 +412,19 @@
                                                         }
                                                     }
                                                 }
-                                            </div>
-                                            
+                                            </span>
+                                            <span class="sel_cust td-control" data-type="ddl" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="border: 0; margin: 0; padding: 0; display: none;">
+                                                <select class="form-control td-ddl td-ddl-reload td-ddl-project-@Html.DisplayFor(modelItem => item.id)" data-field="project" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width: 100%;">
+                                                    <option value="0">Select Project</option>
+                                                    @if (ViewData["ProjectList"] != null)
+                                                    {
+                                                        foreach (var projectt in ViewData["ProjectList"] as IList<ProjectModule>)
+                                                        {
+                                                            <option value="@projectt.id">@projectt.code</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </span>
 
                                         </td>
 
@@ -407,11 +432,33 @@
                                         <td class="td-main" tabindex="@(counter++)" style="border: 1px solid #dee2e6;">
                                             <span class="td-label">
                                                 @Html.DisplayFor(modelItem => item.category)
-                      
+                                                @*@if (ViewData["CategoryList"] != null)
+                            {
+                                foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>)
+                                {
+                                    if (item.category == category.id.ToString())
+                                    {
+                                        @:@category.code
+                                    }
+                                    if (Convert.ToString(item.category) == "")
+                                    {
+                                        @:Please select
+                                        break;
+                                    }
+                                }
+                            }*@
                                             </span>
                                             <span class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="border: 0; margin: 0; padding: 0; display: none;">
                                                 <select class="form-control td-ddl td-ddl-reload td-ddl-category-@Html.DisplayFor(modelItem => item.id)" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width:100%;">
-                                                  <!--  <option value="">Select</option>
+                                                    <option value="">Select</option>
+                                                    @*@if (ViewData["CategoryList"] != null)
+                                {
+                                    foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>)
+                                    {
+                                        <option value="@category.id">@category.code</option>
+                                    }
+                                }*@
+
                                                     <option value="Timesheet">Timesheet</option>
                                                     <option value="Planner">Planner</option>
                                                     <option value="Planner | Timesheet">Planner | Timesheet</option>
@@ -420,7 +467,7 @@
                                                     <option value="V1.1">V1.1</option>
                                                     <option value="V1.2">V1.2</option>
                                                     <option value="GITHUB">GITHUB</option>
-                                                    <option value="Menubuilder">Menubuilder</option>  -->
+                                                    <option value="Menubuilder">Menubuilder</option>
                                                 </select>
                                             </span>
                                         </td>

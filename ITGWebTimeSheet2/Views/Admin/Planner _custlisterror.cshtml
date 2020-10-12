@@ -124,7 +124,7 @@
                                     <th style="border: none;" class="tc-mainDEACTIVATE" data-field="customer">
                                         <div class="tc-data tc-customer" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span id="">
-                                                <select id="cust_header" class="form-control td-ddl td-ddl-filter form-control3" data-field="customerid" style="background-color: #ffd633; color: #000;">
+                                                <select id="hr_fil" class="form-control td-ddl td-ddl-filter form-control3" data-field="customerid" style="background-color: #ffd633; color: #000;">
                                                     <option value="">Select</option>
                                                     @if (ViewData["CustomerList"] != null)
                                                     {
@@ -150,12 +150,26 @@
                                     <th style="border-top: 0; border-bottom: 0; border-right: 1px #fff;" class="tc-mainDEACTIVATE" data-field="project">
                                         <div class="tc-data tc-project" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
-                                                <select id="proj_filter" class="form-control td-ddl td-ddl-filter form-control3" data-field="projectid" style="width:100%;background-color: #ffd633;color: #000;">
-                                                    <!-- this.Request["projectid"] -->
-                                                   @if(Request.QueryString["customerid"] !=null)
-                                                   {
-                                                       //your code that depends on aspxerrorpath here
-                                                   }
+                                                <select id="pr_fil" class="form-control td-ddl td-ddl-filter form-control3" data-field="projectid" style="width:100%;background-color: #ffd633;color: #000;">
+
+
+                                                    @if(Request.QueryString["customerid"] !=null && Request.QueryString["customerid"] !=String.Empty)
+                                                    //if (Request.QueryString["customerid"] != null)
+                                                    {
+                                                        string qstr = String.Empty;
+                                                        //your code that depends on aspxerrorpath here Html.DisplayText(Context.Request.QueryString["customerid"]);
+                                                             int mid = Convert.ToInt32(Request.QueryString["customerid"].ToString());
+                                                        //   Html.RenderPartial("LoadProjectsTwo", new { id = mid });
+
+                                                          Html.RenderPartial("LoadProjectsTwo?id=" + mid);
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="">Select</option>
+                                                    }
+
+
                                                 </select>
                                             </span>
                                         </div>
@@ -165,7 +179,7 @@
                                         <div class="tc-data tc-category" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
                                                 <select class="form-control td-ddl td-ddl-filter form-control3" data-field="category" style="width:100%;background-color: #ffd633;color: #000;">
-                                                    <option value="">Please Select</option>
+                                                    <option value="">Select</option>
                                                     <option value="Timesheet">Timesheet</option>
                                                     <option value="Planner">Planner</option>
                                                     <option value="Planner | Timesheet">Planner | Timesheet</option>
@@ -239,7 +253,7 @@
                                         <div class="tc-data tc-type" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
                                                 <select class="form-control td-ddl td-ddl-filter form-control3" data-field="dev" style="width:100%;background-color: #ffd633;color: #000;">
-                                                    <option value="">Please Select</option>
+                                                    <option value="">Select</option>
                                                     <option value="Dev" @( this.Request["dev"] == "Dev" ? "selected=\"selected\"" : "")>Dev</option>
                                                     <option value="Rev" @( this.Request["dev"] == "Rev" ? "selected=\"selected\"" : "")>Rev</option>
                                                 </select>
@@ -251,7 +265,7 @@
                                         <div class="tc-data tc-resource" style="clear: both; float:left; width: 100%; visibility: visible;">
                                             <span>
                                                 <select class="form-control td-ddl td-ddl-filter" data-field="resource" style="width:100%;background-color: #ffd633; color: #000;">
-                                                    <option value="">Please Select</option>
+                                                    <option value="">Select</option>
                                                     @if (ViewData["StaffList"] != null)
                                                     {
                                                         foreach (var staff in ViewData["StaffList"] as IList<Staff>)
@@ -430,7 +444,7 @@
                                                                             </span>
                                         <span class="td-control" data-type="ddl" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="border: 0; margin: 0; padding: 0; display: none;">
                                             <select class="form-control td-ddl td-ddl-reload td-ddl-category-@Html.DisplayFor(modelItem => item.id)" data-field="category" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="width:100%;">
-                                                <option value="">Select Category</option>
+                                                <option value="">Select</option>
                                                 @*@if (ViewData["CategoryList"] != null)
         {
             foreach (var category in ViewData["CategoryList"] as IList<CategoryModule>)
@@ -544,7 +558,7 @@
                                         </span>
                                         <span id="selstat_@Html.DisplayFor(modelItem => item.id)" class="sel_stat td-control" data-type="ddl" data-field="status" data-taskid="@Html.DisplayFor(modelItem => item.id)" style="display: none;">
                                             <select class="form-control td-ddl" id="selectstat_@Html.DisplayFor(modelItem => item.id)">
-                                                <option value="Please select">Please select</option>
+                                                <option value="Please select">select</option>
                                                 <option value="Opened">Opened</option>
                                                 <option value="New">New</option>
                                                 <option value="In Progress">In Progress</option>
